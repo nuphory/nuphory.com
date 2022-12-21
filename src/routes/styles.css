@@ -34,21 +34,6 @@ body {
 	min-height: 100vh;
 }
 
-h1,
-h2,
-h3,
-h4 {
-	font-family: var(--font-primary), var(--font-secondary), var(--font-fallback);
-	transition: font-size 500ms ease-out;
-}
-
-h1 {
-	font-size: 2.25em;
-	text-align: center;
-	/* font-size: 36px; */
-}
-
-/*
 a {
 	transition: transform 300ms ease;
 	display: inline-block;
@@ -67,23 +52,32 @@ a:active {
 	transform: translateY(0.25em) scale(0.995);
 }
 
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-primary), var(--font-secondary), var(--font-fallback);
+	transition: font-size 500ms ease-out;
+}
+
 h1 {
-	font-size: 36px;
+	font-size: 2.25em;
+	text-align: center;
 }
 
 h2 {
-	font-size: 24px;
+	font-size: 1.5em;
 }
 
 h3 {
-	font-size: 16px;
+	font-size: 1em;
 }
 
 h4 {
 	margin: 12px 0px;
 }
 
-b {
+h1 b {
 	text-shadow: 0px 1px, 1px 0px, 1px 1px, 1px 2px, 2px 1px, 0px 2px, 2px 0px, 2px 2px;
 	letter-spacing: 8px;
 }
@@ -106,34 +100,34 @@ b {
 
 @media only screen and (min-width: 500px) {
 	h1 {
-		font-size: 48px;
+		font-size: 3em;
 	}
 	h2 {
-		font-size: 32px;
+		font-size: 2em;
 	}
 	h3 {
-		font-size: 24px;
+		font-size: 1.5px;
 	}
 	@media only screen and (min-width: 768px) {
 		h1 {
 			margin: 1em 0px;
-			font-size: 64px;
+			font-size: 4em;
 		}
 		h2 {
-			font-size: 48px;
+			font-size: 3em;
 		}
 		h3 {
-			font-size: 36px;
+			font-size: 2.25em;
 		}
 		@media only screen and (min-width: 960px) {
 			h1 {
-				font-size: 72px;
+				font-size: 4.5em;
 			}
 			h2 {
-				font-size: 64px;
+				font-size: 4em;
 			}
 			h3 {
-				font-size: 48px;
+				font-size: 3em;
 			}
 		}
 	}
