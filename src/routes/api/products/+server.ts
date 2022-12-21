@@ -1,11 +1,7 @@
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
-	const endpoint = 'https://api.printful.com/products';
 
-	const headers = {
-		Authorization: `Basic ${platform.env.PRINTFUL_API_KEY}`,
-		'Content-Type': 'application/json'
-	};
+	return new Response(platform.env);
 
 	// try
 
