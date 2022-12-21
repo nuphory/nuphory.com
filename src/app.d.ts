@@ -5,5 +5,13 @@ declare namespace App {
 	// interface Error {}
 	// interface Locals {}
 	// interface PageData {}
-	// interface Platform {}
+	interface Platform {
+		env: {
+			PRINTFUL_API_TOKEN: string;
+		};
+		context: {
+			waitUntil(promise: Promise<any>): void;
+		};
+		caches: CacheStorage & { default: Cache };
+	}
 }
