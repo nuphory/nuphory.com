@@ -166,4 +166,10 @@
     transform: scale(1);
   }
 
+  /* screen size */
+  @media (min-width: 768px) {
+    #products {
+      flex-direction: row;
+    }
+  }
 </style>
