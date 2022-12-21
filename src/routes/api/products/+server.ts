@@ -1,31 +1,36 @@
 import { PRINTFUL_API_TOKEN } from '$env/static/private';
 
+const endpoint = 'https://api.printful.com/store/products';
+
+const headers = {
+	Authorization: `Bearer ${PRINTFUL_API_TOKEN}`,
+	'Content-Type': 'application/json'
+};
+
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET() {
-	return new Response(JSON.stringify(await fetchProducts()), { headers: { 'Content-Type': 'application/json' } });
+export async function GET(req) {
+	return new Response(JSON.stringify(await fetchProducts(req)), {
+		headers: { 'Content-Type': 'application/json' }
+	});
 }
 
+async function fetchProducts(req) {
+	try {
+		const response = await fetch(endpoint, { headers });
+		const data = await response.json();
 
-async function fetchProducts() {
+        return data;
 
-  // prinftul api endpoint
-  const endpoint = "https://api.printful.com/store/products";
+        // this gets all variants for each product as well, unnecessary and bad for optimization.
+		return await Promise.all(data.result.map(async (product) => {
+            const response = await req.fetch(`/api/products/${product.id}`);
+            const data = await response.json();
 
-  const headers = {
-      "Authorization": `Bearer ${PRINTFUL_API_TOKEN}`,
-      "Content-Type": "application/json",
-  }
-
-  try {
-      const response = await fetch(endpoint, {
-          headers,
-      });
-
-      const data = await response.json();
-      return data;
-  } catch (error) {
-      console.log(error);
-  }
+            return data;
+        }));
+	} catch (error) {
+		return error;
+	}
 }
