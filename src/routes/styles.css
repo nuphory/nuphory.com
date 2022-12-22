@@ -98,6 +98,21 @@ h1 b {
 	transition: max-height 500ms ease;
 }
 
+.badge {
+	height: 2.5em;
+
+	border: 3px solid var(--background-color);
+	border-radius: 0.5rem;
+
+	color: var(--background-color);
+	background-color: var(--foreground-color);
+
+	font-weight: 500;
+	font-family: var(--font-monospace);
+
+	text-transform: uppercase;
+}
+
 @media only screen and (min-width: 500px) {
 	h1 {
 		font-size: 3em;

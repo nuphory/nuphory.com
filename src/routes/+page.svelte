@@ -13,6 +13,7 @@
 	import settle from '$lib/assets/lottie/settle.json';
 
 	export let data;
+	
 </script>
 
 <svelte:head>
@@ -84,15 +85,24 @@
 	</div>
 </section>
 
-<style>
-	/* :global(fade-in) {
-    opacity: 0;
-    transform: translateY(10px);
-  } */
+<fade-in id="book-me" distance="10px" duration="500ms" order="15">
+	<a href="#contact" id="book-me-link">
+		<h4>book me</h4>
+		<h4>v</h4>
+	</a>
+</fade-in>
 
+<a href="#cover" id="back-to-top">
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+		<path fill="white" d="M12 0l-12 24h24z" />
+	</svg>
+</a>
+
+<style>
 	#cover,
 	#hero,
 	#socials {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -100,6 +110,7 @@
 	}
 
 	#cover {
+		position: relative;
 		min-height: 100vh;
 		justify-content: space-between;
 	}
@@ -107,17 +118,22 @@
 		margin: 0px auto;
 	}
 
-	#find-me {
+	#find-me,
+	#book-me {
 		text-align: center;
 		padding: 16px 0px;
 	}
+
 	#find-me-link:hover {
 		text-decoration: none;
 	}
-	#find-me h4 {
+
+	#find-me h4,
+	#book-me h4 {
 		margin: 0px;
 	}
-	#find-me h4:nth-child(2) {
+	#find-me h4:nth-child(2),
+	#book-me h4:nth-child(2) {
 		margin-bottom: 16px;
 	}
 
@@ -135,6 +151,49 @@
 		flex-wrap: wrap;
 		list-style: none;
 		padding: 0;
+	}
+
+	#back-to-top {
+		width: 48px;
+		height: 48px;
+
+		position: fixed;
+		z-index: 100;
+
+		bottom: 1em;
+		right: 1em;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		transition: all 0.2s ease-in-out;
+
+		border-radius: 50%;
+		border: 0.25em solid var(--foreground-color);
+
+		background-color: var(--background-color);
+	}
+
+	#back-to-top:hover {
+		border: 0.5em solid var(--foreground-color);
+	}
+
+	#back-to-top:hover svg {
+		transform: scale(0.8) translateY(-12%);
+	}
+
+	#back-to-top:active {
+		border: 0.125em solid var(--foreground-color);
+	}
+
+	svg {
+		transition: all 0.2s ease-in-out;
+		transform: translateY(-12%);
+	}
+
+	path {
+		fill: var(--foreground-color);
 	}
 
 	/* screen size */

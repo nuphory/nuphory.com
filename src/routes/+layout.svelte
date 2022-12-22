@@ -9,6 +9,16 @@
 	(async () => {
 		if (!browser) return;
 
+		document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+
 		let collapsibles = document.querySelectorAll('.collapsible');
 		collapsibles.forEach((collapsible) => {
 			collapsible.addEventListener('click', () => {
@@ -40,6 +50,9 @@
 		'font-size: 2em; color: #fffaf7; font-weight: bold;',
 		'font-size: 1em; color: #fffaf7; font-weight: bold;'
 	);
+	// TODO header component
+	// TODO cart button
+	// - has counter for number of items in cart
 </script>
 
 <svelte:head>
@@ -73,13 +86,6 @@
 		<slot />
 	</main>
 
-	<fade-in id="book-me" distance="10px" duration="500ms" order="15">
-		<a href="#contact" id="book-me-link">
-			<h4>book me</h4>
-			<h4>v</h4>
-		</a>
-	</fade-in>
-
 	<footer>
 		<Footer />
 	</footer>
@@ -105,7 +111,6 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 1rem;
 		width: 100%;
 		max-width: 64rem;
 		margin: 0 auto;
@@ -122,20 +127,6 @@
 
 	footer a {
 		font-weight: bold;
-	}
-
-	#book-me {
-		text-align: center;
-		padding: 16px 0px;
-	}
-	#book-me-link:hover {
-		text-decoration: none;
-	}
-	#book-me h4 {
-		margin: 0px;
-	}
-	#book-me h4:nth-child(2) {
-		margin-bottom: 16px;
 	}
 
 	@media (min-width: 480px) {

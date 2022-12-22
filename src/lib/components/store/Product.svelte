@@ -5,141 +5,135 @@
 	export let selectVariant = (event) => {
 		selectedVariant = product.sync_variants[event.target.value];
 	};
+
+	// TODO add to cart
+	
 </script>
 
 <li>
 	<!-- <a href="/shop/{product.id}"> -->
 	<div class="showcase">
 		<img src={product.thumbnail_url} alt={product.name} />
-		<span class="price">{selectedVariant.currency} {selectedVariant.retail_price}</span>
+		<span class="price badge">{selectedVariant.currency} {selectedVariant.retail_price}</span>
 	</div>
 	<h4>{product.name}</h4>
 	<!-- </a> -->
 	<div class="product-selection">
 		<!-- dropdown with variants -->
-		<select name="variant" on:change={selectVariant}>
+		<select class="" name="variant" on:change={selectVariant}>
 			{#each product.sync_variants as variant}
 				<option value={variant.id}>{variant.name}</option>
 			{/each}
 		</select>
-		<button class="cart-button"
-			><img
-				width="48px"
-				height="48px"
-				alt="add to cart"
-				src="/assets/icons/cart-plus-solid.svg"
-			/></button
-		>
+		<div class="cart-button badge">
+			<img width="18px" height="18px" alt="add to cart" src="/assets/icons/cart-plus-solid.svg" />
+		</div>
 	</div>
 </li>
 
 <style>
-	li {
+	li,
+	.showcase,
+	.product-selection {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		flex-direction: column;
+
 		flex-wrap: wrap;
+	}
 
-		position: relative;
+	li,
+	.showcase {
+		flex-direction: column;
+	}
 
+	.product-selection {
+		flex-direction: row;
+		justify-content: center;
+		gap: 1em;
+	}
+
+	li {
 		margin: 1rem;
 		padding: 1rem;
 		border-radius: 2rem;
-		border: 1px solid var(--foreground-color);
+		border: 3px solid var(--foreground-color);
 	}
 
 	.showcase {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		flex-wrap: wrap;
-
 		position: relative;
 	}
-	.showcase .price {
+
+	.showcase img {
+		position: relative;
+		width: 100%;
+		max-width: 300px;
+		height: auto;
+		border-radius: 1rem;
+		border: 1px solid var(--foreground-color);
+	}
+
+	.price {
 		position: absolute;
 		right: 0.5rem;
 		bottom: 0;
 		transform: translate(0%, 33%);
 
 		padding: 0.25rem 0.75rem;
-		border: 3px solid var(--background-color);
-		border-radius: 0.5rem;
-
-		color: var(--background-color);
-		background-color: var(--foreground-color);
-
-		font-weight: 500;
-		font-family: var(--font-monospace);
 	}
 
-	li a {
+	.cart-button {
+		cursor: pointer;
+		aspect-ratio: 1;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		flex-direction: column;
-		flex-wrap: wrap;
-		text-decoration: none;
-		color: var(--foreground-color);
-	}
-
-	li a:hover {
-		text-decoration: underline;
-	}
-
-	/*  li a img {
-		width: 100%;
-		max-width: 300px;
-		height: auto;
-		border-radius: 1rem;
-	} */
-
-	li img {
-		width: 100%;
-		max-width: 300px;
-		height: auto;
-		border-radius: 1rem;
-	}
-
-	li button {
-		padding: 0.25rem 0.75rem;
-		border: 3px solid var(--background-color);
-		border-radius: 0.5rem;
-
-		color: var(--background-color);
-		background-color: var(--foreground-color);
-
-		font-size: 1rem;
-		font-weight: 500;
-		font-family: var(--font-monospace);
-
-		text-transform: uppercase;
 
 		transition: transform 100ms ease-in-out, border-radius 100ms ease-in-out;
 	}
 
-	li button span {
-		display: inline-block;
+	.cart-button img {
+		width: 1.5em;
+		aspect-ratio: 1;
+
+		border-radius: 0;
 
 		transition: transform 100ms ease-in-out;
-		transform: scale(1);
 	}
 
-	li button:hover {
+	.cart-button:hover {
 		cursor: pointer;
 		transform: scale(1.05);
 	}
 
-	li button:hover span {
+	.cart-button:hover img {
 		transform: scale(calc(1 / 1.05));
 	}
 
-	li button:active {
+	.cart-button:active {
 		transform: scale(0.95);
 	}
-	li button:active span {
+	.cart-button:active img {
 		transform: scale(1);
+	}
+
+	select {
+		cursor: pointer;
+		height: 2.5em;
+		background-color: var(--background-color);
+		border: 1px solid var(--foreground-color);
+		border-radius: 0.5rem;
+
+		padding: 0.25rem 0.75rem;
+	}
+
+	select:active {
+		background-color: var(--foreground-color);
+		color: var(--background-color);
+	}
+
+	select:focus {
+		background-color: var(--foreground-color);
+		color: var(--background-color);
 	}
 </style>
