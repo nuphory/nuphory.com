@@ -1,6 +1,6 @@
 <script lang="ts">
 	// components
-	import LottiePlayer from '$lib/components/design/LottiePlayer.svelte';
+	// import LottiePlayer from '$lib/components/design/LottiePlayer.svelte';
 	import Buttons from '$lib/components/social/Buttons.svelte';
 	import Product from '$lib/components/store/Product.svelte';
 
