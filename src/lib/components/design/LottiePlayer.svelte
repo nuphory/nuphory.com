@@ -16,7 +16,7 @@
   if (browser) {
     onMount(async () => {
 
-      const lottie = await import('lottie-web');
+      const {default: web } = await import('lottie-web');
 
       let lottieElement = document.getElementById('lottie');
 
@@ -31,7 +31,7 @@
       });
 
 
-      let animation = lottie.default.loadAnimation({
+      let animation = web.loadAnimation({
         container: lottieElement!,
         animationData: fallback,
         loop: false,
@@ -43,7 +43,7 @@
           if (state === 'playing') return;
           if (state === 'stopping') return;
           animation.destroy();
-          animation = lottie.default.loadAnimation({
+          animation = web.loadAnimation({
             container: lottieElement!,
             animationData: onmouseover,
             loop: true,
@@ -56,7 +56,7 @@
         setTimeout(() => {
           if (state === 'stopped') return;
           animation.destroy();
-          animation = lottie.default.loadAnimation({
+          animation = web.loadAnimation({
             container: lottieElement!,
             animationData: onmouseleave,
             loop: false,
@@ -65,7 +65,7 @@
           setTimeout(() => {
             if (state === 'playing') return;
             animation.destroy();
-            animation = lottie.default.loadAnimation({
+            animation = web.loadAnimation({
               container: lottieElement!,
               animationData: fallback,
               loop: false,
