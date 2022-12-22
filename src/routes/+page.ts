@@ -28,3 +28,5 @@ export async function load({ fetch }) {
 
 	return { products };
 }
+
+export const ssr = false;
