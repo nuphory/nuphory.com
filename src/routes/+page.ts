@@ -1,4 +1,4 @@
-/** @type {import('./$types').PageServerLoad} */
+/** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
 	const response = await fetch('/api/products');
 	const data = await response.json();
