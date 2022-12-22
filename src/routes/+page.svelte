@@ -45,7 +45,7 @@
 
 <section id="cover">
 	<section id="hero">
-		<section id="logo">
+		<!-- <section id="logo">
 			<fade-in id="logo-anim" duration="500ms" order="0">
 				<LottiePlayer
 					--player-width="{1080 * (320 * 1080 ** -1)}px"
@@ -55,7 +55,7 @@
 					onmouseleave={settle}
 				/>
 			</fade-in>
-		</section>
+		</section> -->
 
 		<section id="title">
 			<fade-in distance="10px" duration="500ms" order="-1">
