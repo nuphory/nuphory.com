@@ -1,6 +1,5 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import web, { type AnimationItem } from 'lottie-web';
   import { onMount } from 'svelte';
 
   let width: number;
@@ -15,7 +14,10 @@
   let state = 'stopped';
 
   if (browser) {
-    onMount(() => {
+    onMount(async () => {
+
+      const lottie = await import('lottie-web');
+
       let lottieElement = document.getElementById('lottie');
 
       lottieElement?.style.setProperty('opacity', '1');
@@ -29,7 +31,7 @@
       });
 
 
-      let animation = web.loadAnimation({
+      let animation = lottie.default.loadAnimation({
         container: lottieElement!,
         animationData: fallback,
         loop: false,
@@ -41,7 +43,7 @@
           if (state === 'playing') return;
           if (state === 'stopping') return;
           animation.destroy();
-          animation = web.loadAnimation({
+          animation = lottie.default.loadAnimation({
             container: lottieElement!,
             animationData: onmouseover,
             loop: true,
@@ -54,7 +56,7 @@
         setTimeout(() => {
           if (state === 'stopped') return;
           animation.destroy();
-          animation = web.loadAnimation({
+          animation = lottie.default.loadAnimation({
             container: lottieElement!,
             animationData: onmouseleave,
             loop: false,
@@ -63,7 +65,7 @@
           setTimeout(() => {
             if (state === 'playing') return;
             animation.destroy();
-            animation = web.loadAnimation({
+            animation = lottie.default.loadAnimation({
               container: lottieElement!,
               animationData: fallback,
               loop: false,
