@@ -24,8 +24,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--foreground-color);
-    color: var(--background-color);
+    background: var(--color-bg);
+    color: var(--color-text);
     text-decoration: none;
     transition: all 50ms ease-in-out;
   }
