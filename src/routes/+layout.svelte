@@ -3,8 +3,15 @@
 	import { browser } from '$app/environment';
 
 	import Footer from '$lib/components/layout/Footer.svelte';
+	import Header from '$lib/components/layout/Header.svelte';
 
-	import './styles.css';
+	import '../app.css';
+
+	import '$lib/styles/colors.scss';
+	import '$lib/styles/typography.scss';
+	import '$lib/styles/layout.scss';
+
+	import '$lib/styles/styles.scss';
 
 	(async () => {
 		if (!browser) return;
@@ -79,59 +86,20 @@
 	<meta property="og:site_name" content={_siteName} />
 </svelte:head>
 
-<div class="app">
+<div class="flex flex-col justify-between min-h-screen">
 	<!-- <header /> -->
 
-	<main>
+	<header class="fixed z-50 flex justify-center top-0 w-screen">
+		<Header />
+	</header>
+
+	<main class="relative flex flex-col items-center w-full max-w-5xl mx-auto my-0">
 		<slot />
 	</main>
 
-	<footer>
+	<footer
+		class="flex flex-col justify-between items-center py-16 w-auto sm:py-12 clr-bg clr-inverse"
+	>
 		<Footer />
 	</footer>
 </div>
-
-<style>
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		background-color: var(--foreground-color);
-		color: var(--background-color);
-		padding: 16px 0px;
-		width: 100%;
-	}
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
