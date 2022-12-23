@@ -1,8 +1,19 @@
 <script lang="ts">
+        import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
+
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
 
         import { loadScript } from '@paypal/paypal-js';
+
+        loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID })
+                .then((paypal) => {
+                        console.log("loaded the PayPal JS SDK script", paypal);
+                        
+                })
+                .catch((error) => {
+                        console.error("failed to load the PayPal JS SDK script", error);
+                });
 
         // TODO paypal button
 
