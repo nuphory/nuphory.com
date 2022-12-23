@@ -2,7 +2,7 @@
         import { browser } from '$app/environment';
         import { onMount } from 'svelte';
         import rawCountries from '$lib/api/countries.json';
-
+        
         let countries = rawCountries as unknown as Country[];
 
         let states = countries.find((country) => {

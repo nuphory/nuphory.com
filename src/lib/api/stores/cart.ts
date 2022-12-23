@@ -3,11 +3,11 @@ import type Product from '../product';
 import type { SyncVariant } from '../product';
 import { browser } from '$app/environment';
 
-let storedCart = new Map();
+let defaultCart = new Map();
 
 if (browser) {
-        const storedCartString = localStorage.getItem('cart');
-        storedCart = storedCartString ? new Map(JSON.parse(storedCartString)) : storedCart;
+        const storedCart = localStorage.getItem('cart');
+        defaultCart = storedCart ? new Map(JSON.parse(storedCart)) : defaultCart;
 }
 
 export const cart: Cart = createCart();
@@ -37,7 +37,7 @@ export type CartItem = {
 };
 
 function createCart() {
-        const { subscribe, set, update }: Writable<CartMap> = writable(storedCart);
+        const { subscribe, set, update }: Writable<CartMap> = writable(defaultCart);
 
         const cart: Cart = {
                 subscribe,

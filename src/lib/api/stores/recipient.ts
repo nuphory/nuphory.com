@@ -1,3 +1,4 @@
+import { browser } from '$app/environment';
 import { writable, type Writable } from 'svelte/store';
 
 export type Recipient = {
@@ -28,23 +29,36 @@ export type State = {
 };
 
 function createRecipient() {
-        return writable({
-                name: '',
-                company: '',
-                address1: '',
-                address2: '',
-                city: '',
-                state_code: '',
-                state_name: '',
-                country_code: '',
-                country_name: '',
-                zip: '',
-                phone: '',
-                email: '',
-                tax_number: ''
-        });
+        return writable(defaultRecipient);
+}
+
+let defaultRecipient = {
+        name: '',
+        company: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state_code: '',
+        state_name: '',
+        country_code: '',
+        country_name: '',
+        zip: '',
+        phone: '',
+        email: '',
+        tax_number: ''
+};
+
+if (browser) {
+        const storedRecipient = localStorage.getItem('recipient');
+        defaultRecipient = storedRecipient ? JSON.parse(storedRecipient) : defaultRecipient;
 }
 
 const recipient = createRecipient();
+
+if (browser) {
+        recipient.subscribe((recipient) => {
+                localStorage.setItem('recipient', JSON.stringify(recipient));
+        });
+}
 
 export default recipient;
