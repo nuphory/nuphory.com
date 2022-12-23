@@ -1,16 +1,17 @@
-[{
-    "label": "spotify",
-    "href": "https://open.spotify.com/artist/1peAJRnCgGwBv46QXFJEbU",
-    "img": "/assets/icons/spotify-button.svg"
-  },
-  {
-    "label": "soundcloud",
-    "href": "https://soundcloud.com/nuphory",
-    "img": "/assets/icons/soundcloud-button.svg"
-  },
-  {
-    "label": "youtube",
-    "href": "https://www.youtube.com/nuphory",
-    "img": "/assets/icons/youtube-button.svg"
-  }
+[
+        {
+                "label": "spotify",
+                "href": "https://open.spotify.com/artist/1peAJRnCgGwBv46QXFJEbU",
+                "img": "/assets/icons/spotify-button.svg"
+        },
+        {
+                "label": "soundcloud",
+                "href": "https://soundcloud.com/nuphory",
+                "img": "/assets/icons/soundcloud-button.svg"
+        },
+        {
+                "label": "youtube",
+                "href": "https://www.youtube.com/nuphory",
+                "img": "/assets/icons/youtube-button.svg"
+        }
 ]

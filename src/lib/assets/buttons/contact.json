@@ -1,11 +1,12 @@
-[{
-    "label": "discord",
-    "href": "https://discord.gg/673AfPB",
-    "img": "/assets/icons/discord-button.svg"
-  },
-  {
-    "label": "email",
-    "href": "mailto:nuphory@gmail.com",
-    "img": "/assets/icons/email-button.svg"
-  }
+[
+        {
+                "label": "discord",
+                "href": "https://discord.gg/673AfPB",
+                "img": "/assets/icons/discord-button.svg"
+        },
+        {
+                "label": "email",
+                "href": "mailto:nuphory@gmail.com",
+                "img": "/assets/icons/email-button.svg"
+        }
 ]

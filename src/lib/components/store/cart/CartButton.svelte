@@ -1,7 +1,6 @@
 <script lang="ts">
         import { browser } from '$app/environment';
         import { cart, type CartItem } from '$lib/api/stores/cart';
-        import { get } from 'svelte/store';
 
         function cartSize(cart: Map<number, CartItem>) {
                 let acc = 0;

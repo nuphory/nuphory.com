@@ -1,9 +1,7 @@
 <script lang="ts">
-        import { cart, cart as cartStore, type CartItem } from '$lib/api/stores/cart';
+        import { cart as cartStore, type CartItem } from '$lib/api/stores/cart';
 
         export let item: CartItem;
-
-        console.log(item);
 
         function addItem(event) {
                 event.preventDefault();
@@ -16,7 +14,6 @@
                         }
                 }
                 cartStore.add(item);
-                console.log('hi');
         }
 
         function subtractItem(event) {
@@ -36,7 +33,7 @@
                 if (!event.target.value) return;
                 if (event.target.value < 1) return;
 
-                cart.setQuantity(item, event.target.value as number);
+                cartStore.setQuantity(item, parseInt(event.target.value));
         }
 </script>
 
@@ -45,6 +42,7 @@
 >
         <img
                 src={item.variant.files[1].preview_url}
+                alt={item.variant.name}
                 class="aspect-square w-full max-w-xs rounded-2xl border-[1px]"
         />
 
@@ -86,7 +84,7 @@
                         <label for="quantity">Quantity: </label>
                         <div class="quantity-buttons flex flex-row justify-end gap-1">
                                 <a
-                                        href="#"
+                                        href=" "
                                         class="badge aspect-square cursor-pointer clr-text clr-bg clr-inverse font-mono"
                                         on:click={subtractItem}
                                         on:keydown={subtractItem}>-</a
@@ -95,11 +93,12 @@
                                         class="badge w-full text-right clr-text clr-bg clr-inverse font-mono sm:max-w-[5em]"
                                         type="number"
                                         name="quantity"
+                                        min=1;
                                         value={item.quantity}
                                         on:input={setQuantity}
                                 />
                                 <a
-                                        href="#"
+                                        href=" "
                                         class="badge aspect-square cursor-pointer clr-text clr-bg clr-inverse font-mono"
                                         on:click={addItem}
                                         on:keydown={addItem}

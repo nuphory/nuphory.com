@@ -3,7 +3,7 @@ import type Product from '../product';
 import type { SyncVariant } from '../product';
 import { browser } from '$app/environment';
 
-let storedCart = new Map() as CartMap;
+let storedCart = new Map();
 
 if (browser) {
         const storedCartString = localStorage.getItem('cart');
@@ -25,7 +25,7 @@ export interface Cart extends Writable<CartMap> {
         setQuantity: (item: CartItem, quantity: number) => void;
         clear: () => void;
         size: () => number;
-	asArray: () => [number, CartItem][];
+        asArray: () => [number, CartItem][];
 }
 
 export type CartMap = Map<number, CartItem>;
@@ -57,9 +57,6 @@ function createCart() {
                 subtract: (item: CartItem) => {
                         update((cart) => {
                                 if (!cart.has(item.variant.id)) {
-                                        console.log(
-                                                `item with variant id ${item.variant.id} not in cart`
-                                        );
                                         return cart;
                                 }
 
@@ -81,6 +78,7 @@ function createCart() {
                 setQuantity: (item: CartItem, quantity: number) => {
                         update((cart) => {
                                 if (quantity > 0) {
+                                        item.quantity = quantity as number;
                                         cart.set(item.variant.id, item);
                                 } else {
                                         cart.delete(item.variant.id);
@@ -101,11 +99,11 @@ function createCart() {
 
                         return acc;
                 },
-		asArray: () => {
-			const cart = get(cart) as CartMap;
-			const cartArray = Array.from(cart);
-			return cartArray;
-		}
+                asArray: () => {
+                        const cart = get(cart) as CartMap;
+                        const cartArray = Array.from(cart);
+                        return cartArray;
+                }
         };
 
         return cart;

@@ -1,11 +1,12 @@
-[{
-    "label": "twitter",
-    "href": "https://twitter.com/nuphory",
-    "img": "/assets/icons/twitter-button.svg"
-  },
-  {
-    "label": "tiktok",
-    "href": "https://tiktok.com/@nuphory",
-    "img": "/assets/icons/tiktok-button.svg"
-  }
+[
+        {
+                "label": "twitter",
+                "href": "https://twitter.com/nuphory",
+                "img": "/assets/icons/twitter-button.svg"
+        },
+        {
+                "label": "tiktok",
+                "href": "https://tiktok.com/@nuphory",
+                "img": "/assets/icons/tiktok-button.svg"
+        }
 ]

@@ -1,6 +1,5 @@
 <script lang="ts">
         import CartList from '$lib/components/store/cart/CartList.svelte';
-        import { _siteName } from '../+layout';
 
         // TODO cart page
         // - shows items in cart and allows for editing

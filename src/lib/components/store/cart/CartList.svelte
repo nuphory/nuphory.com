@@ -15,5 +15,5 @@
 <ul id="cart" class="flex flex-col justify-center items-center rounded-">
         {#each cartItems as item}
                 <CartListItem item={item[1]} />
-       {/each}
+        {/each}
 </ul>

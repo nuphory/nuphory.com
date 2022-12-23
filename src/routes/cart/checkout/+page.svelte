@@ -2,24 +2,9 @@
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
 
-        // TODO cart page
-        // - shows simplified Cart list
-        // - shows subtotal
-        // - shows shipping cost estimation (printful api)
-        // - shows total
+        import { loadScript } from '@paypal/paypal-js';
 
-        // TODO checkout form
-        // - name
-        // - email
-        // - address
-        // - country
-        // - state
-        // - zip
-        // - phone
-        // - shipping method
-        // - payment method
-        // - submit button
-        // - cancel button
+        // TODO paypal button
 
         // TODO placing orders on printful
         // - https://www.printful.com/docs/orders
@@ -35,19 +20,15 @@
         <section id="page-title" class="sticky top-0 z-10 pointer-events-none">
                 <h1 class="tracking-[0.125em]">checkout</h1>
         </section>
-        <section id="cart-list" class=" w-80 relative flex flex-col justify-center items-center">
-                <SimpleCartList />
-        </section>
-
-        <section id="back-to-cart" class="mt-0 flex justify-center items-center">
-                <a
-                        id="checkout-button"
-                        class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
-                        href="/cart"><b>back to cart</b></a
+        <div class="content flex flex-col flex-1 justify-center items-start lg:flex-row">
+                <section
+                        id="cart-list"
+                        class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
-        </section>
-
-        <section id="checkout-form">
-                <CheckoutForm />
-        </section>
+                        <SimpleCartList />
+                </section>
+                <section id="checkout-form" class="max-w-2xl lg:order-1">
+                        <CheckoutForm />
+                </section>
+        </div>
 </div>

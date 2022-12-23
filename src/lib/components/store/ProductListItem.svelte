@@ -12,7 +12,7 @@
 
                 selectedVariant = product.sync_variants.find(
                         (variant: SyncVariant) => variant.id == event.target.value
-                )!;
+                ) as SyncVariant;
         };
 
         let addToCart = (event) => {
