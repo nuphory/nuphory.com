@@ -15,6 +15,15 @@
 
 	(async () => {
 		if (!browser) return;
+		
+		// TODO not important rn
+		// window.addEventListener('scroll', () => {
+		// 	var r = document.querySelector('h') as HTMLElement;
+		// 	console.log(r.style.getPropertyValue('--scroll-y'));
+
+		// 	r.style.setProperty('--scroll-y', window.scrollY / 16 + 'em');
+
+		// });
 
 		document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 			anchor.addEventListener('click', function (e) {
@@ -89,7 +98,7 @@
 <div class="flex flex-col justify-between min-h-screen">
 	<!-- <header /> -->
 
-	<header class="fixed z-50 flex justify-center top-0 w-screen">
+	<header class="fixed top-0 z-10 flex justify-center top-0 w-screen clr-bg clr-regular">
 		<Header />
 	</header>
 
@@ -103,3 +112,9 @@
 		<Footer />
 	</footer>
 </div>
+
+<style>
+	:global(#page-title h1) {
+		font-size: 2.25em;
+	}
+</style>

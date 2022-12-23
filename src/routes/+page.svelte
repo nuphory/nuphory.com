@@ -69,10 +69,10 @@
 	<meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
-<div id="home" class="relative flex flex-col justify-between items-center min-h-screen">
+<div id="top" class="relative flex flex-col justify-between items-center min-h-screen">
 	<section id="hero" class="relative grow flex flex-col justify-center items-center">
 		<div class="sticky top-0 flex flex-col justify-center items-center">
-			<div id="logo">
+			<div id="logo" class="mt-24">
 				<fade-in id="logo-anim" duration="500ms" order="0">
 					<LottiePlayer
 						--player-width="{1080 * (320 * 1080 ** -1)}px"
@@ -83,20 +83,20 @@
 					/>
 				</fade-in>
 			</div>
-			<div id="title">
+			<section id="" class="sticky top-0 z-40">
 				<fade-in distance="10px" duration="500ms" order="-1">
 					<h1><b>{_siteName}</b></h1>
 				</fade-in>
-			</div>
-			<div id="shop" class="relative">				
+			</section>
+			<section id="shop" class="relative">				
 				<ProductList {products} />
-			</div>
+			</section>
 		</div>
 	</section>
 	<fade-in id="find-me" distance="10px" duration="500ms" order="15" class="mb-4">
 		<a
 			href="#find-me"
-			data-return-href="#home"
+			data-return-href="#top"
 			id="find-me-link"
 			class="m-0 text-center scroll-button pointer-events-auto"
 			on:click={scrollButton}
@@ -124,7 +124,7 @@
 	</a>
 </fade-in>
 
-<a href="#" id="back-to-top" class="fixed bottom-4 right-4 flex items-center justify-center aspect-square w-12 rounded-full border-[3px] clr-bg transition-all duration-300 ease-in-out hover:border-[6px] active:border-[1px]" on:click={scrollToTop}>
+<a href="#top" id="back-to-top" class="fixed bottom-4 right-4 flex items-center justify-center aspect-square w-12 rounded-full border-[3px] clr-bg transition-all duration-300 ease-in-out hover:border-[6px] active:border-[1px]" on:click={scrollToTop}>
 	<svg class="translate-y-[-12%] transition-all duration-300 ease-in-out" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 		<path class="fill-[var(--color-text)]" fill="white" d="M12 0l-12 24h24z" />
 	</svg>

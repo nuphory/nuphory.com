@@ -1,3 +1,10 @@
+.badge {
+	@apply flex justify-center items-center;
+	@apply h-[3em];
+	@apply rounded-2xl;
+	// @apply rounded-[0.5em];
+}
+
 a {
 	transition: transform 300ms ease;
 	display: inline-block;
@@ -30,21 +37,6 @@ a:active {
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 500ms ease;
-}
-
-.badge {
-	height: 2.5em;
-
-	border: 3px solid var(--color-text);
-	border-radius: 0.5rem;
-
-	color: var(--color-text);
-	background-color: var(--color-bg);
-
-	font-weight: 500;
-	font-family: var(--font-mono);
-
-	text-transform: uppercase;
 }
 
 /* 

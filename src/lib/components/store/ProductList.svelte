@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Product } from '$lib/api/products/product';
+	import type { Product } from '$lib/api/product';
 	import ProductListItem from './ProductListItem.svelte';
 
 	export let products: Product[] = [];

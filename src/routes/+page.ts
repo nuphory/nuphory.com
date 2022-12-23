@@ -1,4 +1,4 @@
-import type { Product, SyncProduct } from "$lib/api/products/product";
+import type { SyncProduct } from "$lib/api/product";
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {

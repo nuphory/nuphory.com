@@ -86,7 +86,5 @@
   #lottie {
     width: var(--player-width);
     height: var(--player-height);
-
-    margin: 4em 0em 0em 0em;
   }
 </style>

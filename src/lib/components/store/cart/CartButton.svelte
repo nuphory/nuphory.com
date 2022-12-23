@@ -1,6 +1,6 @@
 <script lang="ts">
         import { browser } from '$app/environment';
-        import { cart, type CartItem } from '$lib/stores/cart';
+        import { cart, type CartItem } from '$lib/api/stores/cart';
         import { get } from 'svelte/store';
 
         function cartSize(cart: Map<number, CartItem>) {
@@ -33,7 +33,7 @@
 
 <div
         id="cart-icon"
-        class="relative aspect-square h-[2.5em] w-[2.5em] flex justify-center items-center m-4 transition-all duration-300 ease-out"
+        class="aspect-square h-[2.5em] w-[2.5em] flex justify-center items-center m-4 transition-all duration-300 ease-out"
 >
         <a
                 href="/cart"
@@ -59,7 +59,7 @@
         <img
                 src="/assets/icons/cart-shopping-solid.svg"
                 alt="cart"
-                class="z-0 absolute pointer-events-none aspect-square h-[1.25em] opacity-100 transition-all duration-300 ease-in-out"
+                class="z-50 absolute pointer-events-none aspect-square h-[1.25em] opacity-100 transition-all duration-300 ease-in-out"
         />
 </div>
 
