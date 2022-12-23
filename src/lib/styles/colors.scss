@@ -1,0 +1,46 @@
+:root {
+	--color-primary: #fffaf7;
+	--color-secondary: #272d3b;
+	--color-tertiary: #fff; /* unused */
+	--color-quaternary: #fff; /* unused */
+	--color-quinary: #fff; /* unused */
+
+	--color-bg: var(--color-primary);
+	--color-text: var(--color-secondary);
+}
+
+*,
+*::before,
+*::after {
+	border-color: var(--color-text);
+    outline-color: var(--color-text);
+	color: var(--color-text);
+}
+
+html,
+body {
+	background: var(--color-bg);
+	color: var(--color-text);
+}
+
+.clr-regular {
+	--color-bg: var(--color-primary);
+	--color-text: var(--color-secondary);
+}
+
+.clr-inverse {
+	--color-text: var(--color-primary);
+	--color-bg: var(--color-secondary);
+}
+
+.clr-bg {
+	background: var(--color-bg);
+}
+
+.clr-text {
+	color: var(--color-text);
+}
+
+.clr-border {
+	border-color: var(--color-text);
+}
