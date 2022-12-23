@@ -1,4 +1,5 @@
 import { PRINTFUL_API_TOKEN } from '$env/static/private';
+import type { SyncProduct } from '$lib/api/products/product';
 
 const endpoint = 'https://api.printful.com/store/products';
 
@@ -10,26 +11,20 @@ const headers = {
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET(req) {
-	return new Response(JSON.stringify(await fetchProducts(req)), {
+export async function GET() {
+	return new Response(JSON.stringify(await fetchProducts()), {
 		headers: { 'Content-Type': 'application/json' }
 	});
 }
 
-async function fetchProducts(req) {
+async function fetchProducts() {
 	try {
 		const response = await fetch(endpoint, { headers });
 		const data = await response.json();
 
-        return data;
+		data.result = data.result as SyncProduct;
 
-        // this gets all variants for each product as well, unnecessary and bad for optimization.
-		return await Promise.all(data.result.map(async (product) => {
-            const response = await req.fetch(`/api/products/${product.id}`);
-            const data = await response.json();
-
-            return data;
-        }));
+		return data;
 	} catch (error) {
 		return error;
 	}
