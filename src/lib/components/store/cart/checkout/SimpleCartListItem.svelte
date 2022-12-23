@@ -2,52 +2,49 @@
         import { cart, cart as cartStore, type CartItem } from '$lib/api/stores/cart';
 
         export let item: CartItem;
-
-        console.log(item);
-
-        function addItem(event) {
-                event.preventDefault();
-                if (event.type != 'click') {
-                        switch (event.key) {
-                                case 'Enter':
-                                        break;
-                                default:
-                                        return;
-                        }
-                }
-                cartStore.add(item);
-                console.log('hi');
-        }
-
-        function subtractItem(event) {
-                event.preventDefault();
-                if (event.type != 'click') {
-                        switch (event.key) {
-                                case 'Enter':
-                                        break;
-                                default:
-                                        return;
-                        }
-                }
-                cartStore.subtract(item);
-        }
-
-        function setQuantity(event) {
-                if (!event.target.value) return;
-                if (event.target.value < 1) return;
-
-                cart.setQuantity(item, event.target.value as number);
-        }
 </script>
 
 <li
-        class="flex flex-col basis-1  justify-between items-center m-4 p-4 rounded-[2em] border-[3px] gap-4 sm:flex-row xs:items-start"
+        class="flex flex-row basis-1 justify-between items-start m-4 gap-4 xs:items-start last:border-[0px] border-b clr-border"
 >
         <img
                 src={item.variant.files[1].preview_url}
-                class="aspect-square w-full max-w-xs rounded-2xl border-[1px]"
+                class="aspect-square w-full max-w-[4em] rounded-2xl border-[1px]"
         />
 
+        <div class="flex flex-1 flex-col justify-between gap-4">
+                <p class="border-b">{item.variant.name}</p>
+                <div class="flex-1 flex flex-col justify-between items-start overflow-auto">
+                        <div class="w-full flex flex-col overflow-auto">
+                                <div
+                                        class="flex flex-row justify-between items-start sm:items-center"
+                                >
+                                        <p class="text-left w-full sm:w-auto">
+                                                {item.variant.id}
+                                        </p>
+                                        <p class="">—</p>
+                                        <p class="text-right w-full sm:w-auto">
+                                                {item.quantity}x
+                                                {item.variant.retail_price}
+                                                {item.variant.currency}
+                                        </p>
+                                </div>
+                        </div>
+                        <div
+                                class="w-full flex flex-row justify-between items-start border-t"
+                        >
+                                <p>Subtotal</p>
+                                <p class="text-right w-full sm:w-auto">
+                                        {(
+                                                parseInt(item.variant.retail_price) * item.quantity
+                                        ).toFixed(2)}
+                                        {item.variant.currency}
+                                </p>
+                        </div>
+                </div>
+        </div>
+
+        <!-- 
         <div class="flex flex-col max-h-80 h-full justify-between gap-4">
                 <h5 class="border-b">{item.variant.name}</h5>
                 <div class="flex-1 flex flex-col justify-between items-start overflow-auto">
@@ -107,7 +104,7 @@
                                 >
                         </div>
                 </div>
-        </div>
+        </div> -->
 </li>
 
 <style>
