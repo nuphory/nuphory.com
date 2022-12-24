@@ -14,7 +14,7 @@ const defaultOrder: {
                 discount: string;
                 shipping: string;
                 tax: string;
-        }
+        };
 } = {
         external_id: '0',
         shipping: 'STANDARD',
@@ -22,10 +22,10 @@ const defaultOrder: {
         items: [],
         retail_costs: {
                 currency: 'EUR',
-                subtotal: "0.00",
-                discount: "0.00",
-                shipping: "0.00",
-                tax: "0.00"
+                subtotal: '0.00',
+                discount: '0.00',
+                shipping: '0.00',
+                tax: '0.00'
         }
 };
 
@@ -46,7 +46,7 @@ if (browser) {
 function createOrder(order: {
         external_id: string;
         shipping: string;
-        recipient?: any;
+        recipient: Recipient;
         items: SyncVariant[];
         retail_costs: {
                 currency: string;

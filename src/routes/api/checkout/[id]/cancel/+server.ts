@@ -20,7 +20,6 @@ export async function DELETE({ params }) {
         return new Response(JSON.stringify(await cancelOrder(params.id)), {
                 headers: { 'Content-Type': 'application/json' }
         });
-
 }
 async function cancelOrder(id: string) {
         try {
@@ -29,7 +28,7 @@ async function cancelOrder(id: string) {
                         headers
                 });
                 const data = await response.json();
-                console.log("order cancellation", data);
+                console.log('order cancellation', data);
                 return data;
         } catch (error) {
                 console.log(error);

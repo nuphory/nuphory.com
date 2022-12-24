@@ -93,7 +93,7 @@
                                         class="badge w-full text-right clr-text clr-bg clr-inverse font-mono sm:max-w-[5em]"
                                         type="number"
                                         name="quantity"
-                                        min=1;
+                                        min="1;"
                                         value={item.quantity}
                                         on:input={setQuantity}
                                 />

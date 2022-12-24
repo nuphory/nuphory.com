@@ -2,57 +2,16 @@
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
 
-        import { cart, cart as cartStore, type CartMap } from '$lib/api/stores/cart';
-        import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
+        import { cart } from '$lib/api/stores/cart';
         import { loadScript } from '@paypal/paypal-js';
         import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
         import { storedOrder, order } from '$lib/api/stores/order';
 
-        cartStore.subscribe((value) => {
-                console.log($order);
-                $order.items = Array.from(value).map((cartItem) => {
-                        const variant = cartItem[1].variant;
-                        variant.quantity = cartItem[1].quantity;
-                        return variant;
-                });
-                $order.retail_costs.subtotal = Array.from(value)
-                        .reduce((acc, cartItem) => {
-                                return (
-                                        acc +
-                                        parseFloat(cartItem[1].variant.retail_price) *
-                                                cartItem[1].quantity
-                                );
-                        }, 0)
-                        .toFixed(2);
-                $order.retail_costs.tax = (parseFloat($order.retail_costs.subtotal) * 0.19).toFixed(
-                        2
-                );
-        });
-
-        recipientStore.subscribe(async (value) => {
-                console.log($order);
-
-                $order.recipient = value;
-
-                if (
-                        !$order.recipient.country_code ||
-                        !$order.recipient.address1 ||
-                        !$order.recipient.city ||
-                        !$order.recipient.zip
-                )
-                        return;
-                let response = await fetch('/api/shipping', {
-                        body: JSON.stringify($order),
-                        method: 'POST'
-                });
-                let data = await response.json();
-
-                $order.retail_costs.shipping = data.result[0].rate;
-        });
+        // /** @type {import('./$types').PageData} */ export let data;
 
         loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' })
                 .then((paypal) => {
-                        console.log('loaded the PayPal JS SDK script', paypal);
+                        console.debug('loaded the PayPal JS SDK script', paypal);
                         if (!paypal) return;
 
                         let orderId: string;

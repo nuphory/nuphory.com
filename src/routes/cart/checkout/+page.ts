@@ -1,38 +1,69 @@
-import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
-import type { SyncVariant } from '$lib/api/product';
-import type { Recipient } from '$lib/api/stores/recipient';
-import { loadScript } from '@paypal/paypal-js';
+import { storedOrder, order } from '$lib/api/stores/order';
+
+import recipientStore from '$lib/api/stores/recipient';
+import { cart as cartStore } from '$lib/api/stores/cart';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
+        cartStore.subscribe((value) => {
+                order.update((order) => {
+                        order.items = Array.from(value).map((cartItem) => {
+                                const variant = cartItem[1].variant;
+                                variant.quantity = cartItem[1].quantity;
+                                return variant;
+                        });
+                        order.retail_costs.subtotal = Array.from(value)
+                                .reduce((acc, cartItem) => {
+                                        return (
+                                                acc +
+                                                parseFloat(cartItem[1].variant.retail_price) *
+                                                        cartItem[1].quantity
+                                        );
+                                }, 0)
+                                .toFixed(2);
+                        order.retail_costs.tax = (
+                                parseFloat(order.retail_costs.subtotal) * 0.19
+                        ).toFixed(2);
+                        return order;
+                });
+        });
 
-        const body: {
-                external_id: string;
-                shipping: string;
-                recipient?: Recipient;
-                items: SyncVariant[];
-                retail_costs: {
-                        currency: string;
-                        subtotal: number;
-                        discount: number;
-                        shipping: number;
-                        tax: number;
-                };
-                currency: string;
-        } = {
-                external_id: (Math.random() * 2 ** 64).toFixed(0).toString(),
-                shipping: 'STANDARD',
-                recipient: undefined,
-                items: [],
-                retail_costs: {
-                        currency: 'EUR',
-                        subtotal: 0,
-                        discount: 0,
-                        shipping: 0,
-                        tax: 0
-                },
-                currency: 'EUR'
-        };
+        recipientStore.subscribe((value) => {
+                order.update((order) => {
+                        order.recipient = value;
+                        let require_state: boolean;
 
-        return { body: body };
+                        switch (value.country_code) {
+                                case 'AU':
+                                case 'BR':
+                                case 'CA':
+                                case 'JP':
+                                case 'US':
+                                        require_state = true;
+                                        break;
+                                default:
+                                        require_state = false;
+                                        break;
+                        }
+
+                        if (require_state && !value.state_code) return;
+
+                        setTimeout(() =>{
+                                fetch('/api/shipping', {
+                                body: JSON.stringify(order),
+                                method: 'POST'
+                        })
+                                .then((response) => response.json())
+                                .then((data) => {
+                                        if (data.code == 200) {
+                                                order.retail_costs.shipping = data.result.find(
+                                                        (rate) => rate.id === 'STANDARD'
+                                                ).rate;
+                                               
+                                        }
+                                });
+                        }, 200);
+                        return order;
+                });
+        });
 }

@@ -16,15 +16,14 @@ const headers = {
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-        const  body  = await request.json();
+        const body = await request.json();
 
-        console.log(body)
+        console.log(body);
 
         // return new Response(JSON.stringify({understandable: "have a nice day"}));
         return new Response(JSON.stringify(await createOrder(body)), {
                 headers: { 'Content-Type': 'application/json' }
         });
-
 }
 async function createOrder(body: any) {
         try {

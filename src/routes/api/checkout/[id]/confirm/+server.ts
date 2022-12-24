@@ -20,7 +20,6 @@ export async function POST({ params }) {
         return new Response(JSON.stringify(await confirmOrder(params.id)), {
                 headers: { 'Content-Type': 'application/json' }
         });
-
 }
 async function confirmOrder(id: string) {
         try {
@@ -29,7 +28,7 @@ async function confirmOrder(id: string) {
                         headers
                 });
                 const data = await response.json();
-                console.log("order confirmation", data);
+                console.log('order confirmation', data);
                 return data;
         } catch (error) {
                 console.log(error);

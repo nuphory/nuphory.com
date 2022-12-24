@@ -1,14 +1,13 @@
 <script lang="ts">
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
 
-        import {storedOrder} from '$lib/api/stores/order';
+        import { storedOrder } from '$lib/api/stores/order';
 
         let order = `ORDER ID: ${$storedOrder.external_id}`;
-       
+
         export let data;
 
         export let subtotal: number = 0;
-
 </script>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
@@ -22,8 +21,8 @@
                         class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
                         <SimpleCartList
-                                subtotal={$storedOrder.retail_costs.subtotal || "0.00"}
-                                shipping={$storedOrder.retail_costs.shipping || "0.00"}
+                                subtotal={$storedOrder.retail_costs.subtotal || '0.00'}
+                                shipping={$storedOrder.retail_costs.shipping || '0.00'}
                         />
                         <section id="back-to-home" class="mb-0 flex justify-center items-center ">
                                 <a
