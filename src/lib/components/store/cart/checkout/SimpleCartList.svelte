@@ -6,15 +6,14 @@
         import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
-        
 
         let cartItems: Array<CartItem>;
 
-        cartStore.subscribe((cart) => {
-                cartItems = Array.from(cart).map((item) => {
-                        return item[1]
+        if (browser) {
+                cartStore.subscribe((cart) => {
+                        cartItems = Array.from(cart);
                 });
-        });
+        }
 </script>
 
 <ul
@@ -22,7 +21,7 @@
         class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-[2em] border-[3px]"
 >
         {#each cartItems as item}
-                <SimpleCartListItem {item} />
+                <SimpleCartListItem item={item[1]} />
         {/each}
         <li
                 class="w-full  flex flex-row basis-1 justify-between items-start px-4 m-4 gap-4 xs:items-start last:border-[0px] border-b clr-border"
