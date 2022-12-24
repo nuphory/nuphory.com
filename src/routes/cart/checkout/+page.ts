@@ -29,6 +29,7 @@ export async function load({ fetch, params }) {
         });
 
         recipientStore.subscribe((value) => {
+                console.log(value);
                 let require_state: boolean;
 
                 switch (value.country_code) {
