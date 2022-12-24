@@ -1,9 +1,9 @@
 <script lang="ts">
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
 
-        import orderStore from '$lib/api/stores/order';
+        import {storedOrder} from '$lib/api/stores/order';
 
-        let order = `ORDER ID: ${$orderStore.external_id}`;
+        let order = `ORDER ID: ${$storedOrder.external_id}`;
        
         export let data;
 
@@ -22,9 +22,8 @@
                         class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
                         <SimpleCartList
-                                subtotal={$orderStore.retail_costs.subtotal || 0}
-                                shipping={$orderStore.retail_costs.shipping || 0}
-                                total={subtotal * 1.19 + $orderStore.retail_costs.shipping || 0}
+                                subtotal={$storedOrder.retail_costs.subtotal || "0.00"}
+                                shipping={$storedOrder.retail_costs.shipping || "0.00"}
                         />
                         <section id="back-to-home" class="mb-0 flex justify-center items-center ">
                                 <a

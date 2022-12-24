@@ -1,53 +1,66 @@
-import { writable } from "svelte/store";
-import { cart } from "./cart";
-import recipient from "./recipient";
-import { browser } from "$app/environment";
+import { writable } from 'svelte/store';
+import { browser } from '$app/environment';
+import type { SyncVariant } from '../product';
+import type { Recipient } from './recipient';
 
-let defaultOrder: {
+const defaultOrder: {
         external_id: string;
         shipping: string;
         recipient?: Recipient;
         items: SyncVariant[];
         retail_costs: {
                 currency: string;
-                subtotal: number;
-                discount: number;
-                shipping: number;
-                tax: number;
-        };
-        currency: string;
+                subtotal: string;
+                discount: string;
+                shipping: string;
+                tax: string;
+        }
 } = {
-        external_id: "0",
+        external_id: '0',
         shipping: 'STANDARD',
         recipient: undefined,
         items: [],
         retail_costs: {
                 currency: 'EUR',
-                subtotal: 0,
-                discount: 0,
-                shipping: 0,
-                tax: 0
-        },
-        currency: 'EUR'
+                subtotal: "0.00",
+                discount: "0.00",
+                shipping: "0.00",
+                tax: "0.00"
+        }
 };
+
+let storedOrderString;
 if (browser) {
         const storedOrder = localStorage.getItem('order');
-        defaultOrder = storedOrder ? JSON.parse(storedOrder) : defaultOrder;
-        console.log(defaultOrder);
+        storedOrderString = storedOrder ? JSON.parse(storedOrder) : defaultOrder;
 }
-const order = createOrder();
+const storedOrder = createOrder(storedOrderString);
+const order = createOrder(defaultOrder);
+
 if (browser) {
-        order.subscribe((order) => {
+        storedOrder.subscribe((order) => {
                 localStorage.setItem('order', JSON.stringify(order));
-                console.log("order changed", order);
+                console.log('order changed', order);
         });
 }
-function createOrder() {
-        return writable(defaultOrder);
+function createOrder(order: {
+        external_id: string;
+        shipping: string;
+        recipient?: any;
+        items: SyncVariant[];
+        retail_costs: {
+                currency: string;
+                subtotal: string;
+                discount: string;
+                shipping: string;
+                tax: string;
+        };
+}) {
+        return writable(order);
 }
 
-order.subscribe((order) => {
-        console.log("order", order);
+storedOrder.subscribe((order) => {
+        console.log('storedOrder', order);
 });
 
-export default order;
+export { storedOrder, order };

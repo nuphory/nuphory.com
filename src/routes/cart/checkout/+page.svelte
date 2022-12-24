@@ -2,65 +2,47 @@
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
 
-        import { cart as cartStore, type CartMap } from '$lib/api/stores/cart';
+        import { cart, cart as cartStore, type CartMap } from '$lib/api/stores/cart';
         import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
         import { loadScript } from '@paypal/paypal-js';
         import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
-        import order from '$lib/api/stores/order';
-
-        /** @type {import('./$types').PageData} */
-        export let data;
-
-        let { body } = data;
-
-        export let subtotal: number = 0;
-        let shipping: any;
-
-        let recipient: Recipient;
-
-        recipientStore.subscribe(async (value) => {
-                console.log(value);
-                recipient = value;
-                body.recipient = recipient;
-                if (
-                        !recipient.country_code ||
-                        !recipient.address1 ||
-                        !recipient.city ||
-                        !recipient.zip
-                )
-                        return;
-                let response = await fetch('/api/shipping', {
-                        body: JSON.stringify(body),
-                        method: 'POST'
-                });
-                let data = await response.json();
-                shipping = data.result[0];
-
-                body.retail_costs = {
-                        currency: 'EUR',
-                        shipping: shipping.rate,
-                        discount: 0,
-                        tax: subtotal * 0.19,
-                        subtotal: subtotal
-                };
-        });
-
-        let cart: CartMap;
+        import { storedOrder, order } from '$lib/api/stores/order';
 
         cartStore.subscribe((value) => {
-                console.log(value);
-                body.external_id = (Math.random() * 2 ** 64).toFixed(0).toString();
-                cart = value;
-                body.items = Array.from(value).map((cartItem) => {
+                $order.items = Array.from(value).map((cartItem) => {
                         const variant = cartItem[1].variant;
                         variant.quantity = cartItem[1].quantity;
                         return variant;
                 });
-
-                let cartItems = Array.from(cart);
-                subtotal = cartItems.reduce((acc, item) => {
-                        return acc + parseInt(item[1].variant.retail_price) * item[1].quantity;
+                $order.retail_costs.subtotal = Array.from(value).reduce((acc, cartItem) => {
+                        return acc + (parseFloat(cartItem[1].variant.retail_price) * cartItem[1].quantity);
                 }, 0);
+                $order.retail_costs.tax = $order.retail_costs.subtotal * 0.19;
+        });
+
+        recipientStore.subscribe(async (value) => {
+                $order.recipient = value;
+
+                if (
+                        !$order.recipient.country_code ||
+                        !$order.recipient.address1 ||
+                        !$order.recipient.city ||
+                        !$order.recipient.zip
+                )
+                        return;
+                let response = await fetch('/api/shipping', {
+                        body: JSON.stringify($order),
+                        method: 'POST'
+                });
+                let data = await response.json();
+
+                $order.retail_costs = {
+                        currency: 'EUR',
+                        shipping: data.result[0].rate,
+                        discount: 0,
+                        tax: $order.retail_costs.subtotal * 0.19,
+                        subtotal: $order.retail_costs.subtotal
+                };
         });
 
         loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' })
@@ -81,17 +63,15 @@
                                         label: 'paypal'
                                 },
                                 createOrder: async (data, actions) => {
-                                        body.external_id = (Math.random() * 2 ** 64)
+                                        $order.external_id = (Math.random() * 2 ** 64)
                                                 .toFixed(0)
                                                 .toString();
                                         let responseJson = await fetch('/api/checkout', {
                                                 method: 'POST',
-                                                body: JSON.stringify({ body })
+                                                body: JSON.stringify($order)
                                         });
                                         let response = await responseJson.json();
                                         orderId = response.result.id;
-
-
 
                                         return actions.order.create({
                                                 intent: 'CAPTURE',
@@ -100,10 +80,11 @@
                                                                 amount: {
                                                                         currency_code: 'EUR',
                                                                         value: (
-                                                                                subtotal * 1.19 +
-                                                                                parseFloat(
-                                                                                        shipping?.rate
-                                                                                )
+                                                                                parseFloat($order.retail_costs
+                                                                                        .subtotal) *
+                                                                                        1.19 +
+                                                                                parseFloat($order.retail_costs
+                                                                                        .shipping)
                                                                         ).toFixed(2)
                                                                 }
                                                         }
@@ -116,7 +97,7 @@
                                                         method: 'DELETE'
                                                 });
 
-                                                $order = body;
+                                                $storedOrder = $order;
                                                 cart.clear();
 
                                                 window.location.href = `/cart/checkout/confirmation/${orderId}`;
@@ -132,17 +113,6 @@
                 .catch((error) => {
                         console.error('failed to load the PayPal JS SDK script', error);
                 });
-
-        // TODO paypal button
-
-        // TODO placing orders on printful
-        // - https://www.printful.com/docs/orders
-
-        // TODO order confirmation page
-        // - shows order details
-        // - shows shipping details
-        // - shows payment details
-        // - shows order status
 </script>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
@@ -155,9 +125,9 @@
                         class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
                         <SimpleCartList
-                                {subtotal}
-                                shipping={parseFloat(shipping?.rate) || 0}
-                                total={subtotal * 1.19 + parseFloat(shipping?.rate) || 0}
+                                subtotal={$order.retail_costs.subtotal}
+                                shipping={$order.retail_costs.shipping || 0}
+                                currency={$order.retail_costs.currency}
                         />
                         <section id="back-to-cart" class="mb-0 flex justify-center items-center ">
                                 <a

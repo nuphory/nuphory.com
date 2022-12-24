@@ -2,19 +2,21 @@
         import { browser } from '$app/environment';
         import type { SyncVariant } from '$lib/api/product';
         import { cart as cartStore, type CartMap } from '$lib/api/stores/cart';
-        import orderStore from '$lib/api/stores/order';
+        import { order } from '$lib/api/stores/order';
         import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
 
-        let subtotal = parseFloat($orderStore.retail_costs.subtotal);
-        let shipping = parseFloat($orderStore.retail_costs.shipping);
-        let tax = parseFloat($orderStore.retail_costs.tax);
-        let currency = $orderStore.retail_costs.currency;
+        export let subtotal: string;
+        export let shipping: string;
+        export let currency: string;
 
-        let total = subtotal + shipping + tax;
+        let tax = (parseFloat(subtotal) * 0.19).toFixed(2);
+        
 
-        let cartItems = $orderStore.items.map((item) => {
+        let total = (parseFloat(subtotal) + parseFloat(shipping) + parseFloat(tax)).toFixed(2);
+
+        let cartItems = $order.items.map((item) => {
                 return {
                         variant: item,
                         quantity: item.quantity
@@ -40,7 +42,7 @@
                                 <p class="">Subtotal</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {subtotal.toFixed(2)}
+                                        {subtotal}
                                         {currency}
                                 </p>
                         </div>
@@ -50,7 +52,7 @@
                                 <p class="">VAT (19%)</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {tax.toFixed(2)}
+                                        {tax}
                                         {currency}
                                 </p>
                         </div>
@@ -60,7 +62,7 @@
                                 <p class="">Shipping</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {shipping.toFixed(2)}
+                                        {shipping}
                                         {currency}
                                 </p>
                         </div>
@@ -68,7 +70,7 @@
                                 <p class="">Total</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {total.toFixed(2)}
+                                        {total}
                                         {currency}
                                 </p>
                         </div>

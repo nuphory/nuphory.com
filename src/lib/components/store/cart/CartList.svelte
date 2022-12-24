@@ -1,12 +1,12 @@
 <script lang="ts">
         import { browser } from '$app/environment';
-        import { cart, type CartItem } from '$lib/api/stores/cart';
+        import { cart as cartStore, type CartItem } from '$lib/api/stores/cart';
         import CartListItem from './CartListItem.svelte';
 
         let cartItems: [number, CartItem][] = [];
 
         if (browser) {
-                cart.subscribe((cart) => {
+                cartStore.subscribe((cart) => {
                         cartItems = Array.from(cart);
                 });
         }
