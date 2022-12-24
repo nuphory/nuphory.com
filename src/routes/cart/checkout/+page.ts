@@ -29,41 +29,52 @@ export async function load({ fetch, params }) {
         });
 
         recipientStore.subscribe((value) => {
-                order.update((order) => {
-                        order.recipient = value;
-                        let require_state: boolean;
+                let require_state: boolean;
 
-                        switch (value.country_code) {
-                                case 'AU':
-                                case 'BR':
-                                case 'CA':
-                                case 'JP':
-                                case 'US':
-                                        require_state = true;
-                                        break;
-                                default:
-                                        require_state = false;
-                                        break;
-                        }
+                switch (value.country_code) {
+                        case 'AU':
+                        case 'BR':
+                        case 'CA':
+                        case 'JP':
+                        case 'US':
+                                require_state = true;
+                                break;
+                        default:
+                                require_state = false;
+                                break;
+                }
 
-                        if (require_state && !value.state_code) return;
+                if (require_state && !value.state_code) return;
 
-                        setTimeout(() =>{
-                                fetch('/api/shipping', {
-                                body: JSON.stringify(order),
+
+                // welcome to Mt. Indentation
+                // Stick to the Indentation slopes,
+                // because the Outdentation slopes are much steeper than they look.
+
+                order.update((orderValue) => {
+                        orderValue.recipient = value;
+
+                        fetch('/api/shipping', {
+                                body: JSON.stringify(orderValue),
                                 method: 'POST'
                         })
                                 .then((response) => response.json())
                                 .then((data) => {
                                         if (data.code == 200) {
-                                                order.retail_costs.shipping = data.result.find(
-                                                        (rate) => rate.id === 'STANDARD'
-                                                ).rate;
-                                               
+                                                order.update((order) => {
+
+                                                        order.retail_costs.shipping =
+                                                                data.result.find(
+                                                                        (rate) =>
+                                                                                rate.id ===
+                                                                                'STANDARD'
+                                                                ).rate;
+
+                                                        return order;
+                                                });
                                         }
                                 });
-                        }, 200);
-                        return order;
+                        return orderValue;
                 });
         });
 }
