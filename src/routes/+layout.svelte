@@ -103,7 +103,7 @@
 <div class="flex flex-col justify-between min-h-screen">
         <!-- <header /> -->
 
-        <header class="fixed top-0 z-10 flex justify-center top-0 w-screen clr-bg clr-regular">
+        <header class="fixed top-0 z-10 flex justify-center top-0 w-screen clr-regular">
                 <Header />
         </header>
 

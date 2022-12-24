@@ -10,8 +10,10 @@
 </script>
 
 <div id="top" class="relative flex flex-1 flex-col justify-between items-center min-h-screen py-8">
-        <section id="page-title" class="sticky top-0 z-40"><h1>cart</h1></section>
-        <section id="cart-list" class="relative grow flex flex-col justify-center items-center">
+        <section class="">
+                <div id="page-title" class=""><h1>cart</h1></div>
+        </section>
+        <section id="cart-list" class="grow relative grow flex flex-col justify-center items-center">
                 <CartList />
         </section>
         <section id="checkout" class="flex justify-center items-center">

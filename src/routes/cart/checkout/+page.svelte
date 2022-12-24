@@ -144,7 +144,7 @@
 </script>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
-        <section id="page-title" class="sticky top-0 z-10 pointer-events-none">
+        <section id="page-title" class="pointer-events-none">
                 <h1 class="tracking-[0.125em]">checkout</h1>
         </section>
         <div class="content flex flex-col flex-1 justify-center items-start lg:flex-row">

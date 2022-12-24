@@ -85,7 +85,7 @@
                                         />
                                 </fade-in>
                         </div>
-                        <section id="" class="sticky top-0 z-40">
+                        <section id="#page-title" class="z-40">
                                 <fade-in distance="10px" duration="500ms" order="-1">
                                         <h1><b>{_siteName}</b></h1>
                                 </fade-in>
