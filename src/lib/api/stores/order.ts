@@ -46,7 +46,7 @@ if (browser) {
 function createOrder(order: {
         external_id: string;
         shipping: string;
-        recipient: Recipient;
+        recipient?: Recipient;
         items: SyncVariant[];
         retail_costs: {
                 currency: string;
