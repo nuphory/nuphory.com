@@ -6,16 +6,18 @@
         import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
-        
 
-        
+        let cartItems: Array<SyncVariant>;
 
-        let cartItems = Array.from($cartStore).map((item) => {
-                return {
-                        variant: item[1],
-                        quantity: item[1].quantity
-                };
+        cartStore.subscribe((cart) => {
+                cartItems = Array.from(cart).map((item) => {
+                        return {
+                                variant: item[1],
+                                quantity: item[1].quantity
+                        };
+                });
         });
+        
 </script>
 
 <ul
