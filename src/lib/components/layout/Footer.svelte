@@ -26,7 +26,7 @@
 
 <style>
         .footer-area {
-                @apply w-64;
+                @apply w-64 m-8;
                 @apply text-left;
         }
 
