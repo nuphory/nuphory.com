@@ -26,14 +26,14 @@
 </script>
 
 {#if innerWidth < 768}
-        <div class="buttons" id={`stream-buttons`}>
+        <div class="buttons clr-inverse" id={`stream-buttons`}>
                 {#each streamButtons as { label, href, img }, i}
                         <fade-in duration="500ms" order={count()}>
                                 <Button {label} {href} {img} />
                         </fade-in>
                 {/each}
         </div>
-        <div class="buttons" id={`social-buttons`}>
+        <div class="buttons clr-inverse" id={`social-buttons`}>
                 {#each socialButtons as { label, href, img }}
                         <fade-in duration="500ms" order={count()}>
                                 <Button {label} {href} {img} />
@@ -41,14 +41,14 @@
                 {/each}
         </div>
 {:else}
-        <div class="buttons" id={`social-buttons`}>
+        <div class="buttons clr-inverse" id={`social-buttons`}>
                 {#each socialButtons as { label, href, img }}
                         <fade-in duration="500ms" order={count()}>
                                 <Button {label} {href} {img} />
                         </fade-in>
                 {/each}
         </div>
-        <div class="buttons" id={`stream-buttons`}>
+        <div class="buttons clr-inverse" id={`stream-buttons`}>
                 {#each streamButtons as { label, href, img }, i}
                         <fade-in duration="500ms" order={count()}>
                                 <Button {label} {href} {img} />
@@ -56,7 +56,7 @@
                 {/each}
         </div>
 {/if}
-<div class="buttons" id={`contact-buttons`}>
+<div class="buttons clr-inverse" id={`contact-buttons`}>
         {#each contactButtons as { label, href, img }}
                 <fade-in duration="500ms" order={count()}>
                         <Button {label} {href} {img} />
