@@ -9,21 +9,29 @@
         import { storedOrder, order } from '$lib/api/stores/order';
 
         cartStore.subscribe((value) => {
+                console.log($order);
                 $order.items = Array.from(value).map((cartItem) => {
                         const variant = cartItem[1].variant;
                         variant.quantity = cartItem[1].quantity;
                         return variant;
                 });
-                $order.retail_costs.subtotal = Array.from(value).reduce((acc, cartItem) => {
-                        return (
-                                acc +
-                                parseFloat(cartItem[1].variant.retail_price) * cartItem[1].quantity
-                        );
-                }, 0);
-                $order.retail_costs.tax = $order.retail_costs.subtotal * 0.19;
+                $order.retail_costs.subtotal = Array.from(value)
+                        .reduce((acc, cartItem) => {
+                                return (
+                                        acc +
+                                        parseFloat(cartItem[1].variant.retail_price) *
+                                                cartItem[1].quantity
+                                );
+                        }, 0)
+                        .toFixed(2);
+                $order.retail_costs.tax = (parseFloat($order.retail_costs.subtotal) * 0.19).toFixed(
+                        2
+                );
         });
 
         recipientStore.subscribe(async (value) => {
+                console.log($order);
+
                 $order.recipient = value;
 
                 if (
@@ -39,13 +47,7 @@
                 });
                 let data = await response.json();
 
-                $order.retail_costs = {
-                        currency: 'EUR',
-                        shipping: data.result[0].rate,
-                        discount: 0,
-                        tax: $order.retail_costs.subtotal * 0.19,
-                        subtotal: $order.retail_costs.subtotal
-                };
+                $order.retail_costs.shipping = data.result[0].rate;
         });
 
         loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' })
@@ -66,15 +68,26 @@
                                         label: 'paypal'
                                 },
                                 createOrder: async (data, actions) => {
+                                        let shippingResponse = await fetch('/api/shipping', {
+                                                body: JSON.stringify($order),
+                                                method: 'POST'
+                                        });
+                                        let shippingData = await shippingResponse.json();
+
+                                        $order.retail_costs.shipping = shippingData.result[0].rate;
+
                                         $order.external_id = (Math.random() * 2 ** 64)
                                                 .toFixed(0)
                                                 .toString();
-                                        let responseJson = await fetch('/api/checkout', {
+
+                                        let checkoutResponse = await fetch('/api/checkout', {
                                                 method: 'POST',
                                                 body: JSON.stringify($order)
                                         });
-                                        let response = await responseJson.json();
-                                        orderId = response.result.id;
+
+                                        let checkoutData = await checkoutResponse.json();
+
+                                        orderId = checkoutData.result.id;
 
                                         return actions.order.create({
                                                 intent: 'CAPTURE',
@@ -137,11 +150,7 @@
                         id="cart-list"
                         class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
-                        <SimpleCartList
-                                subtotal={$order.retail_costs.subtotal}
-                                shipping={$order.retail_costs.shipping || 0}
-                                currency={$order.retail_costs.currency}
-                        />
+                        <SimpleCartList />
                         <section id="back-to-cart" class="mb-0 flex justify-center items-center ">
                                 <a
                                         id="checkout-button"

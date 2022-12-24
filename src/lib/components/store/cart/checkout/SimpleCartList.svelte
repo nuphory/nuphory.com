@@ -7,22 +7,12 @@
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
 
-        export let subtotal: string;
-        export let shipping: string;
-        export let currency: string;
-
-        let tax = (parseFloat(subtotal) * 0.19).toFixed(2);
-        
-
-        let total = (parseFloat(subtotal) + parseFloat(shipping) + parseFloat(tax)).toFixed(2);
-
         let cartItems = $order.items.map((item) => {
                 return {
                         variant: item,
                         quantity: item.quantity
                 };
         });
-        
 </script>
 
 <ul
@@ -30,7 +20,7 @@
         class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-[2em] border-[3px]"
 >
         {#each cartItems as item}
-                <SimpleCartListItem item={item} />
+                <SimpleCartListItem {item} />
         {/each}
         <li
                 class="w-full  flex flex-row basis-1 justify-between items-start px-4 m-4 gap-4 xs:items-start last:border-[0px] border-b clr-border"
@@ -42,8 +32,8 @@
                                 <p class="">Subtotal</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {subtotal}
-                                        {currency}
+                                        {$order.retail_costs.subtotal}
+                                        {$order.retail_costs.currency}
                                 </p>
                         </div>
                         <div
@@ -52,8 +42,8 @@
                                 <p class="">VAT (19%)</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {tax}
-                                        {currency}
+                                        {$order.retail_costs.tax}
+                                        {$order.retail_costs.currency}
                                 </p>
                         </div>
                         <div
@@ -62,19 +52,22 @@
                                 <p class="">Shipping</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {shipping}
-                                        {currency}
+                                        {$order.retail_costs.shipping}
+                                        {$order.retail_costs.currency}
                                 </p>
                         </div>
                         <div class="flex flex-row flex-1 grow basis-1 justify-between items-start">
                                 <p class="">Total</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {total}
-                                        {currency}
+                                        {(
+                                                parseFloat($order.retail_costs.subtotal) +
+                                                parseFloat($order.retail_costs.shipping) +
+                                                parseFloat($order.retail_costs.tax)
+                                        ).toFixed(2)}
+                                        {$order.retail_costs.currency}
                                 </p>
                         </div>
                 </div>
         </li>
 </ul>
-

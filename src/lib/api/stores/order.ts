@@ -40,9 +40,9 @@ const order = createOrder(defaultOrder);
 if (browser) {
         storedOrder.subscribe((order) => {
                 localStorage.setItem('order', JSON.stringify(order));
-                console.log('order changed', order);
         });
 }
+
 function createOrder(order: {
         external_id: string;
         shipping: string;
@@ -59,8 +59,8 @@ function createOrder(order: {
         return writable(order);
 }
 
-storedOrder.subscribe((order) => {
-        console.log('storedOrder', order);
+order.subscribe((order) => {
+        console.log('order', order);
 });
 
 export { storedOrder, order };

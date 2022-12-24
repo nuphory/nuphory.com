@@ -2,6 +2,7 @@
         import { cart as cartStore, type CartMap } from '$lib/api/stores/cart';
         import CartList from '$lib/components/store/cart/CartList.svelte';
         import { order } from '$lib/api/stores/order';
+        import { browser } from '$app/environment';
 
         let cart: CartMap;
 
@@ -11,10 +12,18 @@
                         variant.quantity = cartItem[1].quantity;
                         return variant;
                 });
-                $order.retail_costs.subtotal = Array.from(value).reduce((acc, cartItem) => {
-                        return acc + (parseFloat(cartItem[1].variant.retail_price) * cartItem[1].quantity);
-                }, 0);
-                $order.retail_costs.tax = $order.retail_costs.subtotal * 0.19;
+                $order.retail_costs.subtotal = Array.from(value)
+                        .reduce((acc, cartItem) => {
+                                return (
+                                        acc +
+                                        parseFloat(cartItem[1].variant.retail_price) *
+                                                cartItem[1].quantity
+                                );
+                        }, 0)
+                        .toFixed(2);
+                $order.retail_costs.tax = (parseFloat($order.retail_costs.subtotal) * 0.19).toFixed(
+                        2
+                );
         });
 
         // TODO cart page
@@ -35,13 +44,24 @@
         >
                 <CartList />
         </section>
-        <section id="checkout" class="flex justify-center items-center">
-                <a
-                        id="checkout-button"
-                        class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
-                        href="/cart/checkout"><b>checkout</b></a
-                >
-        </section>
+        {#if $cartStore.size > 0}
+                <section id="checkout" class="flex justify-center items-center">
+                        <a
+                                id="checkout-button"
+                                class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
+                                href="/cart/checkout"><b>checkout</b></a
+                        >
+                </section>
+        {:else}
+                <section id="checkout" class="flex justify-center items-center">
+                        <a
+                                id="checkout-button"
+                                class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono disabled"
+                                href="/cart/checkout"><b>checkout</b></a
+                        >
+                </section>
+        {/if}
+
         <section id="back-to-home" class="mb-0 flex justify-center items-center ">
                 <a
                         id="checkout-button"
@@ -50,3 +70,10 @@
                 >
         </section>
 </div>
+
+<style>
+        .disabled {
+                pointer-events: none;
+                opacity: 0.5;
+        }
+</style>
