@@ -8,56 +8,33 @@
 
         let countries = rawCountries as unknown as Country[];
 
-        let states = countries.find((country) => {
-                return country.code === $recipientStore.country_code;
-        })?.states;
+        let states: State[] | null;
+
+        recipientStore.subscribe((value) => {
+                states = countries.find((country) => {
+                        return country.code === value.country_code;
+                })?.states;
+        });
 
         if (browser) {
                 recipientStore.subscribe((value) => {
-                        let require_state: boolean;
-
-                        switch (value.country_code) {
-                                case 'AU':
-                                case 'BR':
-                                case 'CA':
-                                case 'JP':
-                                case 'US':
-                                        require_state = true;
-                                        break;
-                                default:
-                                        require_state = false;
-                                        break;
-                        }
-
-                        if (require_state) {
+                        if (states?.length > 0) {
                                 document.querySelector('#for-state')?.classList.remove('hidden');
                         } else {
                                 document.querySelector('#for-state')?.classList.add('hidden');
                         }
                 });
 
-                if ($recipientStore.country_code) {
-                        let require_state: boolean;
-
-                        switch ($recipientStore.country_code) {
-                                case 'AU':
-                                case 'BR':
-                                case 'CA':
-                                case 'JP':
-                                case 'US':
-                                        require_state = true;
-                                        break;
-                                default:
-                                        require_state = false;
-                                        break;
-                        }
-
-                        if (require_state) {
+                onMount(() => {
+                        states = countries.find((country) => {
+                                return country.code === $recipientStore.country_code;
+                        })?.states;
+                        if (states?.length > 0) {
                                 document.querySelector('#for-state')?.classList.remove('hidden');
                         } else {
                                 document.querySelector('#for-state')?.classList.add('hidden');
                         }
-                }
+                });
         }
 </script>
 
@@ -149,7 +126,6 @@
                                 name="country"
                                 id="country"
                                 bind:value={$recipientStore.country_code}
-                                on:input={getShipping}
                         >
                                 {#if $recipientStore.country_code}
                                         <option value="" disabled>Select your country</option>
@@ -171,14 +147,9 @@
                         </select><br />
                 </div>
 
-                <div id="for-state" class="xl:col-span-2">
+                <div id="for-state" class="xl:col-span-2 hidden">
                         <h6><label for="state" class="required">State</label></h6>
-                        <select
-                                name="state"
-                                id="state"
-                                bind:value={$recipientStore.state_code}
-                                on:input={getShipping}
-                        >
+                        <select name="state" id="state" bind:value={$recipientStore.state_code}>
                                 {#if $recipientStore.state_code}
                                         <option value="" disabled>Select your state</option>
                                 {:else}

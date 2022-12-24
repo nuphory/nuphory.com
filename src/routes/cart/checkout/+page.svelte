@@ -104,10 +104,10 @@
         <section id="page-title" class="pointer-events-none">
                 <h1 class="tracking-[0.125em]">checkout</h1>
         </section>
-        <div class="content flex flex-col flex-1 justify-center items-start lg:flex-row">
+        <div class="content  flex flex-col flex-1 justify-center items-start lg:flex-row">
                 <section
                         id="cart-list"
-                        class="w-80 relative flex flex-col justify-center items-center lg:order-2"
+                        class=" my-0 w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
                         <SimpleCartList />
                         <section id="back-to-cart" class="mb-0 flex justify-center items-center ">

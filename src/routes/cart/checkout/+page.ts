@@ -43,16 +43,14 @@ export async function load({ fetch, params }) {
                                 require_state = false;
                                 break;
                 }
-
-                if (require_state && !value.state_code) return;
-
-
                 // welcome to Mt. Indentation
                 // Stick to the Indentation slopes,
                 // because the Outdentation slopes are much steeper than they look.
 
                 order.update((orderValue) => {
                         orderValue.recipient = value;
+
+                        if (require_state && !value.state_code) return;
 
                         fetch('/api/shipping', {
                                 body: JSON.stringify(orderValue),
@@ -62,7 +60,6 @@ export async function load({ fetch, params }) {
                                 .then((data) => {
                                         if (data.code == 200) {
                                                 order.update((order) => {
-
                                                         order.retail_costs.shipping =
                                                                 data.result.find(
                                                                         (rate) =>
