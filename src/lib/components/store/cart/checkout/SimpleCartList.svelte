@@ -1,23 +1,20 @@
 <script lang="ts">
         import { browser } from '$app/environment';
         import type { SyncVariant } from '$lib/api/product';
-        import { cart as cartStore, type CartMap } from '$lib/api/stores/cart';
+        import { cart as cartStore, type CartItem, type CartMap } from '$lib/api/stores/cart';
         import { order } from '$lib/api/stores/order';
         import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
+        
 
-        let cartItems: Array<SyncVariant>;
+        let cartItems: Array<CartItem>;
 
         cartStore.subscribe((cart) => {
                 cartItems = Array.from(cart).map((item) => {
-                        return {
-                                variant: item[1],
-                                quantity: item[1].quantity
-                        };
+                        return item[1]
                 });
         });
-        
 </script>
 
 <ul
