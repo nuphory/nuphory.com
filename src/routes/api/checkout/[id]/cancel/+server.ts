@@ -15,26 +15,21 @@ const headers = {
 // }
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
-        const { body } = await request.json();
-
-        // return new Response(JSON.stringify({understandable: "have a nice day"}));
-        return new Response(JSON.stringify(await createOrder(body)), {
+export async function DELETE({ params }) {
+        // return new Response("ok");
+        return new Response(JSON.stringify(await cancelOrder(params.id)), {
                 headers: { 'Content-Type': 'application/json' }
         });
 
 }
-async function createOrder(body: any) {
+async function cancelOrder(id: string) {
         try {
-                body.items = [body.items[0]];
-
-                const response = await fetch(endpoint, {
-                        method: 'POST',
-                        body: JSON.stringify(body),
+                const response = await fetch(`${endpoint}/${id}`, {
+                        method: 'DELETE',
                         headers
                 });
                 const data = await response.json();
-                console.log("order creation", data);
+                console.log("order cancellation", data);
                 return data;
         } catch (error) {
                 console.log(error);

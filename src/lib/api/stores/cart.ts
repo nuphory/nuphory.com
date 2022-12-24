@@ -10,7 +10,7 @@ if (browser) {
         defaultCart = storedCart ? new Map(JSON.parse(storedCart)) : defaultCart;
 }
 
-export const cart: Cart = createCart();
+export const cart: WritableCart = createCart();
 
 if (browser) {
         cart.subscribe((cart) => {
@@ -18,7 +18,7 @@ if (browser) {
         });
 }
 
-export interface Cart extends Writable<CartMap> {
+export interface WritableCart extends Writable<CartMap> {
         add: (item: CartItem) => void;
         subtract: (item: CartItem) => void;
         remove: (item: CartItem) => void;
@@ -39,7 +39,7 @@ export type CartItem = {
 function createCart() {
         const { subscribe, set, update }: Writable<CartMap> = writable(defaultCart);
 
-        const cart: Cart = {
+        const cart: WritableCart = {
                 subscribe,
                 set,
                 update,

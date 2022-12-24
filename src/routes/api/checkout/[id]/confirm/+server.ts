@@ -15,26 +15,21 @@ const headers = {
 // }
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
-        const { body } = await request.json();
-
-        // return new Response(JSON.stringify({understandable: "have a nice day"}));
-        return new Response(JSON.stringify(await createOrder(body)), {
+export async function POST({ params }) {
+        // return new Response("ok");
+        return new Response(JSON.stringify(await confirmOrder(params.id)), {
                 headers: { 'Content-Type': 'application/json' }
         });
 
 }
-async function createOrder(body: any) {
+async function confirmOrder(id: string) {
         try {
-                body.items = [body.items[0]];
-
-                const response = await fetch(endpoint, {
+                const response = await fetch(`${endpoint}/${id}/confirm`, {
                         method: 'POST',
-                        body: JSON.stringify(body),
                         headers
                 });
                 const data = await response.json();
-                console.log("order creation", data);
+                console.log("order confirmation", data);
                 return data;
         } catch (error) {
                 console.log(error);

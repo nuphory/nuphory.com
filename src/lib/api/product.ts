@@ -29,6 +29,7 @@ type SyncVariant = {
         is_ignored: boolean;
         warehouse_product_variant_id?: number;
         options?: SyncVariantOption[];
+        quantity?: number;
 };
 
 type SyncVariantFile = {

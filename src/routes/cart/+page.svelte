@@ -21,4 +21,11 @@
                         href="/cart/checkout"><b>checkout</b></a
                 >
         </section>
+        <section id="back-to-home" class="mb-0 flex justify-center items-center ">
+                <a
+                        id="checkout-button"
+                        class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
+                        href="/"><b>back to home</b></a
+                >
+        </section>
 </div>
