@@ -15,7 +15,10 @@
                         return variant;
                 });
                 $order.retail_costs.subtotal = Array.from(value).reduce((acc, cartItem) => {
-                        return acc + (parseFloat(cartItem[1].variant.retail_price) * cartItem[1].quantity);
+                        return (
+                                acc +
+                                parseFloat(cartItem[1].variant.retail_price) * cartItem[1].quantity
+                        );
                 }, 0);
                 $order.retail_costs.tax = $order.retail_costs.subtotal * 0.19;
         });
@@ -80,11 +83,21 @@
                                                                 amount: {
                                                                         currency_code: 'EUR',
                                                                         value: (
-                                                                                parseFloat($order.retail_costs
-                                                                                        .subtotal) *
-                                                                                        1.19 +
-                                                                                parseFloat($order.retail_costs
-                                                                                        .shipping)
+                                                                                parseFloat(
+                                                                                        $order
+                                                                                                .retail_costs
+                                                                                                .subtotal
+                                                                                ) +
+                                                                                parseFloat(
+                                                                                        $order
+                                                                                                .retail_costs
+                                                                                                .tax
+                                                                                ) +
+                                                                                parseFloat(
+                                                                                        $order
+                                                                                                .retail_costs
+                                                                                                .shipping
+                                                                                )
                                                                         ).toFixed(2)
                                                                 }
                                                         }
