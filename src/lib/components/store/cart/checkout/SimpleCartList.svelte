@@ -6,11 +6,14 @@
         import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
+        
 
-        let cartItems = $order.items.map((item) => {
+        
+
+        let cartItems = Array.from($cartStore).map((item) => {
                 return {
-                        variant: item,
-                        quantity: item.quantity
+                        variant: item[1],
+                        quantity: item[1].quantity
                 };
         });
 </script>
