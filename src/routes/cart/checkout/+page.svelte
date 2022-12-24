@@ -19,6 +19,7 @@
         let recipient: Recipient;
 
         recipientStore.subscribe(async (value) => {
+                console.log(value);
                 recipient = value;
                 body.recipient = recipient;
                 if (
@@ -47,6 +48,7 @@
         let cart: CartMap;
 
         cartStore.subscribe((value) => {
+                console.log(value);
                 body.external_id = (Math.random() * 2 ** 64).toFixed(0).toString();
                 cart = value;
                 body.items = Array.from(value).map((cartItem) => {
