@@ -1,0 +1,60 @@
+{
+  "name": "nuphory",
+  "version": "1.0.0",
+  "description": "nuphory is an artist that makes HYPERTRANCE and NEOY2K music and art. Check out all of her socials below!",
+  "author": {
+    "name": "mia-cx",
+    "email": "contact@mia.cx"
+  },
+  "bugs": {
+    "url": "https://github.com/nuphory/nuphory-pages/issues"
+  },
+  "homepage": "https://nuphory.com",
+  "icon": "https://nuphory.com/assets/logo/png/favicon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nuphory/nuphory-pages"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "package": "svelte-kit package",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --check --plugin-search-dir=. . && eslint .",
+    "format": "prettier --write --plugin-search-dir=. ."
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-static": "1.0.0-next.36",
+    "@sveltejs/kit": "next",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "mdsvex": "^0.10.6",
+    "prettier": "^2.7.1",
+    "prettier-plugin-svelte": "^2.7.1",
+    "svelte": "^3.50.1",
+    "svelte-check": "^2.9.1",
+    "svelte-preprocess": "^4.10.7",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.4"
+  },
+  "type": "module",
+  "dependencies": {
+    "install": "^0.13.0",
+    "lottie-web": "^5.9.6",
+    "npm": "^8.19.2"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "rollup"
+      ]
+    }
+  }
+}
