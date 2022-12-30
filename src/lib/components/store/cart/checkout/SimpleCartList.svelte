@@ -6,9 +6,6 @@
         import recipientStore, { type Recipient } from '$lib/api/stores/recipient';
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
-        
-
-        
 
         let cartItems = Array.from($cartStore).map((item) => {
                 return {
