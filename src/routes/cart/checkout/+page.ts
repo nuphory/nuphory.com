@@ -1,3 +1,5 @@
+// TODO rewrite this file to use the new stores
+
 import { storedOrder, order } from '$lib/api/stores/order';
 
 import recipientStore from '$lib/api/stores/recipient';

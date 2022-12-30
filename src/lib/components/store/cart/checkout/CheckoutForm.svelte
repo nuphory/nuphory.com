@@ -1,4 +1,6 @@
 <script lang="ts">
+        // TODO rewrite this file to use the new stores
+
         import { browser } from '$app/environment';
         import { onMount } from 'svelte';
         import rawCountries from '$lib/api/countries.json';

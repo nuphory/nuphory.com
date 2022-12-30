@@ -17,7 +17,7 @@
         import currentOrder from '$lib/api/stores/order';
 
         // Components
-        import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
+        // import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
         import type { Item } from '$lib/types/product';
 
@@ -140,7 +140,7 @@
                         });
 
                         localStorage.setItem(
-                                $currentOrder.external_id,
+                                `order.${$currentOrder.external_id}`,
                                 JSON.stringify($currentOrder)
                         );
 
@@ -262,7 +262,7 @@
                         </section>
                 </section>
                 <section id="checkout-form" class="max-w-2xl lg:order-1">
-                        <CheckoutForm />
+                        <!-- <CheckoutForm /> -->
                 </section>
         </div>
         <section id="#complete-order">

@@ -1,13 +1,21 @@
 <script lang="ts">
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
 
-        import { storedOrder } from '$lib/api/stores/order';
-
-        let order = `ORDER ID: ${$storedOrder.external_id}`;
+        import { browser } from '$app/environment';
+        import type { Order } from '$lib/types/order';
 
         export let data;
 
-        export let subtotal: number = 0;
+        let order: Order;
+
+        if (browser) {
+                const previousOrderString = localStorage.getItem(`order.${data.order_id}`);
+
+                if (previousOrderString) {
+                        order = JSON.parse(previousOrderString);
+                        console.debug('found cached order: ', order);
+                }
+        }
 </script>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
@@ -15,14 +23,13 @@
                 <h1 class="tracking-[0.125em]">confirmed</h1>
         </section>
         <div class="content flex flex-col flex-1 justify-center items-start">
-                <p class="w-full text-center">{order}</p>
+                <p class="w-full text-center">{`ORDER ID: ${order.external_id}`}</p>
                 <section
                         id="cart-list"
                         class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
                         <SimpleCartList
-                                subtotal={$storedOrder.retail_costs.subtotal || '0.00'}
-                                shipping={$storedOrder.retail_costs.shipping || '0.00'}
+                                items={order.items}
                         />
                         <section id="back-to-home" class="mb-0 flex justify-center items-center ">
                                 <a

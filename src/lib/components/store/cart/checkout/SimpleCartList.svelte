@@ -3,7 +3,7 @@
         import type { Item } from '$lib/types/product';
         import SimpleCartListItem from './SimpleCartListItem.svelte';
 
-        let items: Item[] = $currentOrder.items;
+        export let items: Item[] = $currentOrder.items;
 
         currentOrder.subscribe((order) => {
                 items = order.items;
