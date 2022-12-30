@@ -1,21 +1,22 @@
 <script lang="ts">
-        import { cart } from '$lib/api/stores/cart';
-        import type { CartItem } from '$lib/api/stores/cart';
-        import type Product from '$lib/api/product';
-        import type { SyncVariant } from '$lib/api/product';
+        import type { Product, SyncVariant } from '$lib/types/product';
+        import currentOrder from '$lib/api/stores/order';
 
         export let product: Product;
 
         let selectedVariant: SyncVariant;
-        let selectVariant = (event) => {
+        function selectVariant(event) {
                 document.querySelector('.cart-button')?.classList.remove('disabled');
 
                 selectedVariant = product.sync_variants.find(
                         (variant: SyncVariant) => variant.id == event.target.value
                 ) as SyncVariant;
-        };
+        }
 
-        let addToCart = (event) => {
+        function addItem(event) {
+                console.log('addItem');
+                if (!selectedVariant) return;
+                console.log('addItem', selectedVariant);
                 if (event.type != 'click') {
                         switch (event.key) {
                                 case 'Enter':
@@ -25,14 +26,8 @@
                         }
                 }
 
-                if (!selectedVariant) return;
-                const item: CartItem = {
-                        variant: selectedVariant,
-                        product: product as Product,
-                        quantity: 1
-                };
-                cart.add(item);
-        };
+                currentOrder.addItem(selectedVariant);
+        }
 </script>
 
 <li
@@ -75,8 +70,8 @@
 				clr-bg clr-inverse 
 				hover:scale-105 active:scale-95
 				disabled"
-                        on:click={addToCart}
-                        on:keydown={addToCart}
+                        on:click={addItem}
+                        on:keydown={addItem}
                         tabindex="0"
                 >
                         <img

@@ -1,19 +1,17 @@
 <script lang="ts">
+        import _ from 'lodash';
         import { browser } from '$app/environment';
-        import { cart, type CartItem } from '$lib/api/stores/cart';
 
-        function cartSize(cart: Map<number, CartItem>) {
-                let acc = 0;
+        import currentOrder from '$lib/api/stores/order';
 
-                cart.forEach((item) => {
-                        acc += item.quantity;
-                });
+        let itemCount: number = currentOrder.getItemCount();
 
-                return acc;
-        }
+        currentOrder.subscribe((order) => {
+                itemCount = currentOrder.getItemCount();
+                
+                console.debug("items updated, new itemCount: ", itemCount);
 
-        if (browser) {
-                cart.subscribe((cart) => {
+                if (browser) {
                         let cartIcon = document.querySelector('#cart-icon') as HTMLElement;
                         cartIcon.classList.add('ease-out');
                         cartIcon.classList.remove('ease-in');
@@ -26,8 +24,8 @@
                                 cartIcon.classList.remove('translate-y-[-1em]');
                                 cartIcon.classList.remove('scale-105');
                         }, 300);
-                });
-        }
+                }
+        });
 </script>
 
 <div
@@ -52,7 +50,7 @@
                 <span
                         id="cart-button"
                         class="absolute z-10 opacity-0 clr-regular clr-text transition-all duration-300 ease-in-out"
-                        >{cartSize($cart)}</span
+                        >{itemCount}</span
                 >
         </a>
         <img

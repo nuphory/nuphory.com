@@ -1,19 +1,17 @@
 <script lang="ts">
-        import { browser } from '$app/environment';
-        import { cart as cartStore, type CartItem } from '$lib/api/stores/cart';
+        import currentOrder from '$lib/api/stores/order';
+        import type { Item } from '$lib/types/product';
         import CartListItem from './CartListItem.svelte';
 
-        let cartItems: [number, CartItem][] = [];
+        let items: Item[] = $currentOrder.items;
 
-        if (browser) {
-                cartStore.subscribe((cart) => {
-                        cartItems = Array.from(cart);
-                });
-        }
+        currentOrder.subscribe((order) => {
+                items = order.items;
+        });
 </script>
 
 <ul id="cart" class="flex flex-col justify-center items-center rounded-">
-        {#if cartItems.length === 0}
+        {#if items.length === 0}
                 <li class="text-center text-gray-500">
                         <p>Nothing to see here...</p>
                         <br />
@@ -25,7 +23,7 @@
                         </p>
                 </li>
         {/if}
-        {#each cartItems as item}
-                <CartListItem item={item[1]} />
+        {#each items as item}
+                <CartListItem item={item} />
         {/each}
 </ul>
