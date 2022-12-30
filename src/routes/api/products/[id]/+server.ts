@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 
 import { PRINTFUL_API_TOKEN } from '$env/static/private';
-import type Product from '$lib/api/product';
+import type { Product } from '$lib/types/product';
 
 const endpoint = 'https://api.printful.com/store/products';
 

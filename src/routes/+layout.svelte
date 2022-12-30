@@ -1,10 +1,13 @@
 <script lang="ts">
+        // Imports
         import { _siteName } from './+layout';
         import { browser } from '$app/environment';
 
+        // Components
         import Footer from '$lib/components/layout/Footer.svelte';
-        import Header from '$lib/components/layout/Header.svelte';
-
+        import Header from '$lib/components/layout/Header.svelte';        
+        
+        // Styles
         import '../app.css';
 
         import '$lib/styles/colors.scss';
@@ -25,16 +28,18 @@
 
                 // });
 
+                // Smooth scrolling
                 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
                         anchor.addEventListener('click', function (e) {
                                 e.preventDefault();
 
-                                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                                document.querySelector(anchor.getAttribute('href') ?? "#top")?.scrollIntoView({
                                         behavior: 'smooth'
                                 });
                         });
                 });
 
+                // Collapsible
                 let collapsibles = document.querySelectorAll('.collapsible');
                 collapsibles.forEach((collapsible) => {
                         collapsible.addEventListener('click', () => {
@@ -51,6 +56,7 @@
                         });
                 });
 
+                // Custom Fade-in element. See {/src/lib/fade-in.ts}
                 const FadeElement = (await import('$lib/fade-in')).default;
                 customElements.define('fade-in', FadeElement);
                 FadeElement.fadeInAll(100);
@@ -66,9 +72,6 @@
                 'font-size: 2em; color: #fffaf7; font-weight: bold;',
                 'font-size: 1em; color: #fffaf7; font-weight: bold;'
         );
-        // TODO header component
-        // TODO cart button
-        // - has counter for number of items in cart
 </script>
 
 <svelte:head>

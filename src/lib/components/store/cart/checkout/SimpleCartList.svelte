@@ -7,8 +7,6 @@
 
         import SimpleCartListItem from './SimpleCartListItem.svelte';
 
-        let cartItems: [number, CartItem][] = [];
-
         if (browser) {
                 cartStore.subscribe((cart) => {
                         cartItems = Array.from(cart);

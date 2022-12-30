@@ -20,16 +20,27 @@ type SyncVariant = {
         name: string;
         synced: boolean;
         variant_id: number;
-        main_category_id: number;
         retail_price: string;
-        sku: string;
         currency: string;
+        is_ignored: boolean;
+        sku?: string;
         product: CatalogProduct;
         files: SyncVariantFile[];
-        is_ignored: boolean;
-        warehouse_product_variant_id?: number;
         options?: SyncVariantOption[];
-        quantity?: number;
+        main_category_id?: number;
+        warehouse_product_variant_id?: number;
+};
+
+type Item = SyncVariant & {
+        quantity: number;
+        sync_variant_id?: number;
+        external_variant_id?: string;
+        product_template_id?: number;
+        external_product_id?: string;
+        price?: string;
+
+        discontinued?: boolean;
+        out_of_stock?: boolean;
 };
 
 type SyncVariantFile = {
@@ -67,8 +78,8 @@ export type {
         Product,
         SyncProduct,
         SyncVariant,
+        Item,
         SyncVariantFile,
         SyncVariantOption,
         CatalogProduct
 };
-export default Product;

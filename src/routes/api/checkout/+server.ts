@@ -35,7 +35,7 @@ async function createOrder(body: any) {
                         headers
                 });
                 const data = await response.json();
-                console.log("order creation", data);
+                console.log('order creation', data);
                 return data;
         } catch (error) {
                 console.log(error);

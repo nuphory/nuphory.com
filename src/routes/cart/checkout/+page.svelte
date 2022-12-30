@@ -1,103 +1,246 @@
 <script lang="ts">
+        // Imports
+        import {
+                loadScript,
+                type CreateOrderActions,
+                type CreateOrderData,
+                type OnApproveActions,
+                type OnApproveData,
+                type OnCancelledActions,
+                type OnInitActions,
+                type Payer,
+                type PayPalNamespace,
+                type PurchaseUnit
+        } from '@paypal/paypal-js';
+        import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
+
+        import currentOrder from '$lib/api/stores/order';
+
+        // Components
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+        import type { Item } from '$lib/types/product';
 
-        import { cart } from '$lib/api/stores/cart';
-        import { loadScript } from '@paypal/paypal-js';
-        import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
-        import { storedOrder, order } from '$lib/api/stores/order';
-
-        // /** @type {import('./$types').PageData} */ export let data;
+        let orderId: string;
 
         loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' })
-                .then((paypal) => {
-                        console.debug('loaded the PayPal JS SDK script', paypal);
-                        if (!paypal) return;
+                .then(createButton)
+                .catch((error) => console.error('failed to load the PayPal JS SDK script', error));
 
-                        let orderId: string;
+        async function createButton(paypal: PayPalNamespace | null) {
+                if (!paypal) return;
 
-                        paypal.Buttons({
-                                style: {
-                                        layout: 'vertical',
-                                        tagline: false,
-                                        color: 'blue',
+                console.debug('loaded the PayPal JS SDK script: ', paypal);
 
-                                        shape: 'pill',
+                paypal.Buttons({
+                        style: {
+                                layout: 'vertical',
+                                tagline: false,
+                                color: 'blue',
 
-                                        label: 'paypal'
-                                },
-                                createOrder: async (data, actions) => {
-                                        let shippingResponse = await fetch('/api/shipping', {
-                                                body: JSON.stringify($order),
-                                                method: 'POST'
-                                        });
-                                        let shippingData = await shippingResponse.json();
+                                shape: 'pill',
 
-                                        $order.retail_costs.shipping = shippingData.result[0].rate;
-
-                                        $order.external_id = (Math.random() * 2 ** 64)
-                                                .toFixed(0)
-                                                .toString();
-
-                                        let checkoutResponse = await fetch('/api/checkout', {
-                                                method: 'POST',
-                                                body: JSON.stringify($order)
-                                        });
-
-                                        let checkoutData = await checkoutResponse.json();
-
-                                        orderId = checkoutData.result.id;
-
-                                        return actions.order.create({
-                                                intent: 'CAPTURE',
-                                                purchase_units: [
-                                                        {
-                                                                amount: {
-                                                                        currency_code: 'EUR',
-                                                                        value: (
-                                                                                parseFloat(
-                                                                                        $order
-                                                                                                .retail_costs
-                                                                                                .subtotal
-                                                                                ) +
-                                                                                parseFloat(
-                                                                                        $order
-                                                                                                .retail_costs
-                                                                                                .tax
-                                                                                ) +
-                                                                                parseFloat(
-                                                                                        $order
-                                                                                                .retail_costs
-                                                                                                .shipping
-                                                                                )
-                                                                        ).toFixed(2)
-                                                                }
-                                                        }
-                                                ]
-                                        });
-                                },
-                                onApprove: async (data, actions) => {
-                                        return actions.order?.capture().then(async () => {
-                                                await fetch(`/api/checkout/${orderId}/confirm`, {
-                                                        method: 'DELETE'
-                                                });
-
-                                                $storedOrder = $order;
-                                                cart.clear();
-
-                                                window.location.href = `/cart/checkout/confirmation/${orderId}`;
-                                        });
-                                },
-                                onCancel: async (data) => {
-                                        await fetch(`/api/checkout/${orderId}/cancel`, {
-                                                method: 'DELETE'
-                                        });
-                                }
-                        }).render('#paypal-button-container');
-                })
-                .catch((error) => {
-                        console.error('failed to load the PayPal JS SDK script', error);
+                                label: 'paypal'
+                        },
+                        onInit,
+                        createOrder,
+                        onApprove,
+                        onCancel,
+                        onError
                 });
+        }
+
+        async function onInit(data: Record<string, unknown>, actions: OnInitActions) {
+                // TODO validate recipient form
+                // currentOrder.subscribe((order) => {
+                //         Object.values(order.recipient).every
+                // })
+                // actions.disable();
+        }
+
+        async function createOrder(
+                data: CreateOrderData,
+                actions: CreateOrderActions
+        ): Promise<string> {
+                let shippingResponse = await fetch('/api/shipping', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                                items: $currentOrder.items,
+                                recipient: $currentOrder.recipient,
+                                currency: $currentOrder.retail_costs.currency
+                        })
+                });
+                let shippingJson = await shippingResponse.json();
+
+                currentOrder.setRetailCosts({ shipping: shippingJson.result[0].rate });
+                currentOrder.createId();
+
+                // let checkoutResponse = await fetch('/api/checkout', {
+                //         method: 'POST',
+                //         body: JSON.stringify($currentOrder)
+                // });
+                // let checkoutJson = await checkoutResponse.json();
+
+                // orderId = checkoutJson.result.id;
+
+                const purchase_units: PurchaseUnit[] = [
+                        {
+                                amount: {
+                                        breakdown: {
+                                                item_total: {
+                                                        currency_code: 'EUR',
+                                                        value: $currentOrder.retail_costs.subtotal
+                                                },
+                                                shipping: {
+                                                        currency_code: 'EUR',
+                                                        value: $currentOrder.retail_costs.shipping
+                                                },
+                                                tax_total: {
+                                                        currency_code: 'EUR',
+                                                        value: $currentOrder.retail_costs.tax
+                                                }
+                                        },
+                                        currency_code: 'EUR',
+                                        value: (
+                                                parseFloat($currentOrder.retail_costs.subtotal) +
+                                                parseFloat($currentOrder.retail_costs.tax) +
+                                                parseFloat($currentOrder.retail_costs.shipping)
+                                        ).toFixed(2)
+                                },
+                                custom_id: $currentOrder.external_id,
+                                items: $currentOrder.items.map((item: Item) => {
+                                        let purchaseItem = {
+                                                name: item.name,
+                                                quantity: item.quantity.toString(),
+                                                unit_amount: {
+                                                        currency_code: 'EUR',
+                                                        value: item.retail_price
+                                                },
+                                        };
+                                        return purchaseItem;
+                                }),
+                        }
+                ];
+
+                const payer: Payer = {
+                        // TODO payer info
+                }
+
+                return actions.order.create({
+                        intent: 'CAPTURE',
+                        purchase_units,
+                        payer
+                });
+        }
+
+        async function onApprove(data: OnApproveData, actions: OnApproveActions) {
+                return actions.order?.capture().then(async () => {
+                        await fetch(`api/checkout/${orderId}/confirm`, {
+                                method: 'POST'
+                        });
+
+                        localStorage.setItem(
+                                $currentOrder.external_id,
+                                JSON.stringify($currentOrder)
+                        );
+
+                        currentOrder.clearItems();
+
+                        window.location.href = `/cart/checkout/confirmation/${orderId}`;
+                });
+        }
+
+        async function onCancel(data?: Record<string, unknown>, actions?: OnCancelledActions) {
+                if (!orderId) return;
+                await fetch(`api/checkout/${orderId}/cancel`, {
+                        method: 'DELETE'
+                });
+        }
+
+        async function onError(error: Record<string, unknown>) {
+                if (orderId) {
+                        await fetch(`api/checkout/${orderId}/cancel`, {
+                                method: 'DELETE'
+                        });
+                }
+                console.error(error);
+        }
+
+        // loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' })
+        //         .then((paypal) => {
+        //                 console.debug('loaded the PayPal JS SDK script', paypal);
+        //                 if (!paypal) return;
+
+        //                 let orderId: string;
+
+        //                 paypal.Buttons({
+        //                         style: {
+        //                                 layout: 'vertical',
+        //                                 tagline: false,
+        //                                 color: 'blue',
+
+        //                                 shape: 'pill',
+
+        //                                 label: 'paypal'
+        //                         },
+        //                         createOrder: async (data, actions) => {
+        //                                 let checkoutResponse = await fetch('/api/checkout', {
+        //                                         method: 'POST',
+        //                                         body: JSON.stringify($order)
+        //                                 });
+
+        //                                 let checkoutData = await checkoutResponse.json();
+
+        //                                 orderId = checkoutData.result.id;
+
+        //                                 return actions.order.create({
+        //                                         intent: 'CAPTURE',
+        //                                         purchase_units: [
+        //                                                 {
+        //                                                         amount: {
+        //                                                                 currency_code: 'EUR',
+        //                                                                 value: (
+        //                                                                         parseFloat(
+        //                                                                                 $order
+        //                                                                                         .retail_costs
+        //                                                                                         .subtotal
+        //                                                                         ) +
+        //                                                                         parseFloat(
+        //                                                                                 $order
+        //                                                                                         .retail_costs
+        //                                                                                         .tax
+        //                                                                         ) +
+        //                                                                         parseFloat(
+        //                                                                                 $order
+        //                                                                                         .retail_costs
+        //                                                                                         .shipping
+        //                                                                         )
+        //                                                                 ).toFixed(2)
+        //                                                         }
+        //                                                 }
+        //                                         ]
+        //                                 });
+        //                         },
+        //                         onApprove: async (data, actions) => {
+        //                                 return actions.order?.capture().then(async () => {
+        //                                         await fetch(`/api/checkout/${orderId}/confirm`, {
+        //                                                 method: 'DELETE'
+        //                                         });
+
+        //                                         $storedOrder = $order;
+        //                                         cart.clear();
+
+        //                                         window.location.href = `/cart/checkout/confirmation/${orderId}`;
+        //                                 });
+        //                         },
+        //                         onCancel: async (data) => {
+        //                                 await fetch(`/api/checkout/${orderId}/cancel`, {
+        //                                         method: 'DELETE'
+        //                                 });
+        //                         }
+        //                 }).render('#paypal-button-container');
+        //         })
+        //         .catch((error) => {});
 </script>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
