@@ -5,6 +5,7 @@ import { PAYPAL_CLIENT_SECRET } from '$env/static/private';
 import type { Order } from '$lib/types/order';
 import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
 import { cancelOrder } from '../cancel/+server';
+import { base64encode } from '$lib/utils/base64';
 
 const printful_endpoint = 'https://api.printful.com/orders';
 const paypal_endpoint = 'https://api-m.sandbox.paypal.com/v2/checkout/orders';
@@ -14,9 +15,12 @@ const printful_headers = {
         'Content-Type': 'application/json'
 };
 const paypal_headers = {
-        Authorization: `Basic ${Buffer.from(
-                `${PUBLIC_PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`
-        ).toString('base64')}`,
+        Authorization: `Basic ${
+                base64encode(`${PUBLIC_PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`)
+                //         Buffer.from(
+                //         `${PUBLIC_PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`
+                // ).toString('base64')
+        }`,
         'Content-Type': 'application/json'
 };
 

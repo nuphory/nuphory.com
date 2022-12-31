@@ -191,14 +191,16 @@
                         method: 'DELETE',
                         body: JSON.stringify({printful_order_id: orderId})
                 });
+                window.alert('Order cancelled, returned to checkout.');
         }
 
         async function onError(error: Record<string, unknown>) {
-                if (orderId) {
-                        await fetch(`/api/checkout/${orderId}/cancel`, {
-                                method: 'DELETE'
-                        });
-                }
+                if (!orderId) return;
+                await fetch(`/api/checkout/cancel`, {
+                        method: 'DELETE',
+                        body: JSON.stringify({printful_order_id: orderId})
+                });
+                window.alert(`Order failed, returned to checkout.\n\n Check the console for more info.`);
                 console.error(error);
         }
 
