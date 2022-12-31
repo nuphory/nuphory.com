@@ -70,5 +70,5 @@ async function confirmOrder(id: number): Promise<Response> {
         });
         const data = await response.json();
         console.debug('order confirmation', data);
-        return data;
+        return new Response(JSON.stringify(data));
 }

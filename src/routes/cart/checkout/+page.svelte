@@ -90,6 +90,9 @@
                         shipping: estimateJson.result.costs.shipping,
                         tax: estimateJson.result.costs.tax
                 });
+
+                currentOrder.createId();
+
                 return actions.resolve();
         }
 
@@ -176,7 +179,9 @@
 
                                 currentOrder.clearItems();
 
-                                window.location.href = `/cart/checkout/confirmation/${orderId}`;
+                                window.alert(`Your order with id ${$currentOrder.external_id} was confirmed.\n\nCurrently, the order confirmation page is broken, we're working on that.`)
+
+                                window.location.href = `/cart/checkout/confirmation/${$currentOrder.external_id}`;
                         } catch (e) {
                                 window.alert(
                                         `Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\n${e}`
