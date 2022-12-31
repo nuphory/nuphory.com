@@ -56,7 +56,7 @@
                                 id="cart-list"
                                 class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                         >
-                                <SimpleCartList items={order.items} />
+                                <SimpleCartList order={order} />
                                 <section id="back-to-home" class="mb-0 flex justify-center items-center ">
                                         <a
                                                 id="checkout-button"
