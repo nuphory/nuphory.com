@@ -75,7 +75,7 @@
                 </section>
                 <div class="content flex flex-col flex-1 justify-center items-start">
                         <p class="w-full text-center">The order with id {data.order_id} was either not confirmed, or doesn't exist.</p>
-                        <p class="w-full text-center">If you believe this to be an error, please contact <a href="mailto:nuphory@gmail.com">nuphory@gmail.com</a></a></p>
+                        <p class="w-full text-center">If you believe this to be an error, please contact <a href="mailto:nuphory@gmail.com">nuphory@gmail.com</a></p>
                         <section
                                 id="cart-list"
                                 class="w-80 relative flex flex-col justify-center items-center lg:order-2"
