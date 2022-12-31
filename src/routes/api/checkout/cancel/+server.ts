@@ -21,11 +21,6 @@ const paypal_headers = {
         'Content-Type': 'application/json'
 };
 
-// /** @type {import('./$types').RequestHandler} */
-// export async function GET(req) {
-//         return new Response('');
-// }
-
 /** @type {import('./$types').RequestHandler} */
 export async function DELETE({ request }) {
         const body: {
