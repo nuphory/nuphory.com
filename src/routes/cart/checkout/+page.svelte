@@ -179,7 +179,7 @@
 
                                 currentOrder.clearItems();
 
-                                window.alert(`Your order with id ${$currentOrder.external_id} was confirmed.\n\nCurrently, the order confirmation page is broken, we're working on that.`)
+                                window.alert(`Your order with id ${$currentOrder.external_id} was confirmed.\n\nCurrently, the order confirmation page can be broken or incomplete, we're working on that.`)
 
                                 window.location.href = `/cart/checkout/confirmation/${$currentOrder.external_id}`;
                         } catch (e) {
