@@ -1,12 +1,15 @@
 <script lang="ts">
         import currentOrder from '$lib/api/stores/order';
         import type { Item } from '$lib/types/product';
+        import type { Order } from '$src/lib/types/order';
+        import defaultOrder from '$src/lib/types/order';
+        import _ from 'lodash';
         import SimpleCartListItem from './SimpleCartListItem.svelte';
 
-        export let items: Item[] = $currentOrder.items;
+        export let order: Order = $currentOrder;
 
-        currentOrder.subscribe((order) => {
-                items = order.items;
+        currentOrder.subscribe((liveOrder) => {
+                order = liveOrder;
         });
 </script>
 
@@ -14,7 +17,7 @@
         id="cart"
         class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-[2em] border-[3px]"
 >
-        {#each items as item}
+        {#each order.items as item}
                 <SimpleCartListItem {item} />
         {/each}
         <li
@@ -27,8 +30,8 @@
                                 <p class="">Subtotal</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {$currentOrder.retail_costs.subtotal.toFixed(2)}
-                                        {$currentOrder.retail_costs.currency}
+                                        {order.retail_costs.subtotal.toFixed(2)}
+                                        {order.retail_costs.currency}
                                 </p>
                         </div>
 
@@ -38,19 +41,19 @@
                                 <p class="">Shipping</p>
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
-                                        {$currentOrder.retail_costs.shipping.toFixed(2)}
-                                        {$currentOrder.retail_costs.currency}
+                                        {order.retail_costs.shipping.toFixed(2)}
+                                        {order.retail_costs.currency}
                                 </p>
                         </div>
-                        {#if $currentOrder.retail_costs.tax > 0}
+                        {#if order.retail_costs.tax > 0}
                                 <div
                                         class="flex flex-row flex-1 grow basis-1 justify-between items-start border-b clr-border"
                                 >
                                         <p class="">TAX</p>
                                         <!-- <p class="">—</p> -->
                                         <p class="text-right sm:w-auto">
-                                                {$currentOrder.retail_costs.tax.toFixed(2)}
-                                                {$currentOrder.retail_costs.currency}
+                                                {order.retail_costs.tax.toFixed(2)}
+                                                {order.retail_costs.currency}
                                         </p>
                                 </div>
                         {/if}
@@ -59,11 +62,11 @@
                                 <!-- <p class="">—</p> -->
                                 <p class="text-right sm:w-auto">
                                         {(
-                                                $currentOrder.retail_costs.subtotal +
-                                                $currentOrder.retail_costs.shipping +
-                                                $currentOrder.retail_costs.tax
+                                                order.retail_costs.subtotal +
+                                                order.retail_costs.shipping +
+                                                order.retail_costs.tax
                                         ).toFixed(2)}
-                                        {$currentOrder.retail_costs.currency}
+                                        {order.retail_costs.currency}
                                 </p>
                         </div>
                 </div>
