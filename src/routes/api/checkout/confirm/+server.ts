@@ -8,7 +8,7 @@ import { cancelOrder } from '../cancel/+server';
 import { base64encode } from '$lib/utils/base64';
 
 const printful_endpoint = 'https://api.printful.com/orders';
-const paypal_endpoint = 'https://api-m.sandbox.paypal.com/v2/checkout/orders';
+const paypal_endpoint = 'https://api-m.paypal.com/v2/checkout/orders';
 
 const printful_headers = {
         Authorization: `Bearer ${PRINTFUL_API_TOKEN}`,
