@@ -14,6 +14,7 @@
 
                 if (previousOrderString) {
                         order = JSON.parse(previousOrderString);
+                        console.log('found cached order: ', order);
                         // console.debug('found cached order: ', order);
                 }
         }
