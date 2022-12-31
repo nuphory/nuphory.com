@@ -65,7 +65,7 @@
                 <a
                         id="checkout-button"
                         class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
-                        href="/"><b>back to home</b></a
+                        href="/"><b>home</b></a
                 >
         </section>
 </div>
