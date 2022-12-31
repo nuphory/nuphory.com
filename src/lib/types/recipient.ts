@@ -17,6 +17,7 @@ type Recipient = {
 type Country = {
         code: string;
         name: string;
+        shipping_available: boolean;
         states?: State[];
 };
 

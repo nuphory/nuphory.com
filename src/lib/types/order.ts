@@ -22,10 +22,10 @@ const defaultOrder: Order = {
         items: [],
         retail_costs: {
                 currency: 'EUR',
-                subtotal: '0.00',
-                discount: '0.00',
-                shipping: '0.00',
-                tax: '0.00'
+                subtotal: 0,
+                discount: 0,
+                shipping: 0,
+                tax: 0
         }
 };
 
@@ -41,10 +41,10 @@ type Order = {
 
 type RetailCosts = {
         currency: string;
-        subtotal: string;
-        discount: string;
-        shipping: string;
-        tax: string;
+        subtotal: number;
+        discount: number;
+        shipping: number;
+        tax: number;
 };
 
 type Gift = {

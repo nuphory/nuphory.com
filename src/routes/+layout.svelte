@@ -1,12 +1,12 @@
 <script lang="ts">
         // Imports
-        import { _siteName } from './+layout';
+        import { _siteDescription, _siteName } from './+layout';
         import { browser } from '$app/environment';
 
         // Components
         import Footer from '$lib/components/layout/Footer.svelte';
-        import Header from '$lib/components/layout/Header.svelte';        
-        
+        import Header from '$lib/components/layout/Header.svelte';
+
         // Styles
         import '../app.css';
 
@@ -19,7 +19,7 @@
         (async () => {
                 if (!browser) return;
 
-                // TODO not important rn
+                // TODO page title smoothly resizes on scroll, look into @scroll-linked css
                 // window.addEventListener('scroll', () => {
                 // 	var r = document.querySelector('h') as HTMLElement;
                 // 	console.log(r.style.getPropertyValue('--scroll-y'));
@@ -33,7 +33,9 @@
                         anchor.addEventListener('click', function (e) {
                                 e.preventDefault();
 
-                                document.querySelector(anchor.getAttribute('href') ?? "#top")?.scrollIntoView({
+                                document.querySelector(
+                                        anchor.getAttribute('href') ?? '#top'
+                                )?.scrollIntoView({
                                         behavior: 'smooth'
                                 });
                         });
@@ -101,6 +103,18 @@
         <meta name="theme-color" content="#fffaf7" />
 
         <meta property="og:site_name" content={_siteName} />
+
+        <meta
+                name="keywords"
+                content="{_siteName}, {_siteName}music, {_siteName} music, volant, volantmusic, music, house, trance, hypertrance, neoy2k, progressive house"
+        />
+        <meta name="description" content={_siteDescription} />
+
+        <meta property="og:description" content={_siteDescription} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@{_siteName}" />
+        <meta name="twitter:creator" content="@{_siteName}" />
 </svelte:head>
 
 <div class="flex flex-col justify-between min-h-screen">

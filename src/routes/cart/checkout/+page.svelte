@@ -1,5 +1,8 @@
 <script lang="ts">
         // Imports
+        import { _siteDescription, _siteName } from '@/routes/+layout';
+        import _ from 'lodash';
+
         import {
                 loadScript,
                 type CreateOrderActions,
@@ -7,21 +10,27 @@
                 type OnApproveActions,
                 type OnApproveData,
                 type OnCancelledActions,
+                type OnClickActions,
                 type OnInitActions,
-                type Payer,
                 type PayPalNamespace,
                 type PurchaseUnit
         } from '@paypal/paypal-js';
         import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
 
+        import { browser } from '$app/environment';
         import currentOrder from '$lib/api/stores/order';
+        import defaultOrder from '$lib/types/order';
 
-        // Components
-        // import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
-        import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+        // Types
+        import type { Recipient } from '$lib/types/recipient';
         import type { Item } from '$lib/types/product';
 
+        // Components
+        import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
+        import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+
         let orderId: string;
+        let shipping_available = false;
 
         loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' })
                 .then(createButton)
@@ -32,7 +41,11 @@
 
                 console.debug('loaded the PayPal JS SDK script: ', paypal);
 
-                paypal.Buttons({
+                const buttonContainer = document.querySelector(
+                        '#paypal-button-container'
+                ) as HTMLDivElement;
+
+                const paypalButton = paypal.Buttons({
                         style: {
                                 layout: 'vertical',
                                 tagline: false,
@@ -43,68 +56,89 @@
                                 label: 'paypal'
                         },
                         onInit,
+                        onClick,
                         createOrder,
                         onApprove,
                         onCancel,
                         onError
                 });
+                paypalButton.render('#paypal-button-container');
+
+                currentOrder.subscribe((order) => {
+                        buttonContainer.classList.add('hidden');
+
+                        if (currentOrder.isRecipientValid() && shipping_available) {
+                                buttonContainer.classList.remove('hidden');
+                        }
+                });
         }
 
         async function onInit(data: Record<string, unknown>, actions: OnInitActions) {
-                // TODO validate recipient form
-                // currentOrder.subscribe((order) => {
-                //         Object.values(order.recipient).every
-                // })
-                // actions.disable();
+                actions.disable();
+
+                console.log('recipient validity: ', currentOrder.isRecipientValid());
+                currentOrder.subscribe((order) => {
+                        if (currentOrder.isRecipientValid()) {
+                                actions.enable();
+                        } else {
+                                actions.disable();
+                        }
+                });
+        }
+
+        async function onClick(data: Record<string, unknown>, actions: OnClickActions) {
+                if (!currentOrder.isRecipientValid() && shipping_available) return actions.reject();
+
+                // fetch cost estimate
+                const estimateResponse = await fetch('/api/orders/estimate-costs', {
+                        body: JSON.stringify($currentOrder),
+                        method: 'POST'
+                });
+                const estimateJson = await estimateResponse.json();
+
+                if (estimateJson.code != 200) return;
+
+                console.log(estimateJson.result);
+
+                currentOrder.setRetailCosts({
+                        shipping: estimateJson.result.costs.shipping,
+                        tax: estimateJson.result.costs.tax
+                });
+                return actions.resolve();
         }
 
         async function createOrder(
                 data: CreateOrderData,
                 actions: CreateOrderActions
         ): Promise<string> {
-                let shippingResponse = await fetch('/api/shipping', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                                items: $currentOrder.items,
-                                recipient: $currentOrder.recipient,
-                                currency: $currentOrder.retail_costs.currency
-                        })
-                });
-                let shippingJson = await shippingResponse.json();
-
-                currentOrder.setRetailCosts({ shipping: shippingJson.result[0].rate });
-                currentOrder.createId();
-
-                // let checkoutResponse = await fetch('/api/checkout', {
-                //         method: 'POST',
-                //         body: JSON.stringify($currentOrder)
-                // });
-                // let checkoutJson = await checkoutResponse.json();
-
-                // orderId = checkoutJson.result.id;
-
                 const purchase_units: PurchaseUnit[] = [
                         {
                                 amount: {
                                         breakdown: {
                                                 item_total: {
                                                         currency_code: 'EUR',
-                                                        value: $currentOrder.retail_costs.subtotal
+                                                        value: $currentOrder.retail_costs.subtotal.toFixed(
+                                                                2
+                                                        )
                                                 },
                                                 shipping: {
                                                         currency_code: 'EUR',
-                                                        value: $currentOrder.retail_costs.shipping
+                                                        value: $currentOrder.retail_costs.shipping.toFixed(
+                                                                2
+                                                        )
                                                 },
                                                 tax_total: {
                                                         currency_code: 'EUR',
-                                                        value: $currentOrder.retail_costs.tax
+                                                        value: $currentOrder.retail_costs.tax.toFixed(
+                                                                2
+                                                        )
                                                 }
                                         },
                                         currency_code: 'EUR',
                                         value: (
-                                                parseFloat($currentOrder.retail_costs.subtotal) +
-                                                parseFloat($currentOrder.retail_costs.tax) +
-                                                parseFloat($currentOrder.retail_costs.shipping)
+                                                $currentOrder.retail_costs.subtotal +
+                                                $currentOrder.retail_costs.tax +
+                                                $currentOrder.retail_costs.shipping
                                         ).toFixed(2)
                                 },
                                 custom_id: $currentOrder.external_id,
@@ -115,133 +149,133 @@
                                                 unit_amount: {
                                                         currency_code: 'EUR',
                                                         value: item.retail_price
-                                                },
+                                                }
                                         };
                                         return purchaseItem;
-                                }),
+                                })
                         }
                 ];
 
-                const payer: Payer = {
-                        // TODO payer info
-                }
+                let checkoutResponse = await fetch('/api/checkout', {
+                        method: 'POST',
+                        body: JSON.stringify($currentOrder)
+                });
+                let checkoutJson = await checkoutResponse.json();
+                orderId = checkoutJson.result.id;
 
                 return actions.order.create({
                         intent: 'CAPTURE',
                         purchase_units,
-                        payer
+                        application_context: {
+                                shipping_preference: 'NO_SHIPPING'
+                        }
                 });
         }
 
         async function onApprove(data: OnApproveData, actions: OnApproveActions) {
                 return actions.order?.capture().then(async () => {
-                        await fetch(`api/checkout/${orderId}/confirm`, {
-                                method: 'POST'
-                        });
+                        try {
+                                await fetch(`/api/checkout/confirm`, {
+                                        method: 'POST',
+                                        body: JSON.stringify({
+                                                printful_order_id: orderId,
+                                                paypal_order_id: data.orderID
+                                        })
+                                });
 
-                        localStorage.setItem(
-                                `order.${$currentOrder.external_id}`,
-                                JSON.stringify($currentOrder)
-                        );
+                                localStorage.setItem(
+                                        `order.${$currentOrder.external_id}`,
+                                        JSON.stringify($currentOrder)
+                                );
 
-                        currentOrder.clearItems();
+                                currentOrder.clearItems();
 
-                        window.location.href = `/cart/checkout/confirmation/${orderId}`;
+                                window.location.href = `/cart/checkout/confirmation/${orderId}`;
+                        } catch (e) {
+                                window.alert(`Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\n${e}`);
+                        }
                 });
         }
 
         async function onCancel(data?: Record<string, unknown>, actions?: OnCancelledActions) {
                 if (!orderId) return;
-                await fetch(`api/checkout/${orderId}/cancel`, {
-                        method: 'DELETE'
+                await fetch(`/api/checkout/cancel`, {
+                        method: 'DELETE',
+                        body: JSON.stringify($currentOrder)
                 });
         }
 
         async function onError(error: Record<string, unknown>) {
                 if (orderId) {
-                        await fetch(`api/checkout/${orderId}/cancel`, {
+                        await fetch(`/api/checkout/${orderId}/cancel`, {
                                 method: 'DELETE'
                         });
                 }
                 console.error(error);
         }
 
-        // loadScript({ 'client-id': PUBLIC_PAYPAL_CLIENT_ID, currency: 'EUR' })
-        //         .then((paypal) => {
-        //                 console.debug('loaded the PayPal JS SDK script', paypal);
-        //                 if (!paypal) return;
+        let lastRecipient: Recipient = defaultOrder.recipient;
 
-        //                 let orderId: string;
+        currentOrder.subscribe(async (order) => {
+                if (_.isEqual(lastRecipient, order.recipient)) return;
 
-        //                 paypal.Buttons({
-        //                         style: {
-        //                                 layout: 'vertical',
-        //                                 tagline: false,
-        //                                 color: 'blue',
+                shipping_available = false;
 
-        //                                 shape: 'pill',
+                console.log('recipient changed', order.recipient);
 
-        //                                 label: 'paypal'
-        //                         },
-        //                         createOrder: async (data, actions) => {
-        //                                 let checkoutResponse = await fetch('/api/checkout', {
-        //                                         method: 'POST',
-        //                                         body: JSON.stringify($order)
-        //                                 });
+                if (!currentOrder.isRecipientValid()) return;
 
-        //                                 let checkoutData = await checkoutResponse.json();
+                const errElement = document.querySelector(
+                        '#recipient-error'
+                ) as HTMLParagraphElement;
 
-        //                                 orderId = checkoutData.result.id;
+                console.debug('fetching shipping costs', order.recipient)
 
-        //                                 return actions.order.create({
-        //                                         intent: 'CAPTURE',
-        //                                         purchase_units: [
-        //                                                 {
-        //                                                         amount: {
-        //                                                                 currency_code: 'EUR',
-        //                                                                 value: (
-        //                                                                         parseFloat(
-        //                                                                                 $order
-        //                                                                                         .retail_costs
-        //                                                                                         .subtotal
-        //                                                                         ) +
-        //                                                                         parseFloat(
-        //                                                                                 $order
-        //                                                                                         .retail_costs
-        //                                                                                         .tax
-        //                                                                         ) +
-        //                                                                         parseFloat(
-        //                                                                                 $order
-        //                                                                                         .retail_costs
-        //                                                                                         .shipping
-        //                                                                         )
-        //                                                                 ).toFixed(2)
-        //                                                         }
-        //                                                 }
-        //                                         ]
-        //                                 });
-        //                         },
-        //                         onApprove: async (data, actions) => {
-        //                                 return actions.order?.capture().then(async () => {
-        //                                         await fetch(`/api/checkout/${orderId}/confirm`, {
-        //                                                 method: 'DELETE'
-        //                                         });
+                // fetch cost estimate
+                const estimateResponse = await fetch('/api/orders/estimate-costs', {
+                        body: JSON.stringify(order),
+                        method: 'POST'
+                });
+                const estimateJson = await estimateResponse.json();
 
-        //                                         $storedOrder = $order;
-        //                                         cart.clear();
+                console.log('estimateJson', estimateJson);
 
-        //                                         window.location.href = `/cart/checkout/confirmation/${orderId}`;
-        //                                 });
-        //                         },
-        //                         onCancel: async (data) => {
-        //                                 await fetch(`/api/checkout/${orderId}/cancel`, {
-        //                                         method: 'DELETE'
-        //                                 });
-        //                         }
-        //                 }).render('#paypal-button-container');
-        //         })
-        //         .catch((error) => {});
+                if (estimateJson.code != 200) {
+                        console.log(estimateJson);
+                        if (!browser) return;
+                        errElement.innerHTML = estimateJson.result;
+                        errElement.classList.remove('hidden');
+                        return;
+                }
+                shipping_available = true;
+                errElement.innerHTML = '';
+                errElement.classList.add('hidden');
+
+                currentOrder.setRetailCosts({
+                        shipping: estimateJson.result.costs.shipping,
+                        tax: estimateJson.result.costs.tax
+                });
+                lastRecipient = _.cloneDeep(order.recipient);
+        });
 </script>
+
+<svelte:head>
+        <title>checkout — {_siteName}</title>
+        <meta name="title" content="checkout — {_siteName}" />
+
+        <link rel="canonical" href="https://{_siteName}.com/cart/checkout" />
+
+        <meta name="robots" content="index, follow" />
+
+        <meta property="og:title" content="checkout — {_siteName}" />
+        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta property="og:url" content="https://{_siteName}.com/cart/checkout" />
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:title" content="checkout — {_siteName}" />
+        <meta name="twitter:description" content={_siteDescription} />
+        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+</svelte:head>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
         <section id="page-title" class="pointer-events-none">
@@ -262,10 +296,10 @@
                         </section>
                 </section>
                 <section id="checkout-form" class="max-w-2xl lg:order-1">
-                        <!-- <CheckoutForm /> -->
+                        <CheckoutForm />
                 </section>
         </div>
         <section id="#complete-order">
-                <div id="paypal-button-container" />
+                <div id="paypal-button-container" class="" />
         </section>
 </div>

@@ -1,14 +1,19 @@
+// Imports
 import { writable, type Writable } from 'svelte/store';
+import { browser } from '$app/environment';
 import _ from 'lodash';
+import countriesJson from '$lib/countries.json';
+const countries = countriesJson as Country[];
 
+// Types
 import defaultOrder, { type Order } from '$lib/types/order';
 import type { Item, SyncVariant } from '$lib/types/product';
-import { browser } from '$app/environment';
+import type { Country, Recipient } from '$lib/types/recipient';
 
 type OrderStore = Writable<Order> & {
         lastState: Order;
         createId: () => string;
-        getSubtotal: () => string;
+        getSubtotal: () => number;
         getItems: () => Item[];
         getItemCount: (variant?: SyncVariant | number) => number;
         addItem: (variant: SyncVariant) => void;
@@ -31,12 +36,13 @@ type OrderStore = Writable<Order> & {
                 email?: string;
                 tax_number?: string;
         }) => void;
+        isRecipientValid: () => boolean;
         setRetailCosts: (costs: {
                 currency?: string;
-                subtotal?: string;
-                discount?: string;
-                shipping?: string;
-                tax?: string;
+                subtotal?: number;
+                discount?: number;
+                shipping?: number;
+                tax?: number;
         }) => void;
 };
 
@@ -53,9 +59,7 @@ function createOrder(order: Order = defaultOrder): OrderStore {
                 createId: () => {
                         const external_id = (Math.random() * 2 ** 64).toFixed(0).toString();
                         update((order) => ({ ...order, external_id }));
-                        return (Math.random() * 2 ** 64)
-                        .toFixed(0)
-                        .toString();
+                        return (Math.random() * 2 ** 64).toFixed(0).toString();
                 },
 
                 /**
@@ -63,7 +67,7 @@ function createOrder(order: Order = defaultOrder): OrderStore {
                  * @returns subtotal of the the order
                  */
                 getSubtotal: () => {
-                        let subtotal = '0.00';
+                        let subtotal = 0;
 
                         subscribe((order) => {
                                 subtotal = order.retail_costs.subtotal;
@@ -241,15 +245,48 @@ function createOrder(order: Order = defaultOrder): OrderStore {
                 },
 
                 /**
+                 * validate the recipient of the order
+                 * @returns whether the recipient is valid
+                 */
+                isRecipientValid: () => {
+                        let recipient: Recipient;
+
+                        subscribe((order) => {
+                                recipient = order.recipient;
+                        })();
+
+                        if (!recipient) return false;
+
+                        if (!recipient.country_code) return false;
+                        if (
+                                countries.find((country) => country.code === recipient.country_code)
+                                        ?.states &&
+                                !recipient.state_code
+                        )
+                                return false;
+                                
+                        if (!recipient.zip) return false;
+                        if (!recipient.city) return false;
+                        
+                        if (!recipient.name) return false;
+                        if (!recipient.address1) return false;
+
+                        if (!recipient.phone) return false;
+                        if (!recipient.email) return false;
+
+                        return true;
+                },
+
+                /**
                  * set the retail costs of the order
                  * @param retailCosts retail costs to set on the order
                  */
                 setRetailCosts: (costs: {
                         currency?: string;
-                        subtotal?: string;
-                        discount?: string;
-                        shipping?: string;
-                        tax?: string;
+                        subtotal?: number;
+                        discount?: number;
+                        shipping?: number;
+                        tax?: number;
                 }) => {
                         update((order) => {
                                 const retailCosts = { ...order.retail_costs, ...costs };
@@ -288,10 +325,10 @@ currentOrder.subscribe((order) => {
                 const subtotal = order.items
                         .reduce((total, item) => {
                                 return total + item.quantity * parseFloat(item.retail_price);
-                        }, 0)
-                        .toFixed(2);
+                        }, 0);
 
                 console.debug('new subtotal: ', subtotal);
+                
 
                 currentOrder.setRetailCosts({ subtotal });
         }

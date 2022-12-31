@@ -73,7 +73,7 @@
                                 <p class="hidden sm:inline-flex">—</p>
                                 <p class="text-right w-full sm:w-auto">
                                         {(
-                                                parseInt(item.retail_price) * item.quantity
+                                                parseFloat(item.retail_price) * item.quantity
                                         ).toFixed(2)}
                                         {item.currency}
                                 </p>

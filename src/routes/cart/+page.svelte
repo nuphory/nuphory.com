@@ -7,6 +7,7 @@
         
         // Components
         import CartList from '$lib/components/store/cart/CartList.svelte';
+        import { _siteDescription, _siteName, _tagLine } from '../+layout';
 
         let items: Item[] = $currentOrder.items;
 
@@ -14,6 +15,24 @@
                 items = order.items;
         });
 </script>
+
+<svelte:head>
+        <title>cart — {_siteName}</title>
+        <meta name="title" content="cart — {_siteName}" />
+
+        <link rel="canonical" href="https://{_siteName}.com/cart" />
+
+        <meta name="robots" content="index, follow" />
+
+        <meta property="og:title" content="cart — {_siteName}" />
+        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta property="og:url" content="https://{_siteName}.com/cart" />
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:title" content="cart — {_siteName}" />
+        <meta name="twitter:description" content={_siteDescription} />
+        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+</svelte:head>
 
 <div id="top" class="relative flex flex-1 flex-col justify-between items-center min-h-screen py-8">
         <section class="">

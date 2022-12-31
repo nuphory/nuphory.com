@@ -1,37 +1,38 @@
 <script lang="ts">
-        // TODO rewrite this file to use the new stores
-
+        // Imports
         import { browser } from '$app/environment';
         import { onMount } from 'svelte';
-        import rawCountries from '$lib/api/countries.json';
+        import countriesJson from '$lib/countries.json';
 
-        import recipientStore, { type Country } from '$lib/api/stores/recipient';
-        import { order } from '$lib/api/stores/order';
+        // Stores
+        import currentOrder from '$lib/api/stores/order';
 
-        let countries = rawCountries as unknown as Country[];
+        // Types
+        import type { Country, State } from '$lib/types/recipient';
 
-        let states: State[] | null;
+        let countries = countriesJson as Country[];
 
-        recipientStore.subscribe((value) => {
-                states = countries.find((country) => {
-                        return country.code === value.country_code;
-                })?.states;
+        let states: State[] | null = null;
+
+        currentOrder.subscribe((order) => {
+                states =
+                        countries.find((country) => {
+                                return country.code === order.recipient.country_code;
+                        })?.states ?? null;
         });
 
         if (browser) {
-                recipientStore.subscribe((value) => {
-                        if (states?.length > 0) {
+                currentOrder.subscribe((order) => {
+                        if (states) {
                                 document.querySelector('#for-state')?.classList.remove('hidden');
                         } else {
                                 document.querySelector('#for-state')?.classList.add('hidden');
+                                order.recipient.state_code = '';
                         }
                 });
 
                 onMount(() => {
-                        states = countries.find((country) => {
-                                return country.code === $recipientStore.country_code;
-                        })?.states;
-                        if (states?.length > 0) {
+                        if (states) {
                                 document.querySelector('#for-state')?.classList.remove('hidden');
                         } else {
                                 document.querySelector('#for-state')?.classList.add('hidden');
@@ -55,7 +56,7 @@
                                 name="name"
                                 id="name"
                                 placeholder="John Doe"
-                                bind:value={$recipientStore.name}
+                                bind:value={$currentOrder.recipient.name}
                         /><br />
                 </div>
 
@@ -66,7 +67,7 @@
                                 name="company"
                                 id="company"
                                 placeholder="Company Name"
-                                bind:value={$recipientStore.company}
+                                bind:value={$currentOrder.recipient.company}
                         /><br />
                 </div>
                 <div id="for-taxid">
@@ -76,7 +77,7 @@
                                 name="taxid"
                                 id="taxid"
                                 placeholder="Tax ID"
-                                bind:value={$recipientStore.tax_number}
+                                bind:value={$currentOrder.recipient.tax_number}
                         /><br />
                 </div>
 
@@ -87,7 +88,7 @@
                                 name="address"
                                 id="address"
                                 placeholder="1234 Main St"
-                                bind:value={$recipientStore.address1}
+                                bind:value={$currentOrder.recipient.address1}
                         /><br />
                 </div>
                 <div id="for-address2">
@@ -97,7 +98,7 @@
                                 name="address2"
                                 id="address2"
                                 placeholder="Apartment, studio, or floor"
-                                bind:value={$recipientStore.address2}
+                                bind:value={$currentOrder.recipient.address2}
                         /><br />
                 </div>
                 <div id="for-city">
@@ -107,7 +108,7 @@
                                 name="city"
                                 id="city"
                                 placeholder="City"
-                                bind:value={$recipientStore.city}
+                                bind:value={$currentOrder.recipient.city}
                         /><br />
                 </div>
 
@@ -118,7 +119,7 @@
                                 name="zip"
                                 id="zip"
                                 placeholder="Zip"
-                                bind:value={$recipientStore.zip}
+                                bind:value={$currentOrder.recipient.zip}
                         /><br />
                 </div>
 
@@ -127,23 +128,25 @@
                         <select
                                 name="country"
                                 id="country"
-                                bind:value={$recipientStore.country_code}
+                                bind:value={$currentOrder.recipient.country_code}
                         >
-                                {#if $recipientStore.country_code}
-                                        <option value="" disabled>Select your country</option>
-                                {:else}
-                                        <option value="" disabled selected
-                                                >Select your country</option
-                                        >
-                                {/if}
+                                <option value="" disabled>Select your country</option>
 
                                 {#each countries as country}
-                                        {#if country.code === $recipientStore.country_code}
-                                                <option value={country.code} selected
-                                                        >{country.name}</option
-                                                >
+                                        {#if country.shipping_available}
+                                                {#if country.code === $currentOrder.recipient.country_code}
+                                                        <option value={country.code} selected>
+                                                                {country.name}
+                                                        </option>
+                                                {:else}
+                                                        <option value={country.code}>
+                                                                {country.name}
+                                                        </option>
+                                                {/if}
                                         {:else}
-                                                <option value={country.code}>{country.name}</option>
+                                                <option value={country.code} class="bg-neutral-100 text-neutral-400" disabled>
+                                                        {country.name}
+                                                </option>
                                         {/if}
                                 {/each}
                         </select><br />
@@ -151,8 +154,12 @@
 
                 <div id="for-state" class="xl:col-span-2 hidden">
                         <h6><label for="state" class="required">State</label></h6>
-                        <select name="state" id="state" bind:value={$recipientStore.state_code}>
-                                {#if $recipientStore.state_code}
+                        <select
+                                name="state"
+                                id="state"
+                                bind:value={$currentOrder.recipient.state_code}
+                        >
+                                {#if $currentOrder.recipient.state_code}
                                         <option value="" disabled>Select your state</option>
                                 {:else}
                                         <option value="" disabled selected>Select your state</option
@@ -161,7 +168,7 @@
 
                                 {#if states}
                                         {#each states as state}
-                                                {#if state.code === $recipientStore.state_code}
+                                                {#if state.code === $currentOrder.recipient.state_code}
                                                         <option value={state.code} selected
                                                                 >{state.name}</option
                                                         >
@@ -174,6 +181,7 @@
                                 {/if}
                         </select><br />
                 </div>
+                <p id="recipient-error" class="xl:col-span-2 hidden text-red-500" />
         </section>
         <h4 class="text-2xl font-bold xl:row-start-1 xl:col-start-2">Contact</h4>
         <section
@@ -187,7 +195,7 @@
                                 name="email"
                                 id="email"
                                 placeholder="john.doe@example.com"
-                                bind:value={$recipientStore.email}
+                                bind:value={$currentOrder.recipient.email}
                         /><br />
                 </div>
                 <div id="for-phone">
@@ -197,7 +205,7 @@
                                 name="phone"
                                 id="phone"
                                 placeholder="+12345678901"
-                                bind:value={$recipientStore.phone}
+                                bind:value={$currentOrder.recipient.phone}
                         /><br />
                 </div>
         </section>

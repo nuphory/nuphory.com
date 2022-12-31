@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 
 import { PRINTFUL_API_TOKEN } from '$env/static/private';
 
-const endpoint = 'https://api.printful.com/shipping/rates';
+const endpoint = 'https://api.printful.com/orders/estimate-costs';
 
 const headers = {
         Authorization: `Bearer ${PRINTFUL_API_TOKEN}`,

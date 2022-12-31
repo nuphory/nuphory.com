@@ -3,6 +3,7 @@
 
         import { browser } from '$app/environment';
         import type { Order } from '$lib/types/order';
+        import { _siteDescription, _siteName } from '@/routes/+layout';
 
         export let data;
 
@@ -17,6 +18,24 @@
                 }
         }
 </script>
+
+<svelte:head>
+        <title>order confirmation — {_siteName}</title>
+        <meta name="title" content="order confirmation — {_siteName}" />
+
+        <link rel="canonical" href="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}" />
+
+        <meta name="robots" content="index, follow" />
+
+        <meta property="og:title" content="order confirmation — {_siteName}" />
+        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta property="og:url" content="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}" />
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:title" content="order confirmation — {_siteName}" />
+        <meta name="twitter:description" content={_siteDescription} />
+        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+</svelte:head>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
         <section id="page-title" class="pointer-events-none">

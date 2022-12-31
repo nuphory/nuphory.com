@@ -7,6 +7,7 @@
         let itemCount: number = currentOrder.getItemCount();
 
         currentOrder.subscribe((order) => {
+                if (currentOrder.getItemCount() == itemCount) return;
                 itemCount = currentOrder.getItemCount();
                 
                 console.debug("items updated, new itemCount: ", itemCount);
