@@ -6,11 +6,14 @@
         import _ from 'lodash';
         import SimpleCartListItem from './SimpleCartListItem.svelte';
 
-        export let order: Order = $currentOrder;
+        export let order: Order;
 
-        currentOrder.subscribe((liveOrder) => {
-                order = liveOrder;
-        });
+        if (!order) {
+                currentOrder.subscribe((liveOrder) => {
+                        order = liveOrder;
+                });
+        }
+
 </script>
 
 <ul
