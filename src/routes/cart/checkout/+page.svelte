@@ -1,6 +1,6 @@
 <script lang="ts">
         // Imports
-        import { _siteDescription, _siteName } from '@/routes/+layout';
+        import { _siteDescription, _siteName } from '../../+layout';
         import _ from 'lodash';
 
         import {

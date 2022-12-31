@@ -3,7 +3,7 @@
 
         import { browser } from '$app/environment';
         import type { Order } from '$lib/types/order';
-        import { _siteDescription, _siteName } from '@/routes/+layout';
+        import { _siteDescription, _siteName } from '../../../../+layout';
 
         export let data;
 
