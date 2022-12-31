@@ -144,7 +144,11 @@
                                                         </option>
                                                 {/if}
                                         {:else}
-                                                <option value={country.code} class="bg-neutral-100 text-neutral-400" disabled>
+                                                <option
+                                                        value={country.code}
+                                                        class="bg-neutral-100 text-neutral-400"
+                                                        disabled
+                                                >
                                                         {country.name}
                                                 </option>
                                         {/if}

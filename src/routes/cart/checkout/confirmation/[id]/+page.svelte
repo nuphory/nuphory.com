@@ -3,7 +3,7 @@
 
         import { browser } from '$app/environment';
         import type { Order } from '$lib/types/order';
-        import { _siteDescription, _siteName } from '../../../../+layout';
+        import { _siteDescription, _siteName } from '$routes/+layout';
 
         export let data;
 
@@ -14,7 +14,7 @@
 
                 if (previousOrderString) {
                         order = JSON.parse(previousOrderString);
-                        console.debug('found cached order: ', order);
+                        // console.debug('found cached order: ', order);
                 }
         }
 </script>
@@ -23,13 +23,19 @@
         <title>order confirmation — {_siteName}</title>
         <meta name="title" content="order confirmation — {_siteName}" />
 
-        <link rel="canonical" href="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}" />
+        <link
+                rel="canonical"
+                href="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}"
+        />
 
         <meta name="robots" content="index, follow" />
 
         <meta property="og:title" content="order confirmation — {_siteName}" />
         <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
-        <meta property="og:url" content="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}" />
+        <meta
+                property="og:url"
+                content="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}"
+        />
         <meta property="og:type" content="website" />
 
         <meta name="twitter:title" content="order confirmation — {_siteName}" />
@@ -47,9 +53,7 @@
                         id="cart-list"
                         class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
-                        <SimpleCartList
-                                items={order.items}
-                        />
+                        <SimpleCartList items={order.items} />
                         <section id="back-to-home" class="mb-0 flex justify-center items-center ">
                                 <a
                                         id="checkout-button"

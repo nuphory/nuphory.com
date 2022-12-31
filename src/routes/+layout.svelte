@@ -22,7 +22,7 @@
                 // TODO page title smoothly resizes on scroll, look into @scroll-linked css
                 // window.addEventListener('scroll', () => {
                 // 	var r = document.querySelector('h') as HTMLElement;
-                // 	console.log(r.style.getPropertyValue('--scroll-y'));
+                // 	console.debug(r.style.getPropertyValue('--scroll-y'));
 
                 // 	r.style.setProperty('--scroll-y', window.scrollY / 16 + 'em');
 
@@ -67,7 +67,7 @@
         /**
          * website designed by patch: https://twitter.com/patchstep
          */
-        console.log(
+        console.info(
                 `%c${_siteName}%c\n\n\n${_siteName}.com was made by %cPatch\n%chttps://twitter.com/patchstep`,
                 "font-family: 'Yeysk'; font-size: 6em; font-weight: bold; text-stroke: 2px #272d3b; color: #fffaf7;",
                 'font-size: 2em; color: #fffaf7;',

@@ -18,7 +18,7 @@ const headers = {
 export async function POST({ request }) {
         const body = await request.json();
 
-        console.log(body);
+        console.debug(body);
 
         // return new Response(JSON.stringify({understandable: "have a nice day"}));
         return new Response(JSON.stringify(await createOrder(body)), {
@@ -35,9 +35,9 @@ async function createOrder(body: any) {
                         headers
                 });
                 const data = await response.json();
-                console.log('order creation', data);
+                console.debug('order creation', data);
                 return data;
         } catch (error) {
-                console.log(error);
+                console.error(error);
         }
 }

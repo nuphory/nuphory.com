@@ -24,6 +24,6 @@
                 </li>
         {/if}
         {#each items as item}
-                <CartListItem item={item} />
+                <CartListItem {item} />
         {/each}
 </ul>

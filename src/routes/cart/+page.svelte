@@ -1,13 +1,12 @@
 <script lang="ts">
         // Imports
-        import { browser } from '$app/environment';
         import currentOrder from '$lib/api/stores/order';
         // Types
         import type { Item } from '$lib/types/product';
-        
+
         // Components
         import CartList from '$lib/components/store/cart/CartList.svelte';
-        import { _siteDescription, _siteName, _tagLine } from '../+layout';
+        import { _siteDescription, _siteName } from '../+layout';
 
         let items: Item[] = $currentOrder.items;
 

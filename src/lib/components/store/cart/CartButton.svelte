@@ -9,8 +9,8 @@
         currentOrder.subscribe((order) => {
                 if (currentOrder.getItemCount() == itemCount) return;
                 itemCount = currentOrder.getItemCount();
-                
-                console.debug("items updated, new itemCount: ", itemCount);
+
+                // console.debug("items updated, new itemCount: ", itemCount);
 
                 if (browser) {
                         let cartIcon = document.querySelector('#cart-icon') as HTMLElement;

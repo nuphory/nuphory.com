@@ -38,7 +38,7 @@ export async function POST({ request }) {
                         headers: paypal_headers
                 });
                 const data = await response.json();
-                console.log('paypal order confirmation', data);
+                console.debug('paypal order confirmation', data);
 
                 if (data.status !== 'COMPLETED' && data.status !== 'APPROVED') {
                         return new Response(
@@ -52,8 +52,8 @@ export async function POST({ request }) {
                         );
                 }
                 return await confirmOrder(body.printful_order_id);
-        } catch {
-                console.log(error);
+        } catch (error) {
+                console.error(error);
                 return new Response(JSON.stringify({ message: 'Could not confirm order', error }), {
                         status: 500
                 });
@@ -65,6 +65,6 @@ async function confirmOrder(id: number): Promise<Response> {
                 headers: printful_headers
         });
         const data = await response.json();
-        console.log('order confirmation', data);
+        console.debug('order confirmation', data);
         return data;
 }

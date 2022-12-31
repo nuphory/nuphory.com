@@ -42,12 +42,12 @@ export async function cancelOrder(id: number): Promise<Response> {
                         headers: printful_headers
                 });
                 const data = await response.json();
-                console.log('order confirmation', data);
+                console.info('order confirmation', data);
                 return new Response(JSON.stringify({ message: 'Order canceled', data }), {
                         status: 200
                 });
         } catch (error) {
-                console.log(error);
+                console.error(error);
                 return new Response(JSON.stringify({ message: 'Could not cancel order', error }), {
                         status: 500
                 });

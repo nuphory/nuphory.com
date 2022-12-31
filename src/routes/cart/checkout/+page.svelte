@@ -1,6 +1,6 @@
 <script lang="ts">
         // Imports
-        import { _siteDescription, _siteName } from '../../+layout';
+        import { _siteDescription, _siteName } from '$routes/+layout';
         import _ from 'lodash';
 
         import {
@@ -11,7 +11,6 @@
                 type OnApproveData,
                 type OnCancelledActions,
                 type OnClickActions,
-                type OnInitActions,
                 type PayPalNamespace,
                 type PurchaseUnit
         } from '@paypal/paypal-js';
@@ -28,6 +27,7 @@
         // Components
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+        import { onMount } from 'svelte';
 
         let orderId: string;
         let shipping_available = false;
@@ -39,7 +39,7 @@
         async function createButton(paypal: PayPalNamespace | null) {
                 if (!paypal) return;
 
-                console.debug('loaded the PayPal JS SDK script: ', paypal);
+                // console.debug('loaded the PayPal JS SDK script: ', paypal);
 
                 const buttonContainer = document.querySelector(
                         '#paypal-button-container'
@@ -55,7 +55,6 @@
 
                                 label: 'paypal'
                         },
-                        onInit,
                         onClick,
                         createOrder,
                         onApprove,
@@ -64,24 +63,11 @@
                 });
                 paypalButton.render('#paypal-button-container');
 
-                currentOrder.subscribe((order) => {
+                currentOrder.subscribe(() => {
                         buttonContainer.classList.add('hidden');
 
                         if (currentOrder.isRecipientValid() && shipping_available) {
                                 buttonContainer.classList.remove('hidden');
-                        }
-                });
-        }
-
-        async function onInit(data: Record<string, unknown>, actions: OnInitActions) {
-                actions.disable();
-
-                console.log('recipient validity: ', currentOrder.isRecipientValid());
-                currentOrder.subscribe((order) => {
-                        if (currentOrder.isRecipientValid()) {
-                                actions.enable();
-                        } else {
-                                actions.disable();
                         }
                 });
         }
@@ -98,7 +84,7 @@
 
                 if (estimateJson.code != 200) return;
 
-                console.log(estimateJson.result);
+                // console.debug(estimateJson.result);
 
                 currentOrder.setRetailCosts({
                         shipping: estimateJson.result.costs.shipping,
@@ -192,7 +178,9 @@
 
                                 window.location.href = `/cart/checkout/confirmation/${orderId}`;
                         } catch (e) {
-                                window.alert(`Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\n${e}`);
+                                window.alert(
+                                        `Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\n${e}`
+                                );
                         }
                 });
         }
@@ -214,48 +202,52 @@
                 console.error(error);
         }
 
-        let lastRecipient: Recipient = defaultOrder.recipient;
+        onMount(() => {
+                // console.debug('checkout page mounted, subscribing to recipient changes');
 
-        currentOrder.subscribe(async (order) => {
-                if (_.isEqual(lastRecipient, order.recipient)) return;
+                let lastRecipient: Recipient = _.cloneDeep(defaultOrder.recipient);
 
-                shipping_available = false;
+                currentOrder.subscribe((order) => {
+                        if (_.isEqual(lastRecipient, order.recipient)) return;
+                        lastRecipient = _.cloneDeep(order.recipient);
 
-                console.log('recipient changed', order.recipient);
+                        shipping_available = false;
 
-                if (!currentOrder.isRecipientValid()) return;
+                        // console.debug('recipient changed', order.recipient);
 
-                const errElement = document.querySelector(
-                        '#recipient-error'
-                ) as HTMLParagraphElement;
+                        if (!currentOrder.isRecipientValid()) return;
 
-                console.debug('fetching shipping costs', order.recipient)
+                        const errElement = document.querySelector(
+                                '#recipient-error'
+                        ) as HTMLParagraphElement;
 
-                // fetch cost estimate
-                const estimateResponse = await fetch('/api/orders/estimate-costs', {
-                        body: JSON.stringify(order),
-                        method: 'POST'
+                        // console.debug('fetching shipping costs', order.recipient);
+
+                        fetch('/api/orders/estimate-costs', {
+                                body: JSON.stringify(order),
+                                method: 'POST'
+                        })
+                                .then((response) => response.json())
+                                .then((data) => {
+                                        // console.debug('estimateJson', data);
+                                        if (data.code != 200) {
+                                                // console.debug(data);
+                                                if (!browser) return;
+                                                errElement.innerHTML = data.result;
+                                                errElement.classList.remove('hidden');
+                                                return;
+                                        }
+                                        shipping_available = true;
+                                        errElement.innerHTML = '';
+                                        errElement.classList.add('hidden');
+
+                                        currentOrder.setRetailCosts({
+                                                shipping: data.result.costs.shipping,
+                                                tax: data.result.costs.tax
+                                        });
+                                        lastRecipient = _.cloneDeep(order.recipient);
+                                });
                 });
-                const estimateJson = await estimateResponse.json();
-
-                console.log('estimateJson', estimateJson);
-
-                if (estimateJson.code != 200) {
-                        console.log(estimateJson);
-                        if (!browser) return;
-                        errElement.innerHTML = estimateJson.result;
-                        errElement.classList.remove('hidden');
-                        return;
-                }
-                shipping_available = true;
-                errElement.innerHTML = '';
-                errElement.classList.add('hidden');
-
-                currentOrder.setRetailCosts({
-                        shipping: estimateJson.result.costs.shipping,
-                        tax: estimateJson.result.costs.tax
-                });
-                lastRecipient = _.cloneDeep(order.recipient);
         });
 </script>
 

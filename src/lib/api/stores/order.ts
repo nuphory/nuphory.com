@@ -46,7 +46,7 @@ type OrderStore = Writable<Order> & {
         }) => void;
 };
 
-function createOrder(order: Order = defaultOrder): OrderStore {
+function createOrder(order: Order = _.cloneDeep(defaultOrder)): OrderStore {
         const { subscribe, set, update } = writable(order);
 
         const orderStore: OrderStore = {
@@ -264,10 +264,10 @@ function createOrder(order: Order = defaultOrder): OrderStore {
                                 !recipient.state_code
                         )
                                 return false;
-                                
+
                         if (!recipient.zip) return false;
                         if (!recipient.city) return false;
-                        
+
                         if (!recipient.name) return false;
                         if (!recipient.address1) return false;
 
@@ -300,14 +300,14 @@ function createOrder(order: Order = defaultOrder): OrderStore {
         return orderStore;
 }
 
-let cachedOrder: Order = defaultOrder;
+let cachedOrder: Order = _.cloneDeep(defaultOrder);
 if (browser) {
         const cachedOrderString = localStorage.getItem('current_order');
 
         if (cachedOrderString) {
                 cachedOrder = JSON.parse(cachedOrderString);
 
-                console.debug('found cached order: ', cachedOrder);
+                // console.debug('found cached order: ', cachedOrder);
         }
 }
 
@@ -316,19 +316,17 @@ const currentOrder = createOrder(cachedOrder);
 currentOrder.subscribe((order) => {
         if (_.isEqual(order, currentOrder.lastState)) return;
 
-        console.debug('current order changed: ', currentOrder.lastState, order);
+        // console.debug('current order changed: ', currentOrder.lastState, order);
 
         // check whether the items were updated
         if (!_.isEqual(order.items, currentOrder.lastState.items)) {
-                console.debug('items changed: ', currentOrder.lastState.items, order.items);
+                // console.debug('items changed: ', currentOrder.lastState.items, order.items);
 
-                const subtotal = order.items
-                        .reduce((total, item) => {
-                                return total + item.quantity * parseFloat(item.retail_price);
-                        }, 0);
+                const subtotal = order.items.reduce((total, item) => {
+                        return total + item.quantity * parseFloat(item.retail_price);
+                }, 0);
 
-                console.debug('new subtotal: ', subtotal);
-                
+                // console.debug('new subtotal: ', subtotal);
 
                 currentOrder.setRetailCosts({ subtotal });
         }

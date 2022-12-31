@@ -14,9 +14,9 @@
         }
 
         function addItem(event) {
-                console.log('addItem');
+                // console.debug('addItem');
                 if (!selectedVariant) return;
-                console.log('addItem', selectedVariant);
+                // console.debug('addItem', selectedVariant);
                 if (event.type != 'click') {
                         switch (event.key) {
                                 case 'Enter':

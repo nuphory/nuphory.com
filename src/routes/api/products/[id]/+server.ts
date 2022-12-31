@@ -26,6 +26,6 @@ async function fetchProduct(id: number) {
 
                 return data;
         } catch (error) {
-                console.log(error);
+                console.error(error);
         }
 }

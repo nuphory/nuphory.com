@@ -11,10 +11,10 @@ const config = {
         kit: {
                 adapter: adapter(),
 
-                // alias: {
-                //         '@': path.resolve('./src'),
-                //         $lib: path.resolve('./src/lib')
-                // }
+                alias: {
+                        $src: path.resolve('./src'),
+                        $routes: path.resolve('./src/routes')
+                }
         }
 };
 

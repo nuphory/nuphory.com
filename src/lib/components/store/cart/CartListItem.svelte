@@ -1,6 +1,6 @@
 <script lang="ts">
-        import currentOrder from "$lib/api/stores/order";
-        import type { Item } from "$lib/types/product";
+        import currentOrder from '$lib/api/stores/order';
+        import type { Item } from '$lib/types/product';
 
         export let item: Item;
 
@@ -72,9 +72,7 @@
                                 <p>Subtotal</p>
                                 <p class="hidden sm:inline-flex">—</p>
                                 <p class="text-right w-full sm:w-auto">
-                                        {(
-                                                parseFloat(item.retail_price) * item.quantity
-                                        ).toFixed(2)}
+                                        {(parseFloat(item.retail_price) * item.quantity).toFixed(2)}
                                         {item.currency}
                                 </p>
                         </div>

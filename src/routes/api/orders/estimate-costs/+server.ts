@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 
 import { PRINTFUL_API_TOKEN } from '$env/static/private';
+import type { Order } from '$src/lib/types/order';
 
 const endpoint = 'https://api.printful.com/orders/estimate-costs';
 
@@ -11,13 +12,13 @@ const headers = {
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-        const body = await request.json();
+        const body: Order = await request.json();
 
-        return new Response(JSON.stringify(await fetchShipping(body)), {
+        return new Response(JSON.stringify(await fetchCosts(body)), {
                 headers: { 'Content-Type': 'application/json' }
         });
 }
-async function fetchShipping(body: any) {
+async function fetchCosts(body: Order) {
         try {
                 const response = await fetch(endpoint, {
                         method: 'POST',
@@ -26,10 +27,10 @@ async function fetchShipping(body: any) {
                 });
                 const data = await response.json();
 
-                console.log(data);
+                console.debug(data);
 
                 return data;
         } catch (error) {
-                console.log(error);
+                console.error(error);
         }
 }
