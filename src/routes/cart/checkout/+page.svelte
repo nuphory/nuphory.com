@@ -189,7 +189,7 @@
                 if (!orderId) return;
                 await fetch(`/api/checkout/cancel`, {
                         method: 'DELETE',
-                        body: JSON.stringify({id: orderId})
+                        body: JSON.stringify({printful_order_id: orderId})
                 });
         }
 

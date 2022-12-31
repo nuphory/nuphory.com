@@ -32,7 +32,7 @@ export async function DELETE({ request }) {
                 paypal_order_id?: string;
         } = await request.json();
 
-        return await cancelOrder(body.printful_order_id);
+        return await cancelOrder(body.printful_order_id ?? body.id);
 }
 
 export async function cancelOrder(id: number): Promise<Response> {
