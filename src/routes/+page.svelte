@@ -90,10 +90,21 @@
                                         <h1><b>{_siteName}</b></h1>
                                 </fade-in>
                         </section>
-                        <section id="shop" class="flex flex-col justify-center items-center relative">
-                                <heading id="shop-title" class="flex flex-col justify-center items-center text-center max-w-xl">
+                        <section
+                                id="shop"
+                                class="flex flex-col justify-center items-center relative"
+                        >
+                                <heading
+                                        id="shop-title"
+                                        class="flex flex-col justify-center items-center text-center max-w-xl"
+                                >
                                         <h4>Merch</h4>
-                                        <p>All profits from this limted time merch run will be used to fund future projects and create opportunities for myself and other artists in the scene.</p>
+                                        <p>
+                                                All profits from this limted time merch run will be
+                                                used to fund future projects and create
+                                                opportunities for myself and other artists in the
+                                                scene.
+                                        </p>
                                 </heading>
                                 <ProductList {products} />
                         </section>
