@@ -13,7 +13,6 @@
                         order = liveOrder;
                 });
         }
-
 </script>
 
 <ul

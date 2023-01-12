@@ -56,8 +56,11 @@
                                 id="cart-list"
                                 class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                         >
-                                <SimpleCartList order={order} />
-                                <section id="back-to-home" class="mb-0 flex justify-center items-center ">
+                                <SimpleCartList {order} />
+                                <section
+                                        id="back-to-home"
+                                        class="mb-0 flex justify-center items-center "
+                                >
                                         <a
                                                 id="checkout-button"
                                                 class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
@@ -74,13 +77,23 @@
                         <h1 class="tracking-[0.125em]">order not found</h1>
                 </section>
                 <div class="content flex flex-col flex-1 justify-center items-start">
-                        <p class="w-full text-center">The order with id {data.order_id} was either not confirmed, or doesn't exist.</p>
-                        <p class="w-full text-center">If you believe this to be an error, please contact <a href="mailto:nuphory@gmail.com">nuphory@gmail.com</a></p>
+                        <p class="w-full text-center">
+                                The order with id {data.order_id} was either not confirmed, or doesn't
+                                exist.
+                        </p>
+                        <p class="w-full text-center">
+                                If you believe this to be an error, please contact <a
+                                        href="mailto:nuphory@gmail.com">nuphory@gmail.com</a
+                                >
+                        </p>
                         <section
                                 id="cart-list"
                                 class="w-80 relative flex flex-col justify-center items-center lg:order-2"
                         >
-                                <section id="back-to-home" class="mb-0 flex justify-center items-center ">
+                                <section
+                                        id="back-to-home"
+                                        class="mb-0 flex justify-center items-center "
+                                >
                                         <a
                                                 id="checkout-button"
                                                 class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
