@@ -198,6 +198,10 @@
                         method: 'DELETE',
                         body: JSON.stringify({ printful_order_id: orderId })
                 });
+                localStorage.setItem(
+                        `order.${$currentOrder.external_id}`,
+                        JSON.stringify({ ...$currentOrder, status: 'cancelled' })
+                );
                 currentOrder.createId();
                 window.alert('Order cancelled, returned to checkout.');
         }
@@ -208,6 +212,10 @@
                         method: 'DELETE',
                         body: JSON.stringify({ printful_order_id: orderId })
                 });
+                localStorage.setItem(
+                        `order.${$currentOrder.external_id}`,
+                        JSON.stringify({ ...$currentOrder, status: 'failed', error })
+                );
                 currentOrder.createId();
                 window.alert(
                         `Order failed, returned to checkout.\n\n Check the console for more info.`
