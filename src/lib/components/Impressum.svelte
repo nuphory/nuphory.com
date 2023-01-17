@@ -12,7 +12,7 @@
 
 <style>
   button {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 50ms ease;

@@ -19,14 +19,14 @@
     name="keywords"
     content="{siteName}, {siteName}music, {siteName} music, volant, volantmusic, music, house, trance, hypertrance, neoy2k, progressive house"
   />
-  <meta name="description" content="{siteDescription}" />
+  <meta name="description" content={siteDescription} />
 
   <link rel="canonical" href="https://nuphory.com" />
 
   <meta name="robots" content="index, follow" />
 
   <meta property="og:title" content="{siteName} — {tagLine}" />
-  <meta property="og:description" content="{siteDescription}" />
+  <meta property="og:description" content={siteDescription} />
   <meta property="og:image" content="https://{siteName}.com/assets/logo/png/summary.png" />
   <meta property="og:url" content="https://{siteName}.com" />
   <meta property="og:type" content="website" />
@@ -35,13 +35,16 @@
   <meta name="twitter:site" content="@{siteName}" />
   <meta name="twitter:creator" content="@{siteName}" />
   <meta name="twitter:title" content="{siteName} — {tagLine}" />
-  <meta name="twitter:description" content="{siteDescription}" />
+  <meta name="twitter:description" content={siteDescription} />
   <meta name="twitter:image" content="https://{siteName}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
 <main class="index">
   <section id="cover">
-    <div style="max-height:0;overflow:hidden">nuphory is an artist that makes HYPERTRANCE and NEOY2K music and art. Check out all of her socials below!</div>
+    <div style="max-height:0;overflow:hidden">
+      nuphory is an artist that makes HYPERTRANCE and NEOY2K music and art. Check out all of her
+      socials below!
+    </div>
     <div id="hero">
       <fade-in id="logo" duration="500ms" order="0">
         <LottiePlayer

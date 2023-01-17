@@ -1,6 +1,5 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import web, { type AnimationItem } from 'lottie-web';
   import { onMount } from 'svelte';
 
   let width: number;
@@ -15,19 +14,20 @@
   let state = 'stopped';
 
   if (browser) {
-    onMount(() => {
+    onMount(async () => {
+      const { default: web } = await import('lottie-web');
+
       let lottieElement = document.getElementById('lottie');
 
       lottieElement?.style.setProperty('opacity', '1');
       lottieElement?.style.setProperty('transform', 'translateY(0)');
-      lottieElement?.style.setProperty("cursor", href ? "pointer" : "default");
+      lottieElement?.style.setProperty('cursor', href ? 'pointer' : 'default');
 
       lottieElement?.addEventListener('click', () => {
         if (href) {
           window.open(href, '_blank');
         }
       });
-
 
       let animation = web.loadAnimation({
         container: lottieElement!,

@@ -6,7 +6,7 @@
 
 <a target="_blank" {href} class="button">
   {#if img}
-  <img width="48px" height="48px" src={img} alt={label} />
+    <img width="48px" height="48px" src={img} alt={label} />
   {/if}
   <span class="label">{label.toUpperCase()}</span>
 </a>

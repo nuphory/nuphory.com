@@ -10,11 +10,11 @@
   --background-color: #fffaf7;
   --foreground-color: #272d3b;
   --footer-color: #272d3b60;
-  --font-primary: "Yeysk", sans-serif;
-  --font-secondary: "Monsterrat", sans-serif;
-  --font-fallback: "Roboto", sans-serif;
-  --font-monospace: "", monospace;
-  --font-code: "", monospace;
+  --font-primary: 'Yeysk', sans-serif;
+  --font-secondary: 'Monsterrat', sans-serif;
+  --font-fallback: 'Roboto', sans-serif;
+  --font-monospace: '', monospace;
+  --font-code: '', monospace;
 }
 
 html,
