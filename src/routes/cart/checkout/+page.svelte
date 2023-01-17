@@ -198,6 +198,7 @@
                         method: 'DELETE',
                         body: JSON.stringify({ printful_order_id: orderId })
                 });
+                currentOrder.createId();
                 window.alert('Order cancelled, returned to checkout.');
         }
 
@@ -207,6 +208,7 @@
                         method: 'DELETE',
                         body: JSON.stringify({ printful_order_id: orderId })
                 });
+                currentOrder.createId();
                 window.alert(
                         `Order failed, returned to checkout.\n\n Check the console for more info.`
                 );
