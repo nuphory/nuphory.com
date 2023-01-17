@@ -27,7 +27,7 @@ export async function POST({ request }) {
 }
 async function createOrder(body: any) {
         try {
-                body.items = [body.items[0]];
+                // body.items = [body.items[0]];
 
                 const response = await fetch(endpoint, {
                         method: 'POST',
