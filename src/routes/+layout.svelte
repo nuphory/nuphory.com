@@ -117,7 +117,7 @@
         <meta name="twitter:creator" content="@{_siteName}" />
 </svelte:head>
 
-<div class="flex flex-col justify-between min-h-screen">
+<div class="flex flex-col justify-between min-h-screen min-h-[100dvh]">
         <!-- <header /> -->
 
         <header class="fixed top-0 z-10 flex justify-center top-0 w-screen clr-regular">
