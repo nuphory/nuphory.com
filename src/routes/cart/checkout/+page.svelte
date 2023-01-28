@@ -30,7 +30,7 @@
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
         import { onMount } from 'svelte';
-        import { api } from '$src/lib/api/externalApis';
+        import { api } from '$src/lib/api/internalApi';
 
         let orderId: string;
         let shipping_available = false;
