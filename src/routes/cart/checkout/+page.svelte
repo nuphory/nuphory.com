@@ -3,6 +3,8 @@
         import { _siteDescription, _siteName } from '$routes/+layout';
         import _ from 'lodash';
 
+        import wretch from 'wretch';
+
         import {
                 loadScript,
                 type CreateOrderActions,
@@ -28,6 +30,7 @@
         import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
         import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
         import { onMount } from 'svelte';
+        import { api } from '$src/lib/api/externalApis';
 
         let orderId: string;
         let shipping_available = false;
@@ -75,25 +78,25 @@
         async function onClick(data: Record<string, unknown>, actions: OnClickActions) {
                 if (!currentOrder.isRecipientValid() && shipping_available) return actions.reject();
 
-                // fetch cost estimate
-                const estimateResponse = await fetch('/api/orders/estimate-costs', {
-                        body: JSON.stringify($currentOrder),
-                        method: 'POST'
-                });
-                const estimateJson = await estimateResponse.json();
+                api.url('/orders/estimate-costs')
+                        .post($currentOrder)
+                        .json((json) => {
+                                currentOrder.setRetailCosts({
+                                        shipping: json.result.costs.shipping,
+                                        tax: json.result.costs.tax
+                                });
 
-                if (estimateJson.code != 200) return;
+                                currentOrder.createId();
 
-                // console.debug(estimateJson.result);
-
-                currentOrder.setRetailCosts({
-                        shipping: estimateJson.result.costs.shipping,
-                        tax: estimateJson.result.costs.tax
-                });
-
-                currentOrder.createId();
-
-                return actions.resolve();
+                                return actions.resolve();
+                        })
+                        .catch((error) => {
+                                console.error('Could not fetch shipping costs. ', error);
+                                window.alert(
+                                        'Could not fetch shipping costs. Please try again later.\n\nView the console for more details.'
+                                );
+                                return actions.reject();
+                        });
         }
 
         async function createOrder(
@@ -145,13 +148,11 @@
                         }
                 ];
 
-                let checkoutResponse = await fetch('/api/checkout', {
-                        method: 'POST',
-                        body: JSON.stringify($currentOrder)
-                });
-                let checkoutJson = await checkoutResponse.json();
-                orderId = checkoutJson.result.id;
+                const res = api.url('/orders/estimate-costs').post($currentOrder).res();
 
+                const json = await (await res).json();
+
+                orderId = json.result.id;
                 return actions.order.create({
                         intent: 'CAPTURE',
                         purchase_units,
@@ -162,15 +163,17 @@
         }
 
         async function onApprove(data: OnApproveData, actions: OnApproveActions) {
-                return actions.order?.capture().then(async () => {
+                actions.order?.capture().then(async () => {
                         try {
-                                await fetch(`/api/checkout/confirm`, {
-                                        method: 'POST',
-                                        body: JSON.stringify({
+                                const res = api
+                                        .url('/checkout/confirm')
+                                        .post({
                                                 printful_order_id: orderId,
                                                 paypal_order_id: data.orderID
                                         })
-                                });
+                                        .res();
+
+                                const json = await (await res).json();
 
                                 localStorage.setItem(
                                         `order.${$currentOrder.external_id}`,
@@ -180,16 +183,18 @@
                                 currentOrder.clearItems();
 
                                 // window.alert(
-                                //         `Your order with id ${$currentOrder.external_id} was confirmed.\n\nCurrently, the order confirmation page can be broken or incomplete, we're working on that.`
+                                //         `Your order with id ${$currentOrder.external_id} was confirmed.\n\nCurrently, the order confirmation page can be broken or incomplete, we're working on it.`
                                 // );
 
-                                window.location.href = `/cart/checkout/confirmation/${$currentOrder.external_id}`;
-                        } catch (e) {
+                                window.location.href = `/store/order/${$currentOrder.external_id}`;
+                        } catch (error) {
+                                console.error('Could not confirm order. ', error);
                                 window.alert(
-                                        `Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\n${e}`
+                                        'Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
                                 );
                         }
                 });
+                actions.redirect;
         }
 
         async function onCancel(data?: Record<string, unknown>, actions?: OnCancelledActions) {
