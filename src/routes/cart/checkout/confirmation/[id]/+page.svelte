@@ -14,7 +14,7 @@
 
                 if (previousOrderString) {
                         order = JSON.parse(previousOrderString);
-                        console.log('found cached order: ', order);
+                        console.info('found cached order: ', order);
                         // console.debug('found cached order: ', order);
                 }
         }
@@ -52,8 +52,16 @@
                 </section>
                 <div class="content flex flex-col flex-1 justify-center items-center">
                         <p class="w-full text-center">{`ORDER ID: ${order.external_id}`}</p>
-                        <p class="w-full text-center">Please note this order ID down somewhere, as we don't have email order confirmation working just yet.</p>
-                        <p class="w-full text-center">If you have any questions, please contact us, including your order ID at <a href="mailto:nuphory@gmail.com">nuphory@gmail.com</a>, or a moderator on our <a href="https://discord.gg/RF7t34QJmr">discord</a>.</p>
+                        <p class="w-full text-center">
+                                Please note this order ID down somewhere, as we don't have email
+                                order confirmation working just yet.
+                        </p>
+                        <p class="w-full text-center">
+                                If you have any questions, please contact us, including your order
+                                ID at <a href="mailto:nuphory@gmail.com">nuphory@gmail.com</a>, or a
+                                moderator on our
+                                <a href="https://discord.gg/RF7t34QJmr">discord</a>.
+                        </p>
                         <section
                                 id="cart-list"
                                 class="w-80 relative flex flex-col justify-center items-center lg:order-2"
@@ -84,9 +92,12 @@
                                 exist.
                         </p>
                         <p class="w-full text-center">
-                                If you believe this to be an error, please contact us, including your order ID, at <a
-                                        href="mailto:nuphory@gmail.com">nuphory@gmail.com</a
-                                > or a moderator on our <a href="https://discord.gg/RF7t34QJmr">discord</a>.
+                                If you believe this to be an error, please contact us, including
+                                your order ID, at <a href="mailto:nuphory@gmail.com"
+                                        >nuphory@gmail.com</a
+                                >
+                                or a moderator on our
+                                <a href="https://discord.gg/RF7t34QJmr">discord</a>.
                         </p>
                         <section
                                 id="cart-list"
