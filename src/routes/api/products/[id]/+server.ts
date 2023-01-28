@@ -1,31 +1,31 @@
-import { error } from '@sveltejs/kit';
+import { printfulApi } from '$src/lib/api/externalApis';
 
-import { PRINTFUL_API_TOKEN } from '$env/static/private';
-import type { Product } from '$lib/types/product';
-
-const endpoint = 'https://api.printful.com/store/products';
-
-const headers = {
-        Authorization: `Bearer ${PRINTFUL_API_TOKEN}`,
-        'Content-Type': 'application/json'
-};
+const printfulProductsApi = printfulApi.url('/store/products');
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ params }) {
-        return new Response(JSON.stringify(await fetchProduct(params.id)), {
-                headers: { 'Content-Type': 'application/json' }
-        });
-}
-
-async function fetchProduct(id: number) {
+export async function GET({ params }): Promise<Response> {
         try {
-                const response = await fetch(`${endpoint}/${id}`, { headers });
-                const data = await response.json();
+                const res = printfulProductsApi.url(`/${params.id}`).get().res();
 
-                data.result = data.result as Product;
+                const json = await (await res).json();
 
-                return data;
+                // console.debug('products', json);
+
+                return new Response(JSON.stringify(json), {
+                        status: 200,
+                        headers: { 'Content-Type': 'application/json' }
+                });
         } catch (error) {
                 console.error(error);
+                return new Response(
+                        JSON.stringify({
+                                message: 'Could not fetch products',
+                                details: error
+                        }),
+                        {
+                                status: 500,
+                                headers: { 'Content-Type': 'text/plain' }
+                        }
+                );
         }
 }
