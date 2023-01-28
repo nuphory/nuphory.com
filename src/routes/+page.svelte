@@ -100,7 +100,7 @@
                                 >
                                         <h4>Merch</h4>
                                         <p>
-                                                All profits from this limted time merch run will be
+                                                All profits from this limited time merch run will be
                                                 used to fund future projects and create
                                                 opportunities for myself and other artists in the
                                                 scene.
