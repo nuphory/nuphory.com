@@ -3,70 +3,129 @@
         import { browser } from '$app/environment';
 
         import currentOrder from '$lib/api/stores/order';
+        import { onMount } from 'svelte';
 
         let itemCount: number = currentOrder.getItemCount();
 
-        currentOrder.subscribe((order) => {
-                if (currentOrder.getItemCount() == itemCount) return;
-                itemCount = currentOrder.getItemCount();
+        let cartCount: HTMLSpanElement;
+        let cartIcon: HTMLImageElement;
+        let cartDiv: HTMLDivElement;
 
-                // console.debug("items updated, new itemCount: ", itemCount);
-
+        onMount(() => {
                 if (browser) {
-                        let cartIcon = document.querySelector('#cart-icon') as HTMLElement;
-                        cartIcon.classList.add('ease-out');
-                        cartIcon.classList.remove('ease-in');
-                        cartIcon.classList.add('translate-y-[-1em]');
-                        cartIcon.classList.add('scale-105');
+                        cartCount = document.querySelector('#cart-button') as HTMLSpanElement;
+                        cartIcon = document.querySelector('#cart-icon') as HTMLImageElement;
+                        cartDiv = document.querySelector('#cart-div') as HTMLDivElement;
 
-                        setTimeout(() => {
-                                cartIcon.classList.add('ease-in');
-                                cartIcon.classList.remove('ease-out');
-                                cartIcon.classList.remove('translate-y-[-1em]');
-                                cartIcon.classList.remove('scale-105');
-                        }, 300);
+                        displayCount(cartCount, cartIcon);
                 }
+
+                currentOrder.subscribe((order) => {
+                        if (currentOrder.getItemCount() == itemCount) return;
+                        itemCount = currentOrder.getItemCount();
+
+                        // console.debug("items updated, new itemCount: ", itemCount);
+
+                        if (browser) {
+                                cartCount = document.querySelector(
+                                        '#cart-button'
+                                ) as HTMLSpanElement;
+                                cartIcon = document.querySelector('#cart-icon') as HTMLImageElement;
+                                cartDiv = document.querySelector('#cart-div') as HTMLDivElement;
+
+                                displayCount(cartCount, cartIcon);
+
+                                cartDiv.classList.add('ease-out');
+                                cartDiv.classList.remove('ease-in');
+                                cartDiv.classList.add('translate-y-[-1em]');
+                                cartDiv.classList.add('scale-105');
+
+                                setTimeout(() => {
+                                        cartDiv.classList.add('ease-in');
+                                        cartDiv.classList.remove('ease-out');
+                                        cartDiv.classList.remove('translate-y-[-1em]');
+                                        cartDiv.classList.remove('scale-105');
+                                }, 300);
+                        }
+                });
         });
+
+        function displayCount(cartCount: HTMLSpanElement, cartIcon: HTMLImageElement) {
+                if (itemCount > 0) {
+                        cartCount.classList.remove('w-0');
+                        cartCount.classList.remove('h-0');
+                        cartCount.classList.remove('m-0');
+                        cartIcon.classList.add('mr-0');
+                        cartCount.classList.add('w-[2em]');
+                        cartCount.classList.add('h-[2em]');
+                        cartCount.classList.add('m-[0.25em]');
+                } else {
+                        cartCount.classList.remove('w-[2em]');
+                        cartCount.classList.remove('h-[2em]');
+                        cartCount.classList.remove('m-[0.25em]');
+                        cartIcon.classList.remove('mr-0');
+                        cartCount.classList.add('w-0');
+                        cartCount.classList.add('h-0');
+                        cartCount.classList.add('m-0');
+                }
+        }
 </script>
 
 <div
-        id="cart-icon"
-        class="aspect-square h-[2.5em] w-[2.5em] flex justify-center items-center m-4 transition-all duration-300 ease-out"
+        id="cart-div"
+        class="
+                transition-all duration-300 ease-out
+                m-4
+                "
 >
+        <!-- flex justify-center items-center -->
         <a
                 href="/cart"
-                class=" absolute
-                        flex justify-center items-center grow
-                        aspect-square h-[2.5em] w-[2.5em]
-                        rounded-full border-[1.25em]
-                        cursor-pointer
-                        clr-bg clr-text
+                class="
+                        transition-all duration-300 ease-out
+                        flex justify-center items-center
+
+                        h-[2.5em] min-w-[2.5em]
+                        rounded-full 
+                        
+                        clr-inverse clr-bg clr-text
+                        
                         font-mono
-                        transition-all duration-300 ease-in-out
-                        hover:scale-105 hover:border-[3px]
-        
+                        cursor-pointer
+                        
+                        hover:scale-105
                         active:scale-95
-                        disabled"
+                "
         >
+                <img
+                        id="cart-icon"
+                        src="/assets/icons/cart-shopping-solid.svg"
+                        alt="cart"
+                        class="aspect-square h-[1.25em] m-[0.6em] opacity-100 transition-all duration-300 ease-in-out"
+                />
                 <span
                         id="cart-button"
-                        class="absolute z-10 opacity-0 clr-regular clr-text transition-all duration-300 ease-in-out"
-                        >{itemCount}</span
+                        class="
+                                transition-all duration-300 ease-out
+                                flex justify-center items-center
+                                
+                                overflow-clip
+                                aspect-square w-0 h-0 m-0
+                                rounded-full
+
+                                clr-regular clr-bg clr-text
+                        ">{itemCount}</span
                 >
         </a>
-        <img
-                src="/assets/icons/cart-shopping-solid.svg"
-                alt="cart"
-                class="z-50 absolute pointer-events-none aspect-square h-[1.25em] opacity-100 transition-all duration-300 ease-in-out"
-        />
 </div>
 
-<style>
-        a:hover #cart-button {
-                opacity: 1;
-        }
-
-        a:hover + img {
-                opacity: 0;
+<style lang="scss">
+        a:hover {
+                img {
+                        @apply mr-0;
+                }
+                span {
+                        @apply w-[2em] h-[2em] m-[0.25em];
+                }
         }
 </style>
