@@ -62,18 +62,18 @@
                 const FadeElement = (await import('$lib/fade-in')).default;
                 customElements.define('fade-in', FadeElement);
                 FadeElement.fadeInAll(100);
-        })();
 
-        /**
-         * website designed by patch: https://twitter.com/patchstep
-         */
-        console.info(
-                `%c${_siteName}%c\n\n\n${_siteName}.com was made by %cPatch\n%chttps://twitter.com/patchstep`,
-                "font-family: 'Yeysk'; font-size: 6em; font-weight: bold; text-stroke: 2px #272d3b; color: #fffaf7;",
-                'font-size: 2em; color: #fffaf7;',
-                'font-size: 2em; color: #fffaf7; font-weight: bold;',
-                'font-size: 1em; color: #fffaf7; font-weight: bold;'
-        );
+                /**
+                 * website designed by patch: https://twitter.com/patchstep
+                 */
+                console.info(
+                        `%c${_siteName}%c\n\n\n${_siteName}.com was made by %cPatch\n%chttps://twitter.com/patchstep`,
+                        "font-family: 'Yeysk'; font-size: 6em; font-weight: bold; text-stroke: 2px #272d3b; color: #fffaf7;",
+                        'font-size: 2em; color: #fffaf7;',
+                        'font-size: 2em; color: #fffaf7; font-weight: bold;',
+                        'font-size: 1em; color: #fffaf7; font-weight: bold;'
+                );
+        })();
 </script>
 
 <svelte:head>
