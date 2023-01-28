@@ -52,21 +52,29 @@
 
         function displayCount(cartCount: HTMLSpanElement, cartIcon: HTMLImageElement) {
                 if (itemCount > 0) {
-                        cartCount.classList.remove('w-0');
+                        cartCount.classList.remove('max-w-0');
+                        cartCount.classList.remove('min-w-0');
                         cartCount.classList.remove('h-0');
                         cartCount.classList.remove('m-0');
+                        cartCount.classList.remove('px-0');
                         cartIcon.classList.add('mr-0');
-                        cartCount.classList.add('w-[2em]');
+                        cartCount.classList.add('max-w-full');
+                        cartCount.classList.add('min-w-[2em]');
                         cartCount.classList.add('h-[2em]');
-                        cartCount.classList.add('m-[0.25em]');
+                        cartCount.classList.add('m-1');
+                        cartCount.classList.add('px-2');
                 } else {
-                        cartCount.classList.remove('w-[2em]');
+                        cartCount.classList.remove('max-w-full');
+                        cartCount.classList.remove('min-w-[2em]');
                         cartCount.classList.remove('h-[2em]');
-                        cartCount.classList.remove('m-[0.25em]');
+                        cartCount.classList.remove('m-1');
+                        cartCount.classList.remove('px-2');
                         cartIcon.classList.remove('mr-0');
-                        cartCount.classList.add('w-0');
+                        cartCount.classList.add('max-w-0');
+                        cartCount.classList.add('min-w-0');
                         cartCount.classList.add('h-0');
                         cartCount.classList.add('m-0');
+                        cartCount.classList.add('px-0');
                 }
         }
 </script>
@@ -110,7 +118,7 @@
                                 flex justify-center items-center
                                 
                                 overflow-clip
-                                aspect-square w-0 h-0 m-0
+                                max-w-0 min-w-0 h-0 m-0 px-0
                                 rounded-full
 
                                 clr-regular clr-bg clr-text
@@ -125,7 +133,7 @@
                         @apply mr-0;
                 }
                 span {
-                        @apply w-[2em] h-[2em] m-[0.25em];
+                        @apply max-w-full min-w-[2em] h-[2em] m-1 px-2;
                 }
         }
 </style>
