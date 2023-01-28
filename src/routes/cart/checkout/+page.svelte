@@ -3,8 +3,6 @@
         import { _siteDescription, _siteName } from '$routes/+layout';
         import _ from 'lodash';
 
-        import wretch from 'wretch';
-
         import {
                 loadScript,
                 type CreateOrderActions,
@@ -194,7 +192,6 @@
                                 );
                         }
                 });
-                actions.redirect;
         }
 
         async function onCancel(data?: Record<string, unknown>, actions?: OnCancelledActions) {
@@ -304,7 +301,7 @@
                         id="cart-list"
                         class=" my-0 w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
-                        <SimpleCartList />
+                        <SimpleCartList order={$currentOrder} />
                         <section id="back-to-cart" class="mb-0 flex justify-center items-center ">
                                 <a
                                         id="checkout-button"
