@@ -8,6 +8,12 @@
         import Header from '$lib/components/layout/Header.svelte';
 
         // Styles
+
+        import '@fontsource/montserrat/400.css';
+        import '@fontsource/montserrat/400-italic.css';
+        import '@fontsource/fira-code/400.css';
+        import '@fontsource/fira-mono/400.css';
+
         import '../app.css';
 
         import '$lib/styles/colors.scss';

@@ -1,7 +1,9 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fontsource/fira-code': ^4.5.13
   '@fontsource/fira-mono': ^4.5.10
+  '@fontsource/montserrat': ^4.5.14
   '@neoconfetti/svelte': ^1.0.0
   '@paypal/paypal-js': ^5.1.4
   '@playwright/test': ^1.28.1
@@ -36,7 +38,9 @@ specifiers:
   wretch: ^2.4.1
 
 devDependencies:
+  '@fontsource/fira-code': 4.5.13
   '@fontsource/fira-mono': 4.5.10
+  '@fontsource/montserrat': 4.5.14
   '@neoconfetti/svelte': 1.0.0
   '@paypal/paypal-js': 5.1.4
   '@playwright/test': 1.29.0
@@ -291,8 +295,16 @@ packages:
       - supports-color
     dev: true
 
+  /@fontsource/fira-code/4.5.13:
+    resolution: {integrity: sha512-T1IG6/2AXSwEKwlrEm3kyIL3RQTMblPyj68HgnBGl0IBGFxgS5LZ7StRdDo/QimJ4Tz6FQGHuy1Y/ShNxaUefA==}
+    dev: true
+
   /@fontsource/fira-mono/4.5.10:
     resolution: {integrity: sha512-bxUnRP8xptGRo8YXeY073DSpfK74XpSb0ZyRNpHV9WvLnJ7TwPOjZll8hTMin7zLC6iOp59pDZ8EQDj1gzgAQQ==}
+    dev: true
+
+  /@fontsource/montserrat/4.5.14:
+    resolution: {integrity: sha512-fTvrteVzuFUePhr4QYBGoK8G/YHLJ3IhF1HhKg0AxcFvZajJT7rM7ULdmKLSd2PkX44R3aaFZq1zDbmjbGGI+w==}
     dev: true
 
   /@humanwhocodes/config-array/0.11.8:
