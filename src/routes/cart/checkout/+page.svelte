@@ -146,9 +146,9 @@
                         }
                 ];
 
-                const res = api.url('/orders/estimate-costs').post($currentOrder).res();
+                const res = await api.url('/checkout').post($currentOrder).res();
 
-                const json = await (await res).json();
+                const json = await res.json();
 
                 orderId = json.result.id;
                 return actions.order.create({
@@ -199,7 +199,8 @@
                 try {
                         const res = api
                                 .url('/checkout/cancel')
-                                .delete(JSON.stringify({ printful_order_id: orderId }))
+                                .json({ printful_order_id: orderId })
+                                .delete()
                                 .res();
 
                         const json = await (await res).json();
@@ -234,7 +235,8 @@
                 try {
                         const res = api
                                 .url('/checkout/cancel')
-                                .delete(JSON.stringify({ printful_order_id: orderId }))
+                                .json({ printful_order_id: orderId })
+                                .delete()
                                 .res();
 
                         const json = await (await res).json();

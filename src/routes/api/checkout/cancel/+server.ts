@@ -1,6 +1,9 @@
 import { printfulApi } from '$src/lib/api/externalApis';
+import { retry } from 'wretch/middlewares';
 
-const printfulOrdersApi = printfulApi.url('/orders');
+const printfulOrdersApi = printfulApi
+        .middlewares([retry({ resolveWithLatestResponse: true })])
+        .url('/orders');
 
 /** @type {import('./$types').RequestHandler} */
 export async function DELETE({ request }): Promise<Response> {

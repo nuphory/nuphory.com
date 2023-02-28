@@ -1,7 +1,10 @@
 import { printfulApi } from '$src/lib/api/externalApis';
 import type { Order } from '$src/lib/types/order';
+import { retry } from 'wretch/middlewares';
 
-const printfulOrdersApi = printfulApi.url('/orders');
+const printfulOrdersApi = printfulApi
+        .middlewares([retry({ resolveWithLatestResponse: true })])
+        .url('/orders');
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }): Promise<Response> {
