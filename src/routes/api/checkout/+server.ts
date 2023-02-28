@@ -12,7 +12,7 @@ export async function POST({ request }): Promise<Response> {
 
                 const json = await (await res).json();
 
-                // console.debug('order creation', json);
+                console.debug('order creation', json);
 
                 return new Response(JSON.stringify(json), {
                         status: 200,

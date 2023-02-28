@@ -45,7 +45,7 @@ async function confirmOrder(id: number): Promise<Response> {
 
         const json = await (await res).json();
 
-        // console.debug('order creation', json);
+        console.debug('order confirmation', json);
 
         return new Response(JSON.stringify(json), {
                 status: 200,

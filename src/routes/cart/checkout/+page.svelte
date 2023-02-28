@@ -196,33 +196,78 @@
 
         async function onCancel(data?: Record<string, unknown>, actions?: OnCancelledActions) {
                 if (!orderId) return;
-                await fetch(`/api/checkout/cancel`, {
-                        method: 'DELETE',
-                        body: JSON.stringify({ printful_order_id: orderId })
-                });
-                localStorage.setItem(
-                        `order.${$currentOrder.external_id}`,
-                        JSON.stringify({ ...$currentOrder, status: 'cancelled' })
-                );
-                currentOrder.createId();
-                window.alert('Order cancelled, returned to checkout.');
+                try {
+                        const res = api
+                                .url('/checkout/cancel')
+                                .delete(JSON.stringify({ printful_order_id: orderId }))
+                                .res();
+
+                        const json = await (await res).json();
+
+                        localStorage.setItem(
+                                `order.${$currentOrder.external_id}`,
+                                JSON.stringify({ ...$currentOrder, status: 'cancelled' })
+                        );
+                        currentOrder.createId();
+                        window.alert('Order cancelled, returned to checkout.');
+                } catch (err) {
+                        console.error('Could not cancel order. ', err);
+                        window.alert(
+                                'Something went wrong while cancelling your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
+                        );
+                }
+                // await fetch(`/api/checkout/cancel`, {
+                //         method: 'DELETE',
+                //         body: JSON.stringify({ printful_order_id: orderId })
+                // });
+                // localStorage.setItem(
+                //         `order.${$currentOrder.external_id}`,
+                //         JSON.stringify({ ...$currentOrder, status: 'cancelled' })
+                // );
+                // currentOrder.createId();
+                // window.alert('Order cancelled, returned to checkout.');
         }
 
         async function onError(error: Record<string, unknown>) {
                 if (!orderId) return;
-                await fetch(`/api/checkout/cancel`, {
-                        method: 'DELETE',
-                        body: JSON.stringify({ printful_order_id: orderId })
-                });
-                localStorage.setItem(
-                        `order.${$currentOrder.external_id}`,
-                        JSON.stringify({ ...$currentOrder, status: 'failed', error })
-                );
-                currentOrder.createId();
-                window.alert(
-                        `Order failed, returned to checkout.\n\n Check the console for more info.`
-                );
-                console.error(error);
+
+                try {
+                        const res = api
+                                .url('/checkout/cancel')
+                                .delete(JSON.stringify({ printful_order_id: orderId }))
+                                .res();
+
+                        const json = await (await res).json();
+
+                        localStorage.setItem(
+                                `order.${$currentOrder.external_id}`,
+                                JSON.stringify({ ...$currentOrder, status: 'failed', error })
+                        );
+                        currentOrder.createId();
+                        window.alert(
+                                `Order failed, returned to checkout.\n\n Check the console for more info.`
+                        );
+                        console.error(error);
+                } catch (err) {
+                        console.error('Could not cancel order. ', err);
+                        window.alert(
+                                'Something went wrong while cancelling your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
+                        );
+                }
+
+                // await fetch(`/api/checkout/cancel`, {
+                //         method: 'DELETE',
+                //         body: JSON.stringify({ printful_order_id: orderId })
+                // });
+                // localStorage.setItem(
+                //         `order.${$currentOrder.external_id}`,
+                //         JSON.stringify({ ...$currentOrder, status: 'failed', error })
+                // );
+                // currentOrder.createId();
+                // window.alert(
+                //         `Order failed, returned to checkout.\n\n Check the console for more info.`
+                // );
+                // console.error(error);
         }
 
         onMount(() => {
@@ -230,8 +275,14 @@
 
                 let lastRecipient: Recipient = _.cloneDeep(defaultOrder.recipient);
 
+                let estimateAbortController: AbortController | null = null;
+                let estimateWretch: Wretch | null = null;
+
                 currentOrder.subscribe((order) => {
                         if (_.isEqual(lastRecipient, order.recipient)) return;
+                        estimateAbortController?.abort(
+                                'recipient changed, aborting previous request'
+                        );
                         lastRecipient = _.cloneDeep(order.recipient);
 
                         shipping_available = false;
@@ -246,30 +297,54 @@
 
                         // console.debug('fetching shipping costs', order.recipient);
 
-                        fetch('/api/orders/estimate-costs', {
-                                body: JSON.stringify(order),
-                                method: 'POST'
-                        })
-                                .then((response) => response.json())
-                                .then((data) => {
-                                        // console.debug('estimateJson', data);
-                                        if (data.code != 200) {
-                                                // console.debug(data);
-                                                if (!browser) return;
-                                                errElement.innerHTML = data.result;
-                                                errElement.classList.remove('hidden');
-                                                return;
-                                        }
+                        [estimateAbortController, estimateWretch] = api
+                                .url('/orders/estimate-costs')
+                                .post(order)
+                                .controller();
+
+                        estimateWretch
+                                .json((json) => {
                                         shipping_available = true;
                                         errElement.innerHTML = '';
                                         errElement.classList.add('hidden');
-
                                         currentOrder.setRetailCosts({
-                                                shipping: data.result.costs.shipping,
-                                                tax: data.result.costs.tax
+                                                shipping: json.result.costs.shipping,
+                                                tax: json.result.costs.tax
                                         });
                                         lastRecipient = _.cloneDeep(order.recipient);
+                                })
+                                .catch((err) => {
+                                        if (!browser) return;
+                                        errElement.innerHTML =
+                                                JSON.parse(err.message).details.result ?? '';
+                                        errElement.classList.remove('hidden');
+                                        console.error(JSON.parse(err.message));
                                 });
+
+                        // fetch('/api/orders/estimate-costs', {
+                        //         body: JSON.stringify(order),
+                        //         method: 'POST'
+                        // })
+                        //         .then((response) => response.json())
+                        //         .then((data) => {
+                        //                 // console.debug('estimateJson', data);
+                        //                 if (data.code != 200) {
+                        //                         // console.debug(data);
+                        //                         if (!browser) return;
+                        //                         errElement.innerHTML = data.result;
+                        //                         errElement.classList.remove('hidden');
+                        //                         return;
+                        //                 }
+                        //                 shipping_available = true;
+                        //                 errElement.innerHTML = '';
+                        //                 errElement.classList.add('hidden');
+
+                        //                 currentOrder.setRetailCosts({
+                        //                         shipping: data.result.costs.shipping,
+                        //                         tax: data.result.costs.tax
+                        //                 });
+                        //                 lastRecipient = _.cloneDeep(order.recipient);
+                        //         });
                 });
         });
 </script>
