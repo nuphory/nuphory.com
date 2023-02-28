@@ -17,14 +17,12 @@
                         cartIcon = document.querySelector('#cart-icon') as HTMLImageElement;
                         cartDiv = document.querySelector('#cart-div') as HTMLDivElement;
 
-                        displayCount(cartCount, cartIcon);
+                        // displayCount(cartCount, cartIcon);
                 }
 
                 currentOrder.subscribe((order) => {
                         if (currentOrder.getItemCount() == itemCount) return;
                         itemCount = currentOrder.getItemCount();
-
-                        // console.debug("items updated, new itemCount: ", itemCount);
 
                         if (browser) {
                                 cartCount = document.querySelector(
@@ -32,8 +30,6 @@
                                 ) as HTMLSpanElement;
                                 cartIcon = document.querySelector('#cart-icon') as HTMLImageElement;
                                 cartDiv = document.querySelector('#cart-div') as HTMLDivElement;
-
-                                displayCount(cartCount, cartIcon);
 
                                 cartDiv.classList.add('ease-out');
                                 cartDiv.classList.remove('ease-in');
@@ -49,34 +45,6 @@
                         }
                 });
         });
-
-        function displayCount(cartCount: HTMLSpanElement, cartIcon: HTMLImageElement) {
-                if (itemCount > 0) {
-                        cartCount.classList.remove('max-w-0');
-                        cartCount.classList.remove('min-w-0');
-                        cartCount.classList.remove('h-0');
-                        cartCount.classList.remove('m-0');
-                        cartCount.classList.remove('px-0');
-                        cartIcon.classList.add('mr-0');
-                        cartCount.classList.add('max-w-full');
-                        cartCount.classList.add('min-w-[2em]');
-                        cartCount.classList.add('h-[2em]');
-                        cartCount.classList.add('m-1');
-                        cartCount.classList.add('px-2');
-                } else {
-                        cartCount.classList.remove('max-w-full');
-                        cartCount.classList.remove('min-w-[2em]');
-                        cartCount.classList.remove('h-[2em]');
-                        cartCount.classList.remove('m-1');
-                        cartCount.classList.remove('px-2');
-                        cartIcon.classList.remove('mr-0');
-                        cartCount.classList.add('max-w-0');
-                        cartCount.classList.add('min-w-0');
-                        cartCount.classList.add('h-0');
-                        cartCount.classList.add('m-0');
-                        cartCount.classList.add('px-0');
-                }
-        }
 </script>
 
 <div
@@ -109,16 +77,22 @@
                         id="cart-icon"
                         src="/assets/icons/cart-shopping-solid.svg"
                         alt="cart"
-                        class="aspect-square h-[1.25em] m-[0.6em] opacity-100 transition-all duration-300 ease-in-out"
+                        class:item-count={itemCount > 0}
+                        class="
+                                transition-all duration-300 ease-out
+                                aspect-square 
+                                h-[1.25em] m-[0.6em] 
+                                opacity-100 
+                        "
                 />
                 <span
                         id="cart-button"
+                        class:item-count={itemCount > 0}
                         class="
                                 transition-all duration-300 ease-out
                                 flex justify-center items-center
                                 
                                 overflow-clip
-                                max-w-0 min-w-0 h-0 m-0 px-0
                                 rounded-full
 
                                 clr-regular clr-bg clr-text
@@ -135,5 +109,15 @@
                 span {
                         @apply max-w-full min-w-[2em] h-[2em] m-1 px-2;
                 }
+        }
+
+        img.item-count {
+                @apply mr-0;
+        }
+        span.item-count {
+                @apply max-w-full min-w-[2em] h-[2em] m-1 px-2;
+        }
+        span {
+                @apply max-w-0 min-w-0 h-0 m-0 px-0;
         }
 </style>
