@@ -1,0 +1,157 @@
+@use 'sass:color';
+@use '$lib/styles/ui/color-palette.scss' as *;
+
+@mixin light-theme {
+	--text-primary: #{$dx-theme-light-text-primary};
+	--text-secondary: #{$dx-theme-light-text-secondary};
+	--text-inactive: #{$dx-theme-light-text-inactive};
+
+	--text-link-primary-default: #{$dx-theme-light-text-link-primary-default};
+	--text-link-primary-hover: #{$dx-theme-light-text-link-primary-hover};
+	--text-link-primary-active: #{$dx-theme-light-text-link-primary-active};
+	--text-link-secondary-default: #{$dx-theme-light-text-link-secondary-default};
+	--text-link-secondary-hover: #{$dx-theme-light-text-link-secondary-hover};
+	--text-link-secondary-active: #{$dx-theme-light-text-link-secondary-active};
+
+	--text-invert: #{$dx-theme-light-text-invert};
+
+	--background-primary: #{$dx-theme-light-background-primary};
+	--background-secondary: #{$dx-theme-light-background-secondary};
+	--background-tertiary: #{$dx-theme-light-background-tertiary};
+	--background-information: #{color.change($dx-theme-light-icon-information, $alpha: 0.1)};
+	--background-warning: #{color.change($dx-theme-light-icon-warning, $alpha: 0.1)};
+	--background-critical: #{color.change($dx-theme-light-icon-critical, $alpha: 0.1)};
+	--background-success: #{color.change($dx-theme-light-icon-success, $alpha: 0.1)};
+
+	--border-primary: #{$dx-theme-light-border-primary};
+	--border-secondary: #{$dx-theme-light-border-secondary};
+
+	--button-primary-default: #{$dx-theme-light-button-primary-default};
+	--button-primary-hover: #{$dx-theme-light-button-primary-hover};
+	--button-primary-active: #{$dx-theme-light-button-primary-active};
+	--button-primary-inactive: #{$dx-theme-light-button-primary-inactive};
+
+	--button-secondary-default: #{$dx-theme-light-button-secondary-default};
+	--button-secondary-hover: #{$dx-theme-light-button-secondary-hover};
+	--button-secondary-active: #{$dx-theme-light-button-secondary-active};
+	--button-secondary-inactive: #{$dx-theme-light-button-secondary-inactive};
+
+	--icon-primary: #{$dx-theme-light-icon-primary};
+	--icon-secondary: #{$dx-theme-light-icon-secondary};
+	--icon-information: #{$dx-theme-light-icon-information};
+	--icon-warning: #{$dx-theme-light-icon-warning};
+	--icon-critical: #{$dx-theme-light-icon-critical};
+	--icon-success: #{$dx-theme-light-icon-success};
+
+	--accent-primary: #{$dx-theme-light-accent-primary};
+	--accent-primary-engage: #{color.change($dx-theme-light-accent-primary, $alpha: 0.1)};
+
+	--accent-secondary: #{$dx-theme-light-accent-secondary};
+	--accent-tertiary: #{color.change($dx-color-blue-50, $alpha: 0.1)};
+
+	--scrollbar-bg: transparent;
+	--scrollbar-color: #{$dx-color-blue-10};
+
+	--modal-backdrop-color: #{color.change($dx-theme-dark-background-primary, $alpha: 0.1)};
+	--blend-color: #{color.change($dx-color-white, $alpha: 0.5)};
+
+	--text-primary-red: #{$dx-color-red-40};
+	--text-primary-green: #{$dx-color-green-40};
+	--text-primary-blue: #{$dx-color-blue-40};
+	--text-primary-orange: #{$dx-color-orange-40};
+
+	color-scheme: light;
+}
+
+@mixin dark-theme {
+	--text-primary: #{$dx-theme-dark-text-primary};
+	--text-secondary: #{$dx-theme-dark-text-secondary};
+	--text-inactive: #{$dx-theme-dark-text-inactive};
+	
+	--text-link-primary-default: #{$dx-theme-dark-text-link-primary-default};
+	--text-link-primary-hover: #{$dx-theme-dark-text-link-primary-hover};
+	--text-link-primary-active: #{$dx-theme-dark-text-link-primary-active};
+	--text-link-secondary-default: #{$dx-theme-dark-text-link-secondary-default};
+	--text-link-secondary-hover: #{$dx-theme-dark-text-link-secondary-hover};
+	--text-link-secondary-active: #{$dx-theme-dark-text-link-secondary-active};
+
+	--text-invert: #{$dx-theme-dark-text-invert};
+
+	--background-primary: #{$dx-theme-dark-background-primary};
+	--background-secondary: #{$dx-theme-dark-background-secondary};
+	--background-tertiary: #{$dx-theme-dark-background-tertiary};
+	--background-information: #{color.change($dx-theme-dark-icon-information, $alpha: 0.1)};
+	--background-warning: #{color.change($dx-theme-dark-icon-warning, $alpha: 0.1)};
+	--background-critical: #{color.change($dx-theme-dark-icon-critical, $alpha: 0.1)};
+	--background-success: #{color.change($dx-theme-dark-icon-success, $alpha: 0.1)};
+
+	--border-primary: #{$dx-theme-dark-border-primary};
+	--border-secondary: #{$dx-theme-dark-border-secondary};
+
+	--button-primary-default: #{$dx-theme-dark-button-primary-default};
+	--button-primary-hover: #{$dx-theme-dark-button-primary-hover};
+	--button-primary-active: #{$dx-theme-dark-button-primary-active};
+	--button-primary-inactive: #{$dx-theme-dark-button-primary-inactive};
+
+	--button-secondary-default: #{$dx-theme-dark-button-secondary-default};
+	--button-secondary-hover: #{$dx-theme-dark-button-secondary-hover};
+	--button-secondary-active: #{$dx-theme-dark-button-secondary-active};
+	--button-secondary-inactive: #{$dx-theme-dark-button-secondary-inactive};
+
+	--icon-primary: #{$dx-theme-dark-icon-primary};
+	--icon-secondary: #{$dx-theme-dark-icon-secondary};
+	--icon-information: #{$dx-theme-dark-icon-information};
+	--icon-warning: #{$dx-theme-dark-icon-warning};
+	--icon-critical: #{$dx-theme-dark-icon-critical};
+	--icon-success: #{$dx-theme-dark-icon-success};
+
+	--accent-primary: #{$dx-theme-dark-accent-primary};
+	--accent-primary-engage: #{color.change($dx-theme-dark-accent-primary, $alpha: 0.1)};
+
+	--accent-secondary: #{$dx-theme-dark-accent-secondary};
+	--accent-tertiary: #{color.change($dx-color-blue-50, $alpha: 0.1)};
+
+	--scrollbar-bg: transparent;
+	--scrollbar-color: #{$dx-color-blue-90};
+
+	--modal-backdrop-color: #{color.change($dx-theme-light-background-primary, $alpha: 0.1)};
+	--blend-color: #{color.change($dx-color-black, $alpha: 0.5)};
+
+	--text-primary-red: #{$dx-color-red-60};
+	--text-primary-green: #{$dx-color-green-60};
+	--text-primary-blue: #{$dx-color-blue-60};
+	--text-primary-orange: #{$dx-color-orange-60};
+
+	color-scheme: dark;
+}
+
+body,
+:root {
+  --dx-color-white: #{$dx-color-white};
+  --dx-color-black: #{$dx-color-black};
+  --dx-color-dark-grey: #{$dx-color-neutral-30};
+  --dx-background-dark: #{$dx-theme-dark-background-primary};
+  --dx-background-light: #{$dx-theme-light-background-primary};
+  --dx-background-light-grey: #{$dx-color-neutral-90};
+  --color-announcement-banner-accent: #{$dx-color-orange-60};
+}
+
+.light {
+	@include light-theme;
+}
+
+.dark {
+	@include dark-theme;
+}
+
+// OS Default.
+:root:not(.light):not(.dark) {
+	@media (prefers-color-scheme: light) {
+		@include light-theme;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		@include dark-theme;
+	}
+}
+
