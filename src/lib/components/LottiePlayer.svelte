@@ -1,6 +1,8 @@
 <script lang="ts">
         import { browser } from '$app/environment';
-        import { onMount } from 'svelte';
+        import { onMount, SvelteComponent } from 'svelte';
+
+        import NuphoryLogo from './icons/NuphoryLogo.svelte';
 
         let width: number;
         let height: number;
@@ -10,6 +12,7 @@
         export let onmouseover: any;
         export let fallback: any = onmouseover;
         export let onmouseleave: any = onmouseover;
+        export let Placeholder: any = NuphoryLogo;
 
         let state = 'stopped';
 
@@ -25,6 +28,8 @@
                                 loop: false,
                                 autoplay: false
                         });
+
+                        document.querySelector('#placeholder')?.remove();
 
                         lottieElement?.addEventListener('mouseover', () => {
                                 animation.play();
@@ -69,16 +74,20 @@
         }
 </script>
 
-<div id="lottie" class="mx-auto translate-y-[-25%]" />
+<div id="lottie" class="mx-auto translate-y-[-25%]">
+        <Placeholder id="placeholder" />
+</div>
 
 <style lang="scss">
         #lottie {
                 width: var(--player-width);
                 height: var(--player-height);
-                #headbop-tm-stroke,
-                #headbop-face-stroke,
-                #headbop-ellipse-stroke {
-                        fill: limegreen;
-                }
+        }
+
+        :global(#headbop-tm-stroke),
+        :global(#headbop-face-stroke),
+        :global(#headbop-ellipse-stroke) {
+                transition: all 300ms ease-in-out;
+                stroke: var(--text-primary);
         }
 </style>
