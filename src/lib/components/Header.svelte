@@ -10,8 +10,12 @@
 
         let isHeaderVisible: boolean = true;
 
+        let theme: string | null;
+
         onMount(() => {
                 if (browser) {
+                        theme = document.documentElement.getAttribute('data-theme');
+
                         isHeaderVisible = isElementInViewport(
                                 document.querySelector('#page-title') as HTMLElement
                         );
