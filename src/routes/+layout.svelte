@@ -3,20 +3,26 @@
         import { _siteDescription, _siteName } from './+layout';
         import { browser } from '$app/environment';
 
+        // PageData
+        /** @type {import('./$types').LayoutData} */
+        export let data: { pathname: string };
+
         // Components
-        import Footer from '$lib/components/layout/Footer.svelte';
-        import Header from '$lib/components/layout/Header.svelte';
+        import Footer from '$src/lib/components/Footer.svelte';
+        import Header from '$src/lib/components/Header.svelte';
+        import PageTransition from '$src/lib/components/PageTransition.svelte';
 
-        // Styles
-
+        // Typefaces
         import '@fontsource/montserrat/400.css';
         import '@fontsource/montserrat/400-italic.css';
         import '@fontsource/fira-code/400.css';
         import '@fontsource/fira-mono/400.css';
 
-        import '../app.css';
+        // Styles
+        // import '../app.css';
+        import '$lib/styles/app.scss';
 
-        import '$lib/styles/colors.scss';
+        // import '$lib/styles/colors.scss';
         import '$lib/styles/typography.scss';
         import '$lib/styles/layout.scss';
 
@@ -63,11 +69,6 @@
                                 }
                         });
                 });
-
-                // Custom Fade-in element. See {/src/lib/fade-in.ts}
-                const FadeElement = (await import('$lib/fade-in')).default;
-                customElements.define('fade-in', FadeElement);
-                FadeElement.fadeInAll(100);
 
                 /**
                  * website designed by patch: https://twitter.com/patchstep
@@ -123,25 +124,35 @@
         <meta name="twitter:creator" content="@{_siteName}" />
 </svelte:head>
 
-<div class="flex flex-col justify-between min-h-screen min-h-[100dvh]">
-        <!-- <header /> -->
+<div class="relative flex flex-col justify-between min-h-screen min-h-[100dvh]">
+        <Header />
 
-        <header class="fixed top-0 z-10 flex justify-center top-0 w-screen clr-regular">
-                <Header />
-        </header>
+        <!-- <OnMount> -->
+        <PageTransition url={data.pathname} duration={500}>
+                <main
+                        class="
+                                        flex flex-col justify-center items-center
+                                        text-center
+                                "
+                >
+                        <div id="content" class="max-w-5xl">
+                                <slot />
+                        </div>
+                </main>
+        </PageTransition>
+        <!-- </OnMount> -->
 
-        <main class="relative flex flex-col items-center w-full max-w-5xl mx-auto my-0">
+        <!-- <main class="relative flex flex-col items-center w-full max-w-5xl mx-auto my-0">
                 <slot />
-        </main>
+        </main> -->
 
-        <footer
-                class="flex flex-col justify-between items-center py-16 w-auto sm:py-12 clr-bg clr-inverse"
-        >
-                <Footer />
-        </footer>
+        <Footer />
 </div>
 
 <style>
+        :global(*) {
+                /* outline: 1px solid green; */
+        }
         :global(#page-title h1) {
                 font-size: 2.25em;
         }
