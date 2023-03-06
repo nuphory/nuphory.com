@@ -1,5 +1,5 @@
 <script lang="ts">
-        import CartIcon from '$src/lib/components/CartIcon.svelte';
+        import CartIcon from '$src/lib/components/icons/CartIcon.svelte';
 
         import _ from 'lodash';
         import { browser } from '$app/environment';
@@ -50,6 +50,7 @@
 </script>
 
 <a
+        id="cart-div"
         href="/cart"
         class="
                         transition-all duration-300 ease-out
