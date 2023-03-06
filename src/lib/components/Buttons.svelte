@@ -3,9 +3,9 @@
 
         import type ButtonType from '$lib/assets/buttons/button';
 
-        import streamButtons from '$lib/assets/buttons/streaming.json';
-        import socialButtons from '$lib/assets/buttons/socials.json';
-        import contactButtons from '$lib/assets/buttons/contact.json';
+        import streamButtons from '$src/lib/assets/buttons/streaming';
+        import socialButtons from '$src/lib/assets/buttons/socials';
+        import contactButtons from '$src/lib/assets/buttons/contact';
         import { browser } from '$app/environment';
 
         const buttonsArray: ButtonType[][] = [streamButtons, socialButtons, contactButtons];
@@ -26,40 +26,40 @@
 </script>
 
 {#if innerWidth < 768}
-        <div class="buttons clr-inverse" id={`stream-buttons`}>
+        <div class="buttons" id={`stream-buttons`}>
                 {#each streamButtons as { label, href, img }, i}
                         <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} {img} />
+                                <Button {label} {href} Icon={img} />
                         </fade-in>
                 {/each}
         </div>
-        <div class="buttons clr-inverse" id={`social-buttons`}>
+        <div class="buttons" id={`social-buttons`}>
                 {#each socialButtons as { label, href, img }}
                         <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} {img} />
+                                <Button {label} {href} Icon={img} />
                         </fade-in>
                 {/each}
         </div>
 {:else}
-        <div class="buttons clr-inverse" id={`social-buttons`}>
+        <div class="buttons" id={`social-buttons`}>
                 {#each socialButtons as { label, href, img }}
                         <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} {img} />
+                                <Button {label} {href} Icon={img} />
                         </fade-in>
                 {/each}
         </div>
-        <div class="buttons clr-inverse" id={`stream-buttons`}>
+        <div class="buttons" id={`stream-buttons`}>
                 {#each streamButtons as { label, href, img }, i}
                         <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} {img} />
+                                <Button {label} {href} Icon={img} />
                         </fade-in>
                 {/each}
         </div>
 {/if}
-<div class="buttons clr-inverse" id={`contact-buttons`}>
+<div class="buttons" id={`contact-buttons`}>
         {#each contactButtons as { label, href, img }}
                 <fade-in duration="500ms" order={count()}>
-                        <Button {label} {href} {img} />
+                        <Button {label} {href} Icon={img} />
                 </fade-in>
         {/each}
 </div>
