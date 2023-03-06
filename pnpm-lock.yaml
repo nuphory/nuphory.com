@@ -22,6 +22,7 @@ specifiers:
   eslint: ^8.28.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
+  fractils: ^3.1.1
   lodash: ^4.17.21
   lottie-web: ^5.10.0
   postcss: ^8.4.20
@@ -59,6 +60,7 @@ devDependencies:
   eslint: 8.30.0
   eslint-config-prettier: 8.5.0_eslint@8.30.0
   eslint-plugin-svelte3: 4.0.0_khrjkzzv5v2x7orkj5o7sxbz3a
+  fractils: 3.1.1
   lodash: 4.17.21
   lottie-web: 5.10.0
   postcss: 8.4.20
@@ -1221,6 +1223,10 @@ packages:
 
   /flatted/3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
+    dev: true
+
+  /fractils/3.1.1:
+    resolution: {integrity: sha512-0PuMChqXOjyfbfIeTrBe2hOzzwEzuYkjFyQEwjD61VxOWRD80DHZ0E5FWnj5elSMr+pAA5on1JbEgMoZ7A133w==}
     dev: true
 
   /fraction.js/4.2.0:

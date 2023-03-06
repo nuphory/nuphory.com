@@ -142,36 +142,37 @@ $nu-color-shadow: color.change($nu-color-blue, $saturation: 20%, $lightness: 19%
 // Light theme
 
 $nu-theme-light-text-primary: $nu-color-shadow;
-// $nu-theme-light-text-secondary: $nu-color-neutral-30;
+$nu-theme-light-text-secondary: $nu-color-neutral-30; // unused
 $nu-theme-light-text-inactive: color.change($nu-color-shadow, $alpha: 0.65);
 
 $nu-theme-light-text-link-primary-default: $nu-color-black;
 $nu-theme-light-text-link-primary-hover: $nu-color-neutral-20;
 $nu-theme-light-text-link-primary-active: $nu-color-black;
 
-// $nu-theme-light-text-link-secondary-default: $nu-color-blue-50;
-// $nu-theme-light-text-link-secondary-hover: $nu-color-blue-60;
-// $nu-theme-light-text-link-secondary-active: $nu-color-blue-35;
-
-$nu-theme-light-text-invert: $nu-color-highlight;
+$nu-theme-light-text-link-secondary-default: $nu-color-blue-50; // unused
+$nu-theme-light-text-link-secondary-hover: $nu-color-blue-60; // unused
+$nu-theme-light-text-link-secondary-active: $nu-color-blue-35; // unused
 
 $nu-theme-light-background-primary: $nu-color-highlight;
-// $nu-theme-light-background-secondary: $nu-color-shadow;
-// $nu-theme-light-background-tertiary: $nu-color-neutral-80;
+$nu-theme-light-background-secondary: $nu-color-shadow; // unused
+$nu-theme-light-background-tertiary: $nu-color-neutral-80; // unused
 
 $nu-theme-light-border-primary: $nu-color-shadow;
-// $nu-theme-light-border-secondary: $nu-color-highlight;
-// $nu-theme-light-border-success: $nu-color-green-65;
+$nu-theme-light-border-secondary: $nu-color-highlight; // unused
+$nu-theme-light-border-success: $nu-color-green-65; // unused
 
 $nu-theme-light-button-primary-default: $nu-color-shadow;
 $nu-theme-light-button-primary-hover: color.change($nu-color-shadow, $lightness: 35%);
 $nu-theme-light-button-primary-active: color.change($nu-color-shadow, $lightness: 15%);
 $nu-theme-light-button-primary-inactive: color.change($nu-color-shadow, $alpha: 0.65);
 
-// $nu-theme-light-button-secondary-default: $nu-color-green-50;
-// $nu-theme-light-button-secondary-hover: $nu-color-green-65;
-// $nu-theme-light-button-secondary-active: $nu-color-green-40;
-// $nu-theme-light-button-secondary-inactive: color.change($nu-color-orange-50, $alpha: 0.65);
+$nu-theme-light-button-secondary-default: $nu-color-green-50; // unused
+$nu-theme-light-button-secondary-hover: $nu-color-green-65; // unused
+$nu-theme-light-button-secondary-active: $nu-color-green-40; // unused
+$nu-theme-light-button-secondary-inactive: color.change(
+        $nu-color-orange-50,
+        $alpha: 0.65
+); // unused
 
 $nu-theme-light-icon-primary: $nu-color-neutral-40;
 $nu-theme-light-icon-secondary: $nu-color-neutral-70;
@@ -181,41 +182,39 @@ $nu-theme-light-icon-critical: $nu-color-red-65;
 $nu-theme-light-icon-success: $nu-color-green-65;
 
 $nu-theme-light-accent-primary: $nu-color-black;
-// $nu-theme-light-accent-secondary: $nu-color-shadow;
+$nu-theme-light-accent-secondary: $nu-color-shadow; // unused
 
 // Dark theme
 
 $nu-theme-dark-text-primary: $nu-color-neutral-98;
-// $nu-theme-dark-text-secondary: $nu-color-neutral-80;
+$nu-theme-dark-text-secondary: $nu-color-neutral-80; // unused
 $nu-theme-dark-text-inactive: color.change($nu-color-neutral-98, $alpha: 0.65);
 
 $nu-theme-dark-text-link-primary-default: $nu-color-cyan-75;
 $nu-theme-dark-text-link-primary-hover: $nu-color-cyan-85;
 $nu-theme-dark-text-link-primary-active: $nu-color-cyan-65;
 
-// $nu-theme-dark-text-link-secondary-default: $nu-color-blue-60;
-// $nu-theme-dark-text-link-secondary-hover: $nu-color-green-70;
-// $nu-theme-dark-text-link-secondary-active: $nu-color-green-50;
+$nu-theme-dark-text-link-secondary-default: $nu-color-blue-60; // unused
+$nu-theme-dark-text-link-secondary-hover: $nu-color-green-70; // unused
+$nu-theme-dark-text-link-secondary-active: $nu-color-green-50; // unused
 
-$nu-theme-dark-text-invert: $nu-color-black;
+$nu-theme-dark-background-primary: $nu-color-black;
+$nu-theme-dark-background-secondary: $nu-color-blue-20; // unused
+$nu-theme-dark-background-tertiary: $nu-color-neutral-20; // unused
 
-$nu-theme-dark-background-primary: $nu-color-neutral-5;
-// $nu-theme-dark-background-secondary: $nu-color-blue-20;
-// $nu-theme-dark-background-tertiary: $nu-color-neutral-20;
-
-$nu-theme-dark-border-primary: $nu-color-highlight;
-// $nu-theme-dark-border-secondary: $nu-color-blue-65;
-// $nu-theme-dark-border-success: $nu-color-green-65;
+$nu-theme-dark-border-primary: $nu-color-neutral-98;
+$nu-theme-dark-border-secondary: $nu-color-blue-65; // unused
+$nu-theme-dark-border-success: $nu-color-green-65; // unused
 
 $nu-theme-dark-button-primary-default: $nu-color-cyan-75;
 $nu-theme-dark-button-primary-hover: $nu-color-cyan-85;
 $nu-theme-dark-button-primary-active: $nu-color-cyan-65;
 $nu-theme-dark-button-primary-inactive: color.change($nu-color-cyan-75, $alpha: 0.65);
 
-// $nu-theme-dark-button-secondary-default: $nu-color-green-50;
-// $nu-theme-dark-button-secondary-hover: $nu-color-green-65;
-// $nu-theme-dark-button-secondary-active: $nu-color-green-40;
-// $nu-theme-dark-button-secondary-inactive: color.change($nu-color-green-50, $alpha: 0.65);
+$nu-theme-dark-button-secondary-default: $nu-color-green-50; // unused
+$nu-theme-dark-button-secondary-hover: $nu-color-green-65; // unused
+$nu-theme-dark-button-secondary-active: $nu-color-green-40; // unused
+$nu-theme-dark-button-secondary-inactive: color.change($nu-color-green-50, $alpha: 0.65); // unused
 
 $nu-theme-dark-icon-primary: $nu-color-neutral-60;
 $nu-theme-dark-icon-secondary: $nu-color-neutral-70;
@@ -225,4 +224,4 @@ $nu-theme-dark-icon-critical: $nu-color-red-65;
 $nu-theme-dark-icon-success: $nu-color-green-65;
 
 $nu-theme-dark-accent-primary: $nu-color-cyan-75;
-// $nu-theme-dark-accent-secondary: $nu-color-blue-50;
+$nu-theme-dark-accent-secondary: $nu-color-blue-50; // unused
