@@ -12,29 +12,34 @@
         // import headbang from '$lib/assets/lottie/headbang.json';
         // import settle from '$lib/assets/lottie/settle.json';
         import headbop from '$lib/assets/lottie/headbop.json';
+        import NuphoryLogo from '$src/lib/components/icons/NuphoryLogo.svelte';
 
-        export let data;
+        // export let data;
 
-        let { products } = data;
+        // let { products } = data;
 
         const scrollButton = async (event) => {
-                const clicked = event.target.classList.contains('clicked');
+                event.preventDefault();
 
-                const href = clicked
-                        ? event.target.getAttribute('data-return-href')
-                        : event.target.getAttribute('href');
+                const sender = event.target;
 
-                const target = document.querySelector(href) as HTMLElement;
-
-                if (event.target.classList.contains('clicked')) {
-                        event.target.classList.remove('clicked');
-                } else {
-                        event.target.classList.add('clicked');
+                if (sender.getAttribute('data-return-pos')) {
+                        await window.scrollTo({
+                                top: sender.getAttribute('data-return-pos'),
+                                behavior: 'smooth'
+                        });
+                        sender.removeAttribute('data-return-pos');
+                        sender.classList.remove('active');
+                        return;
                 }
+
+                const target = document.querySelector(sender.getAttribute('href')) as HTMLElement;
 
                 await target.scrollIntoView({
                         behavior: 'smooth'
                 });
+                sender.setAttribute('data-return-pos', window.scrollY);
+                sender.classList.add('active');
         };
 
         const scrollToTop = async () => {
@@ -73,11 +78,12 @@
 </svelte:head>
 
 <section id="hero" class="relative mx-auto">
-        <div id="logo" class="h-[10.2em] mx-auto">
+        <div id="logo" class="h-[10.3em] mx-auto">
                 <LottiePlayer
                         --player-width="{360}px"
                         --player-height="{360}px"
                         onmouseover={headbop}
+                        Placeholder={NuphoryLogo}
                 />
         </div>
         <header class="z-10">
@@ -95,7 +101,24 @@
                 </p>
         </div>
 
-        <ProductList {products} />
+        <ProductList />
+</section>
+
+<div id="find-me" class="mb-4">
+        <a
+                href="#find-me"
+                id="find-me-link"
+                class="m-0 text-center scroll-button pointer-events-auto"
+                on:click={scrollButton}
+        >
+                <h4 class="m-0 pointer-events-none">find me</h4>
+        </a>
+</div>
+
+<section id="socials">
+        <div id="buttons" class="flex flex-col items-center justify-center">
+                <Buttons />
+        </div>
 </section>
 
 <!-- <div id="top" class="relative flex flex-col justify-between items-center">
@@ -174,21 +197,21 @@
         </svg>
 </a> -->
 <style>
-        /* .scroll-button::after {
+        .scroll-button::after {
                 content: '🡣';
         }
         .scroll-button::before {
                 content: '';
         }
 
-        .scroll-button:global(.clicked)::after {
+        .scroll-button:global(.active)::after {
                 content: '';
         }
-        .scroll-button:global(.clicked)::before {
+        .scroll-button:global(.active)::before {
                 content: '🡡';
         }
 
-        #back-to-top:hover svg {
+        /* #back-to-top:hover svg {
                 transform: scale(0.8) translateY(-12%);
         } */
 </style>
