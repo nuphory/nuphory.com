@@ -129,7 +129,7 @@
 
         <!-- <OnMount> -->
         <PageTransition url={data.pathname} duration={500}>
-                <main id="content" class="relative mx-auto text-center max-w-5xl">
+                <main id="content" class="m-4 relative mx-auto text-center max-w-5xl">
                         <slot />
                 </main>
         </PageTransition>
