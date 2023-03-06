@@ -1,5 +1,5 @@
 <script lang="ts">
-        import Button from '$lib/components/social/Button.svelte';
+        import Button from '$src/lib/components/Button.svelte';
 
         import type ButtonType from '$lib/assets/buttons/button';
 

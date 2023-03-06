@@ -1,28 +1,31 @@
 <script>
-        import Impressum from '$lib/components/layout/Impressum.svelte';
+        import Impressum from '$src/lib/components/Impressum.svelte';
+        import { _siteName } from '$src/routes/+layout';
 </script>
 
-<div id="title"><h4>nuphory</h4></div>
+<footer class="clr-bg-invert clr-text-invert text-center">
+        <h4>{_siteName}</h4>
 
-<div id="content">
-        <section id="impressum" class="footer-area">
-                <Impressum />
-        </section>
+        <div id="content">
+                <section id="impressum" class="footer-area">
+                        <Impressum />
+                </section>
 
-        <section id="contact" class="footer-area">
-                <h4 class="grow">contact</h4>
-                <ul>
-                        <!-- link opens in new tab-->
-                        <li>
-                                e-mail: <a href="mailto:nuphory@gmail.com" target="_blank"
-                                        >nuphory@gmail.com</a
-                                >
-                        </li>
-                </ul>
-        </section>
-</div>
+                <section id="contact" class="footer-area">
+                        <h4 class="grow">contact</h4>
+                        <ul>
+                                <!-- link opens in new tab-->
+                                <li>
+                                        e-mail: <a href="mailto:nuphory@gmail.com" target="_blank"
+                                                >nuphory@gmail.com</a
+                                        >
+                                </li>
+                        </ul>
+                </section>
+        </div>
 
-<div id="copyright">© 2022 nuphory</div>
+        <div id="copyright">© 2022 nuphory</div>
+</footer>
 
 <style>
         .footer-area {

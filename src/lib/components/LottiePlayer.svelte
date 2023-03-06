@@ -7,9 +7,9 @@
 
         export let href: string | null = null;
 
-        export let fallback: any;
         export let onmouseover: any;
-        export let onmouseleave: any;
+        export let fallback: any = onmouseover;
+        export let onmouseleave: any = onmouseover;
 
         let state = 'stopped';
 
@@ -17,17 +17,7 @@
                 onMount(async () => {
                         const { default: web } = await import('lottie-web');
 
-                        let lottieElement = document.getElementById('lottie');
-
-                        lottieElement?.style.setProperty('opacity', '1');
-                        lottieElement?.style.setProperty('transform', 'translateY(0)');
-                        lottieElement?.style.setProperty('cursor', href ? 'pointer' : 'default');
-
-                        lottieElement?.addEventListener('click', () => {
-                                if (href) {
-                                        window.open(href, '_blank');
-                                }
-                        });
+                        let lottieElement = document.querySelector('#lottie') as HTMLDivElement;
 
                         let animation = web.loadAnimation({
                                 container: lottieElement!,
@@ -35,6 +25,7 @@
                                 loop: false,
                                 autoplay: false
                         });
+
                         lottieElement?.addEventListener('mouseover', () => {
                                 animation.play();
                                 setTimeout(() => {
@@ -78,11 +69,16 @@
         }
 </script>
 
-<div width="{width}px" height="{height}px" id="lottie" />
+<div id="lottie" class="mx-auto translate-y-[-25%]" />
 
-<style>
+<style lang="scss">
         #lottie {
                 width: var(--player-width);
                 height: var(--player-height);
+                #headbop-tm-stroke,
+                #headbop-face-stroke,
+                #headbop-ellipse-stroke {
+                        fill: limegreen;
+                }
         }
 </style>

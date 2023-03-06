@@ -1,4 +1,6 @@
 <script lang="ts">
+        import CartIcon from '$src/lib/components/CartIcon.svelte';
+
         import _ from 'lodash';
         import { browser } from '$app/environment';
 
@@ -47,24 +49,18 @@
         });
 </script>
 
-<div
-        id="cart-div"
+<a
+        href="/cart"
         class="
-                transition-all duration-300 ease-out
-                m-4
-                "
->
-        <!-- flex justify-center items-center -->
-        <a
-                href="/cart"
-                class="
                         transition-all duration-300 ease-out
                         flex justify-center items-center
 
+                        ml-auto
+                        w-fit
                         h-[2.5em] min-w-[2.5em]
-                        rounded-full 
+                        rounded-full
                         
-                        clr-inverse clr-bg clr-text
+                        clr-bg-invert clr-text-invert
                         
                         font-mono
                         cursor-pointer
@@ -72,38 +68,28 @@
                         hover:scale-105
                         active:scale-95
                 "
-        >
-                <img
-                        id="cart-icon"
-                        src="/assets/icons/cart-shopping-solid.svg"
-                        alt="cart"
-                        class:item-count={itemCount > 0}
-                        class="
-                                transition-all duration-300 ease-out
-                                aspect-square 
-                                h-[1.25em] m-[0.6em] 
-                                opacity-100 
-                        "
-                />
-                <span
-                        id="cart-button"
-                        class:item-count={itemCount > 0}
-                        class="
+>
+        <CartIcon {itemCount} />
+        <span
+                id="cart-button"
+                class:item-count={itemCount > 0}
+                class="
                                 transition-all duration-300 ease-out
                                 flex justify-center items-center
                                 
                                 overflow-clip
                                 rounded-full
 
-                                clr-regular clr-bg clr-text
-                        ">{itemCount}</span
-                >
-        </a>
-</div>
+                                clr-bg-primary clr-text-primary
+                        "
+        >
+                {itemCount}
+        </span>
+</a>
 
 <style lang="scss">
         a:hover {
-                img {
+                :global(svg) {
                         @apply mr-0;
                 }
                 span {
@@ -111,9 +97,6 @@
                 }
         }
 
-        img.item-count {
-                @apply mr-0;
-        }
         span.item-count {
                 @apply max-w-full min-w-[2em] h-[2em] m-1 px-2;
         }
