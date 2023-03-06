@@ -2,7 +2,7 @@
 @use '$lib/styles/ui/color-palette.scss' as *;
 
 @mixin light-theme {
-        --text-primary: #{$nu-theme-light-text-primary};
+        --text-primary: #{$nu-color-shadow};
         --text-secondary: #{$nu-theme-light-text-secondary};
         --text-inactive: #{$nu-theme-light-text-inactive};
 
@@ -13,7 +13,7 @@
         --text-link-secondary-hover: #{$nu-theme-light-text-link-secondary-hover};
         --text-link-secondary-active: #{$nu-theme-light-text-link-secondary-active};
 
-        --text-invert: #{$nu-theme-light-text-invert};
+        --text-invert: #{$nu-theme-light-background-primary};
 
         --background-primary: #{$nu-theme-light-background-primary};
         --background-secondary: #{$nu-theme-light-background-secondary};
@@ -22,6 +22,8 @@
         --background-warning: #{color.change($nu-theme-light-icon-warning, $alpha: 0.1)};
         --background-critical: #{color.change($nu-theme-light-icon-critical, $alpha: 0.1)};
         --background-success: #{color.change($nu-theme-light-icon-success, $alpha: 0.1)};
+
+        --background-invert: #{$nu-theme-light-text-primary};
 
         --border-primary: #{$nu-theme-light-border-primary};
         --border-secondary: #{$nu-theme-light-border-secondary};
@@ -75,7 +77,7 @@
         --text-link-secondary-hover: #{$nu-theme-dark-text-link-secondary-hover};
         --text-link-secondary-active: #{$nu-theme-dark-text-link-secondary-active};
 
-        --text-invert: #{$nu-theme-dark-text-invert};
+        --text-invert: #{$nu-theme-dark-background-primary};
 
         --background-primary: #{$nu-theme-dark-background-primary};
         --background-secondary: #{$nu-theme-dark-background-secondary};
@@ -84,6 +86,8 @@
         --background-warning: #{color.change($nu-theme-dark-icon-warning, $alpha: 0.1)};
         --background-critical: #{color.change($nu-theme-dark-icon-critical, $alpha: 0.1)};
         --background-success: #{color.change($nu-theme-dark-icon-success, $alpha: 0.1)};
+
+        --background-invert: #{$nu-theme-dark-text-primary};
 
         --border-primary: #{$nu-theme-dark-border-primary};
         --border-secondary: #{$nu-theme-dark-border-secondary};
@@ -136,16 +140,16 @@ body,
         --color-announcement-banner-accent: #{$nu-color-orange-60};
 }
 
-.light {
+[data-theme='light'] {
         @include light-theme;
 }
 
-.dark {
+[data-theme='dark'] {
         @include dark-theme;
 }
 
 // OS Default.
-:root:not(.light):not(.dark) {
+:root:not([data-theme='light']):not([data-theme='dark']) {
         @media (prefers-color-scheme: light) {
                 @include light-theme;
         }

@@ -1,84 +1,89 @@
 // @use '$lib/styles/ui/base/themes.scss' as *;
 
 .clr-text-primary {
-	color: var(--text-primary);
+        color: var(--text-primary);
 }
 
 .clr-text-secondary {
-	color: var(--text-secondary);
+        color: var(--text-secondary);
 }
 
 .clr-text-inactive {
-	color: var(--text-inactive);
+        color: var(--text-inactive);
 }
 
 .clr-text-invert {
-	color: var(--text-invert);
+        color: var(--text-invert);
+        fill: var(--text-invert);
 }
 
 a:not(.clr-text-primary) {
-	color: var(--text-link-primary-default);
+        color: var(--text-link-primary-default);
 }
 
 a:not(.clr-text-primary):hover {
-	color: var(--text-link-primary-hover);
+        color: var(--text-link-primary-hover);
 }
 
 a:not(.clr-text-primary):active {
-	color: var(--text-link-primary-active);
+        color: var(--text-link-primary-active);
 }
 
 :is(.clr-text-link-secondary, .clr-text-link-secondary > a) {
-	color: var(--text-link-secondary-default);
+        color: var(--text-link-secondary-default);
 }
 
 :is(.clr-text-link-secondary, .clr-text-link-secondary > a):hover {
-	color: var(--text-link-secondary-hover);
+        color: var(--text-link-secondary-hover);
 }
 
 :is(.clr-text-link-secondary, .clr-text-link-secondary > a):active {
-	color: var(--text-link-secondary-active);
+        color: var(--text-link-secondary-active);
 }
 
 .clr-bg-primary {
-	background-color: var(--background-primary);
+        background-color: var(--background-primary);
 }
 
 .clr-bg-secondary {
-	background-color: var(--background-secondary);
+        background-color: var(--background-secondary);
 }
 
 .clr-bg-tertiary {
-	background-color: var(--background-tertiary);
+        background-color: var(--background-tertiary);
 }
 
 .clr-bg-info {
-	background-color: var(--background-information);
+        background-color: var(--background-information);
 }
 
 .clr-bg-warning {
-	background-color: var(--background-warning);
+        background-color: var(--background-warning);
 }
 
 .clr-bg-critical {
-	background-color: var(--background-critical);
+        background-color: var(--background-critical);
 }
 
 .clr-bg-success {
-	background-color: var(--background-success);
+        background-color: var(--background-success);
+}
+
+.clr-bg-invert {
+        background-color: var(--background-invert);
 }
 
 .clr-border {
-	border-color: var(--border-primary);
+        border-color: var(--border-primary);
 }
 
 .clr-border-secondary {
-	border-color: var(--border-secondary);
+        border-color: var(--border-secondary);
 }
 
 button {
-	@apply flex justify-center items-center;
-	@apply rounded;
-	background-color: var(--button-primary-default);
-	color: var(--text-invert);
+        @apply flex justify-center items-center;
+        @apply rounded;
+        background-color: var(--button-primary-default);
+        color: var(--text-invert);
 }

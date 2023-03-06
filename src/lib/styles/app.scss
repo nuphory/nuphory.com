@@ -1,0 +1,23 @@
+@use '$lib/styles/ui/color-palette.scss' as *;
+@use '$lib/styles/ui/base/themes.scss';
+@use '$lib/styles/ui/base/typography.scss';
+@use '$lib/styles/ui/base/dx.scss';
+
+@use '$lib/styles/ui/utils/_color.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Colors
+
+*,
+*::before,
+*::after {
+	transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+
+body {
+	background-color: var(--background-primary);
+	color: var(--text-primary);
+}

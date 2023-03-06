@@ -22,6 +22,7 @@ $nu-color-neutral-30: hsl(0, 0%, 30%);
 $nu-color-neutral-25: hsl(0, 0%, 25%);
 $nu-color-neutral-20: hsl(0, 0%, 20%);
 $nu-color-neutral-15: hsl(0, 0%, 15%);
+$nu-color-neutral-13: hsl(0, 0%, 13%);
 $nu-color-neutral-10: hsl(0, 0%, 10%);
 $nu-color-neutral-5: hsl(0, 0%, 5%);
 $nu-color-black: hsl(0, 0%, 0%);
@@ -198,7 +199,7 @@ $nu-theme-dark-text-link-secondary-default: $nu-color-blue-60; // unused
 $nu-theme-dark-text-link-secondary-hover: $nu-color-green-70; // unused
 $nu-theme-dark-text-link-secondary-active: $nu-color-green-50; // unused
 
-$nu-theme-dark-background-primary: $nu-color-black;
+$nu-theme-dark-background-primary: $nu-color-neutral-13;
 $nu-theme-dark-background-secondary: $nu-color-blue-20; // unused
 $nu-theme-dark-background-tertiary: $nu-color-neutral-20; // unused
 

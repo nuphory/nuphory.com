@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.clickable {
+	@apply transition-transform;
+	@apply hover:scale-105 active:scale-95;
+}
+.clickable-large {
+	@apply transition-transform;
+	@apply hover:scale-110 active:scale-95;
+}
+
+.fade-content {
+	--tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+	--tw-shadow-colored: 0 0.75em 0.5em 0em var(--tw-shadow-color),
+		0 -0.75em 0.5em 0em var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+		var(--tw-shadow);
+}
+
+.shadow-white {
+	--tw-shadow-color: #fff;
+	--tw-shadow: var(--tw-shadow-colored);
+}
