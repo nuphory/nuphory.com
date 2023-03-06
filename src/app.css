@@ -1,11 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@tailwind colors;
-
 *,
-*::before,
-*::after {
+*::after,
+*::before {
         box-sizing: border-box;
 }
+
+html,
+body {
+        min-height: 100vh;
+
+        font-family: sans-serif;
+
+        scroll-behavior: smooth !important;
+}
+
+/* body {
+	display: grid;
+	place-items: center;
+} */
