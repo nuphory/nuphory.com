@@ -1,6 +1,8 @@
 *,
 *::after,
 *::before {
+        transition: background-color 300ms ease-out, color 300ms ease-out, fill 300ms ease-out,
+                stroke 300ms ease-out;
         box-sizing: border-box;
 }
 
