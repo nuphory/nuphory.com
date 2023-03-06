@@ -129,7 +129,7 @@
 
         <!-- <OnMount> -->
         <PageTransition url={data.pathname} duration={500}>
-                <main id="content" class="mx-auto text-center max-w-5xl">
+                <main id="content" class="relative mx-auto text-center max-w-5xl">
                         <slot />
                 </main>
         </PageTransition>
@@ -138,8 +138,8 @@
         <!-- <main class="relative flex flex-col items-center w-full max-w-5xl mx-auto my-0">
                 <slot />
         </main> -->
+        <Footer />
 </div>
-<Footer />
 
 <style>
         :global(*) {

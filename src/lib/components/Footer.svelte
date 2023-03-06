@@ -16,9 +16,14 @@
                         <ul>
                                 <!-- link opens in new tab-->
                                 <li>
-                                        e-mail: <a href="mailto:nuphory@gmail.com" target="_blank"
-                                                >nuphory@gmail.com</a
+                                        e-mail:
+                                        <a
+                                                class="clr-text-primary"
+                                                href="mailto:nuphory@gmail.com"
+                                                target="_blank"
                                         >
+                                                nuphory@gmail.com
+                                        </a>
                                 </li>
                         </ul>
                 </section>

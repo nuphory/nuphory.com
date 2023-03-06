@@ -108,7 +108,7 @@
         <a
                 href="#find-me"
                 id="find-me-link"
-                class="m-0 text-center scroll-button pointer-events-auto"
+                class="m-0 text-center scroll-button clr-text-primary pointer-events-auto"
                 on:click={scrollButton}
         >
                 <h4 class="m-0 pointer-events-none">find me</h4>
@@ -121,95 +121,57 @@
         </div>
 </section>
 
-<!-- <div id="top" class="relative flex flex-col justify-between items-center">
-        <section id="hero" class="relative grow flex flex-col justify-center items-center">
-                <div class="sticky top-0 flex flex-col justify-center items-center">
-                        <section class="z-40">
-                                <fade-in distance="10px" duration="500ms" order="-1">
-                                        <h1 id="page-title"><b>{_siteName}</b></h1>
-                                </fade-in>
-                        </section>
-                        <section
-                                id="shop"
-                                class="flex flex-col justify-center items-center relative"
-                        >
-                                <heading
-                                        id="shop-title"
-                                        class="flex flex-col justify-center items-center text-center max-w-xl"
-                                >
-                                        <h4>Merch</h4>
-                                        <p>
-                                                All profits from this limited time merch run will be
-                                                used to fund future projects and create
-                                                opportunities for myself and other artists in the
-                                                scene.
-                                        </p>
-                                </heading>
-                                <ProductList {products} />
-                        </section>
-                </div>
-        </section>
-        <fade-in id="find-me" distance="10px" duration="500ms" order="15" class="mb-4">
-                <a
-                        href="#find-me"
-                        data-return-href="#top"
-                        id="find-me-link"
-                        class="m-0 text-center scroll-button pointer-events-auto"
-                        on:click={scrollButton}
-                >
-                        <h4 class="m-0 pointer-events-none">find me</h4>
-                </a>
-        </fade-in>
-</div>
-
-<section id="socials">
-        <div id="buttons" class="flex flex-col items-center justify-center">
-                <Buttons />
-        </div>
-</section>
-
-<fade-in id="book-me" distance="10px" duration="500ms" order="15" class="mb-4">
+<div id="book-me" class="mb-4">
         <a
                 href="#book-me"
-                data-return-href="#socials"
                 id="book-me-link"
-                class=" text-center scroll-button pointer-events-auto"
+                class="m-0 text-center scroll-button clr-text-primary pointer-events-auto"
                 on:click={scrollButton}
         >
                 <h4 class="m-0 pointer-events-none">book me</h4>
         </a>
-</fade-in>
+</div>
 
-<a
-        href="#top"
-        id="back-to-top"
-        class="fixed bottom-4 right-4 flex items-center justify-center aspect-square w-12 rounded-full border-[3px] clr-bg transition-all duration-300 ease-in-out hover:border-[6px] active:border-[1px]"
-        on:click={scrollToTop}
->
-        <svg
-                class="translate-y-[-12%] transition-all duration-300 ease-in-out"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-        >
-                <path class="fill-[var(--color-text)]" fill="white" d="M12 0l-12 24h24z" />
-        </svg>
-</a> -->
-<style>
-        .scroll-button::after {
-                content: '🡣';
-        }
-        .scroll-button::before {
-                content: '';
+<style lang="scss">
+        .scroll-button {
+                transition: all 0.3s ease-out;
+
+                color: var(--text-primary);
+
+                &::after {
+                        color: var(--text-primary);
+
+                        content: '🡣';
+                }
+                &::before {
+                        content: '';
+                }
+
+                &:global(.active) {
+                        &::after {
+                                content: '';
+                        }
+                        &::before {
+                                color: var(--text-primary);
+
+                                content: '🡡';
+                        }
+                }
         }
 
-        .scroll-button:global(.active)::after {
-                content: '';
-        }
-        .scroll-button:global(.active)::before {
-                content: '🡡';
-        }
+        // .scroll-button::after {
+        //         content: '🡣';
+        // }
+        // .scroll-button::before {
+        //         content: '';
+        // }
+
+        // .scroll-button:global(.active)::after {
+        //         content: '';
+        // }
+        // .scroll-button:global(.active)::before {
+        //         content: '🡡';
+        // }
 
         /* #back-to-top:hover svg {
                 transform: scale(0.8) translateY(-12%);

@@ -1,6 +1,6 @@
 <script lang="ts">
         import { browser } from '$app/environment';
-        import { onMount, SvelteComponent } from 'svelte';
+        import { onMount } from 'svelte';
 
         import NuphoryLogo from './icons/NuphoryLogo.svelte';
 
@@ -87,7 +87,7 @@
         :global(#headbop-tm-stroke),
         :global(#headbop-face-stroke),
         :global(#headbop-ellipse-stroke) {
-                transition: all 300ms ease-in-out;
+                transition: all 300ms ease-out;
                 stroke: var(--text-primary);
         }
 </style>

@@ -1,5 +1,18 @@
-<button id="impressum-title" type="button" class="clr-regular collapsible">
-        <h4>Impressum</h4>
+<button
+        id="impressum-title"
+        class="
+                transition-all duration-300 ease-out 
+                flex justify-center align-center 
+
+                hover:translate-y-[-1px] active:translate-y-[1px]
+
+                w-full h-12 rounded-full
+
+                clr-bg-primary clr-text-primary collapsible
+        "
+        tabindex="0"
+>
+        <h4 class="m-0 p-0 text-center">Impressum</h4>
 </button>
 <div class="collapsible-content" id="impressum-content">
         <section id="details">
@@ -13,13 +26,13 @@
 </div>
 
 <style>
-        button {
+        /* button {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 transition: transform 50ms ease;
-                background-color: var(--color-bg);
-        }
+                background-color: var(--background-primary);
+        } */
 
         button:hover {
                 transform: translateY(-1px);
