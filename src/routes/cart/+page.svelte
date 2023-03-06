@@ -5,7 +5,7 @@
         import type { Item } from '$lib/types/product';
 
         // Components
-        import CartList from '$lib/components/store/cart/CartList.svelte';
+        import CartList from '$src/lib/components/CartList.svelte';
         import { _siteDescription, _siteName } from '../+layout';
 
         let items: Item[] = $currentOrder.items;

@@ -1,5 +1,5 @@
 <script lang="ts">
-        import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+        import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
 
         import { browser } from '$app/environment';
         import type { Order } from '$lib/types/order';

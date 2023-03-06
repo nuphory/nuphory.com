@@ -3,14 +3,15 @@
         import { _siteName, _siteDescription, _tagLine } from './+layout';
 
         // components
-        import LottiePlayer from '$lib/components/design/LottiePlayer.svelte';
-        import Buttons from '$lib/components/social/Buttons.svelte';
-        import ProductList from '$lib/components/store/ProductList.svelte';
+        import LottiePlayer from '$src/lib/components/LottiePlayer.svelte';
+        import Buttons from '$src/lib/components/Buttons.svelte';
+        import ProductList from '$src/lib/components/ProductList.svelte';
 
         // lottie animations
-        import intro from '$lib/assets/lottie/intro.json';
-        import headbang from '$lib/assets/lottie/headbang.json';
-        import settle from '$lib/assets/lottie/settle.json';
+        // import intro from '$lib/assets/lottie/intro.json';
+        // import headbang from '$lib/assets/lottie/headbang.json';
+        // import settle from '$lib/assets/lottie/settle.json';
+        import headbop from '$lib/assets/lottie/headbop.json';
 
         export let data;
 
@@ -71,23 +72,38 @@
         <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
-<div id="top" class="relative flex flex-col justify-between items-center min-h-screen">
+<section id="hero" class="relative mx-auto">
+        <div id="logo" class="h-[10.2em] mx-auto">
+                <LottiePlayer
+                        --player-width="{360}px"
+                        --player-height="{360}px"
+                        onmouseover={headbop}
+                />
+        </div>
+        <header class="z-10">
+                <h1 id="page-title"><b>{_siteName}</b></h1>
+        </header>
+</section>
+
+<section id="shop">
+        <div class="max-w-xl mx-auto">
+                <h4>Merch</h4>
+
+                <p>
+                        All profits from this limited time merch run will be used to fund future
+                        projects and create opportunities for myself and other artists in the scene.
+                </p>
+        </div>
+
+        <ProductList {products} />
+</section>
+
+<!-- <div id="top" class="relative flex flex-col justify-between items-center">
         <section id="hero" class="relative grow flex flex-col justify-center items-center">
                 <div class="sticky top-0 flex flex-col justify-center items-center">
-                        <div id="logo" class="mt-24">
-                                <fade-in id="logo-anim" duration="500ms" order="0">
-                                        <LottiePlayer
-                                                --player-width="{1080 * (320 * 1080 ** -1)}px"
-                                                --player-height="{240 * (320 * 1080 ** -1)}px"
-                                                fallback={intro}
-                                                onmouseover={headbang}
-                                                onmouseleave={settle}
-                                        />
-                                </fade-in>
-                        </div>
-                        <section id="#page-title" class="z-40">
+                        <section class="z-40">
                                 <fade-in distance="10px" duration="500ms" order="-1">
-                                        <h1><b>{_siteName}</b></h1>
+                                        <h1 id="page-title"><b>{_siteName}</b></h1>
                                 </fade-in>
                         </section>
                         <section
@@ -156,10 +172,9 @@
         >
                 <path class="fill-[var(--color-text)]" fill="white" d="M12 0l-12 24h24z" />
         </svg>
-</a>
-
+</a> -->
 <style>
-        .scroll-button::after {
+        /* .scroll-button::after {
                 content: '🡣';
         }
         .scroll-button::before {
@@ -175,5 +190,5 @@
 
         #back-to-top:hover svg {
                 transform: scale(0.8) translateY(-12%);
-        }
+        } */
 </style>

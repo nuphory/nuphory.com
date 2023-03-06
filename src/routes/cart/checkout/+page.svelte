@@ -25,8 +25,8 @@
         import type { Item } from '$lib/types/product';
 
         // Components
-        import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
-        import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+        import CheckoutForm from '$src/lib/components/CheckoutForm.svelte';
+        import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
         import { onMount } from 'svelte';
         import { api } from '$src/lib/api/internalApi';
 
