@@ -88,7 +88,7 @@
                 </figure>
         </label>
         {#if theme}
-                <p>::{theme}mode</p>
+                <p class="hidden sm:inline">::{theme}mode</p>
         {/if}
 </div>
 
