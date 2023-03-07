@@ -19,10 +19,11 @@
         }
 </script>
 
-<div class="flex items-center gap-2">
+<div class="relative flex items-center gap-2">
         <label
                 for="theme-toggle"
                 class="
+                        z-10
                         transition-all duration-300 ease-out
                         relative
                         inline-block
@@ -87,9 +88,41 @@
                         />
                 </figure>
         </label>
-        {#if theme}
-                <p class="hidden sm:inline">::{theme}mode</p>
-        {/if}
+
+        <a
+                href="/"
+                class="
+                        z-0
+                        transition-all duration-300 ease-out
+                        opacity-0 sm:opacity-100
+                        -translate-x-full sm:translate-x-0
+                        max-w-0 sm:max-w-full
+                        overflow-clip 
+                        max-h-6
+                        text-base
+                        font-bold
+                        clr-text-primary
+                        hover:scale-100 active:scale-95 hover:no-underline
+                "
+        >
+                <ul
+                        class="
+                                transition-all duration-300 ease-out
+                                block
+                                clr-text-primary
+                                translate-y-0
+                                {theme === 'dark' ? 'hover:translate-y-0 -translate-y-6' : ''}
+                                {theme === 'light'
+                                ? 'hover:-translate-y-[4.5em] -translate-y-12'
+                                : ''}
+                        "
+                >
+                        <li>nuphory</li>
+                        <li>::darkmode</li>
+                        <li>::lightmode</li>
+                        <li>nuphory</li>
+                </ul>
+        </a>
 </div>
 
 <style lang="scss">
