@@ -6,72 +6,27 @@
         import streamButtons from '$src/lib/assets/buttons/streaming';
         import socialButtons from '$src/lib/assets/buttons/socials';
         import contactButtons from '$src/lib/assets/buttons/contact';
-        import { browser } from '$app/environment';
 
         const buttonsArray: ButtonType[][] = [streamButtons, socialButtons, contactButtons];
-
-        let index = 0;
-
-        function count() {
-                let current = index;
-                index++;
-                return current;
-        }
-
-        let innerWidth: number;
-
-        if (browser) {
-                innerWidth = window.innerWidth;
-        }
 </script>
 
-{#if innerWidth < 768}
-        <div class="buttons" id={`stream-buttons`}>
-                {#each streamButtons as { label, href, img }, i}
-                        <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} Icon={img} />
-                        </fade-in>
-                {/each}
-        </div>
-        <div class="buttons" id={`social-buttons`}>
-                {#each socialButtons as { label, href, img }}
-                        <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} Icon={img} />
-                        </fade-in>
-                {/each}
-        </div>
-{:else}
-        <div class="buttons" id={`social-buttons`}>
-                {#each socialButtons as { label, href, img }}
-                        <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} Icon={img} />
-                        </fade-in>
-                {/each}
-        </div>
-        <div class="buttons" id={`stream-buttons`}>
-                {#each streamButtons as { label, href, img }, i}
-                        <fade-in duration="500ms" order={count()}>
-                                <Button {label} {href} Icon={img} />
-                        </fade-in>
-                {/each}
-        </div>
-{/if}
-<div class="buttons" id={`contact-buttons`}>
+<div class="flex flex-col md:flex-row gap-2" id={`stream-buttons`}>
+        {#each streamButtons as { label, href, img }, i}
+                <Button {label} {href} Icon={img} />
+        {/each}
+</div>
+<div class="flex flex-col md:flex-row gap-2" id={`social-buttons`}>
+        {#each socialButtons as { label, href, img }}
+                <Button {label} {href} Icon={img} />
+        {/each}
+</div>
+<div class="flex flex-col md:flex-row gap-2" id={`contact-buttons`}>
         {#each contactButtons as { label, href, img }}
-                <fade-in duration="500ms" order={count()}>
-                        <Button {label} {href} Icon={img} />
-                </fade-in>
+                <Button {label} {href} Icon={img} />
         {/each}
 </div>
 
 <style>
-        .buttons {
-                display: flex;
-                flex-direction: column;
-                margin: 0 auto;
-                align-items: center;
-                list-style: none;
-        }
         #stream-buttons {
                 order: 0;
         }
