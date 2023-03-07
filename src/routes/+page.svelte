@@ -3,22 +3,41 @@
         import { _siteName, _siteDescription, _tagLine } from './+layout';
 
         // components
-        import LottiePlayer from '$src/lib/components/LottiePlayer.svelte';
+        import LottiePlayer from '$src/lib/components/utils/LottiePlayer.svelte';
         import Buttons from '$src/lib/components/Buttons.svelte';
-        import ProductList from '$src/lib/components/ProductList.svelte';
+        import ProductList from '$src/lib/components/ShopList.svelte';
 
         // lottie animations
-        
+
         import NuphoryLogo from '$src/lib/components/icons/NuphoryLogo.svelte';
 
         // export let data;
 
         // let { products } = data;
 
-        const scrollButton = async (event) => {
+        async function scrollTo(event) {
+                const sender = event.target;
+                const target = document.querySelector(
+                        `${sender.getAttribute('href')}-btt`
+                ) as HTMLElement;
+
+                window.location.hash = sender.getAttribute('href');
+
+                if (!target) return;
                 event.preventDefault();
 
+                await target.scrollIntoView({
+                        behavior: 'smooth'
+                });
+                target.setAttribute('data-return-pos', `${window.scrollY}`);
+        }
+
+        async function scrollBack(event) {
                 const sender = event.target;
+
+                window.location.hash = sender.getAttribute('href');
+
+                event.preventDefault();
 
                 if (sender.getAttribute('data-return-pos')) {
                         await window.scrollTo({
@@ -26,25 +45,14 @@
                                 behavior: 'smooth'
                         });
                         sender.removeAttribute('data-return-pos');
-                        sender.classList.remove('active');
                         return;
+                } else {
+                        await window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                        });
                 }
-
-                const target = document.querySelector(sender.getAttribute('href')) as HTMLElement;
-
-                await target.scrollIntoView({
-                        behavior: 'smooth'
-                });
-                sender.setAttribute('data-return-pos', window.scrollY);
-                sender.classList.add('active');
-        };
-
-        const scrollToTop = async () => {
-                await window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                });
-        };
+        }
 </script>
 
 <svelte:head>
@@ -74,48 +82,93 @@
         <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
-<section id="hero" class="relative mx-auto">
-        <div id="logo" class="relative aspect-square w-full max-w-[360px] mx-auto">
-                <NuphoryLogo 
-                        classList="
-                                absolute 
-                                bottom-1/2 right-1/2 
-                                translate-y-1/2 translate-x-1/2 
-                                aspect-square w-full max-w-[360px] 
-                                mx-auto
-                        "
-                />
+<section id="hero" class="relative flex flex-col justify-between mx-auto min-h-[calc(100vh-32rem)]">
+        <div />
+        <div>
+                <div id="logo" class="relative aspect-square w-full max-w-[360px] mx-auto">
+                        <NuphoryLogo
+                                classList="
+                                        absolute
+                                        bottom-1/2 right-1/2
+                                        translate-y-1/2 translate-x-1/2
+                                        aspect-square w-full max-w-[360px]
+                                        mx-auto
+                                "
+                        />
+                </div>
+                <header class="mt-[-6.5em]">
+                        <h1 id="page-title"><b>{_siteName}</b></h1>
+                </header>
         </div>
-        <header class="mt-[-6.5em]">
-                <h1 id="page-title"><b>{_siteName}</b></h1>
-        </header>
+        <nav class="mx-auto">
+                <ul 
+                        class="
+                                transition-[transform,opacity,max-height] duration-300 ease-out
+
+                                opacity-0 sm:opacity-100
+                                translate-y-12 sm:translate-y-0
+                                max-w-0 sm:max-w-96
+                                max-h-0 sm:max-h-12
+                                
+                                flex justify-center items-end gap-8 
+                        "
+                >
+                        <li>
+                                <a
+                                        href="#socials"
+                                        class="select-none clr-text-primary"
+                                        on:click={scrollTo}
+                                >
+                                        <h4 class="m-0">socials</h4>
+                                </a>
+                        </li>
+                        <li>
+                                <a
+                                        href="#merch"
+                                        class="select-none clr-text-primary"
+                                        on:click={scrollTo}
+                                >
+                                        <h4 class="m-0 text-3xl">merch</h4>
+                                </a>
+                        </li>
+                        <li>
+                                <a
+                                        href="#booking"
+                                        class="select-none clr-text-primary"
+                                        on:click={scrollTo}
+                                >
+                                        <h4 class="m-0">booking</h4>
+                                </a>
+                        </li>
+                </ul>
+        </nav>
 </section>
 
-<section id="shop">
-        <div class="max-w-xl mx-auto">
-                <h4>Merch</h4>
+<div role="separator" />
 
+<section id="merch" class="space-y-12">
+        <h3 id="merch-btt" class="leading-4 m-0 mb-16">Merch</h3>
+        <ProductList />
+        <div class="max-w-xl mx-auto">
                 <p>
                         All profits from this limited time merch run will be used to fund future
                         projects and create opportunities for myself and other artists in the scene.
                 </p>
         </div>
-
-        <ProductList />
 </section>
+<div role="separator" />
 
-<div id="find-me" class="mb-4">
-        <a
-                href="#find-me"
-                id="find-me-link"
-                class="m-0 text-center scroll-button clr-text-primary pointer-events-auto"
-                on:click={scrollButton}
-        >
-                <h4 class="m-0 pointer-events-none">find me</h4>
-        </a>
-</div>
-
-<section id="socials">
+<section id="socials" class="space-y-12">
+        <div class="mb-4">
+                <a
+                        href=""
+                        id="socials-btt"
+                        class="m-0 text-center scroll-button clr-text-primary "
+                        on:click={scrollBack}
+                >
+                        <h4 class="m-0 pointer-events-none">back to top</h4>
+                </a>
+        </div>
         <div id="buttons" class="flex flex-col items-center justify-center">
                 <Buttons />
         </div>
@@ -125,8 +178,8 @@
         <a
                 href="#book-me"
                 id="book-me-link"
-                class="m-0 text-center scroll-button clr-text-primary pointer-events-auto"
-                on:click={scrollButton}
+                class="m-0 text-center scroll-button clr-text-primary "
+                on:click={scrollTo}
         >
                 <h4 class="m-0 pointer-events-none">book me</h4>
         </a>
@@ -138,6 +191,15 @@
 
                 color: var(--text-primary);
 
+                &[id$='-btt'] {
+                        &::after {
+                                content: '';
+                        }
+                        &::before {
+                                content: '🡡';
+                        }
+                }
+
                 &::after {
                         color: var(--text-primary);
 
@@ -145,17 +207,6 @@
                 }
                 &::before {
                         content: '';
-                }
-
-                &:global(.active) {
-                        &::after {
-                                content: '';
-                        }
-                        &::before {
-                                color: var(--text-primary);
-
-                                content: '🡡';
-                        }
                 }
         }
 
