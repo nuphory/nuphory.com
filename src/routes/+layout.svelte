@@ -98,7 +98,7 @@
                 <Header />
 
                 <PageTransition
-                        classList="relative flex-1 flex flex-col max-w-5xl w-full mx-auto text-center "
+                        classList="relative flex-1 flex flex-col min-h-[calc(100dvh-4.5rem)] max-w-5xl w-full mx-auto text-center"
                         url={data.pathname}
                         duration={500}
                 >
@@ -114,7 +114,7 @@
 
 <style>
         :global(*) {
-                outline: 1px solid green;
+                /* outline: 1px solid green; */
         }
         :global(#page-title h1) {
                 font-size: 2.25em;
