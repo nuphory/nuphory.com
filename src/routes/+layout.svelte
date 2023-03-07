@@ -1,4 +1,12 @@
 <script lang="ts">
+
+        /* TODO
+        * probably rewrite the way i currently display the products
+        * right now there's 3 different components each handling item lists very similarly
+        * i should mess about with svelte slots and see if i can make 
+        * a single component that can handle all of them
+        */
+
         // Imports
         import { _siteDescription, _siteName } from './+layout';
         import { browser } from '$app/environment';
@@ -30,28 +38,6 @@
 
         (async () => {
                 if (!browser) return;
-
-                // TODO page title smoothly resizes on scroll, look into @scroll-linked css
-                // window.addEventListener('scroll', () => {
-                // 	var r = document.querySelector('h') as HTMLElement;
-                // 	console.debug(r.style.getPropertyValue('--scroll-y'));
-
-                // 	r.style.setProperty('--scroll-y', window.scrollY / 16 + 'em');
-
-                // });
-
-                // Smooth scrolling
-                document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                        anchor.addEventListener('click', function (e) {
-                                e.preventDefault();
-
-                                document.querySelector(
-                                        anchor.getAttribute('href') ?? '#top'
-                                )?.scrollIntoView({
-                                        behavior: 'smooth'
-                                });
-                        });
-                });
 
                 /**
                  * website designed by patch: https://twitter.com/patchstep
@@ -112,7 +98,7 @@
                 <Header />
 
                 <PageTransition
-                        classList="relative flex-1 max-w-5xl w-full mx-auto text-center "
+                        classList="relative flex-1 flex flex-col max-w-5xl w-full mx-auto text-center "
                         url={data.pathname}
                         duration={500}
                 >
