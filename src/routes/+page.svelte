@@ -108,7 +108,7 @@
                 >
                         <a href="#socials" class="select-none clr-text-primary" on:click={scrollTo}>
                                 socials<br />
-                                ⮟
+                                ▼
                         </a>
                 </h4>
 
@@ -210,14 +210,14 @@
                                 content: '';
                         }
                         &::before {
-                                content: '⮝';
+                                content: '▲';
                         }
                 }
 
                 &::after {
                         color: var(--text-primary);
 
-                        content: '⮟';
+                        content: '▼';
                 }
                 &::before {
                         content: '';
