@@ -65,11 +65,11 @@
                         role="separator"
                         data-scroll="0"
                         class="
-                                transition-[width] duration-150  ease-out
+                                transition-[width] duration-150 ease-out
                                 {pageTitleVisible && mounted
                                 ? 'opacity-0 w-0'
                                 : 'opacity-100 w-full lg:w-96'}
-                                block m-auto
+                                block mx-auto
                                 outline outline-[1.5px] outline-[var(--text-primary)]
                         "
                 />
