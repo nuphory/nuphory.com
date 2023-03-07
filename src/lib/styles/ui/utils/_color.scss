@@ -17,16 +17,16 @@
         fill: var(--text-invert);
 }
 
-a:not(.clr-text-primary) {
-        color: var(--text-link-primary-default);
-}
-
-a:not(.clr-text-primary):hover {
-        color: var(--text-link-primary-hover);
-}
-
-a:not(.clr-text-primary):active {
-        color: var(--text-link-primary-active);
+a {
+        &:not(.clr-text-primary, .clr-text-secondary, .clr-text-inactive, .clr-text-invert) {                
+                color: var(--text-link-primary-default);
+                :hover {
+                        color: var(--text-link-primary-hover);
+                }
+                :active {
+                        color: var(--text-link-primary-active);
+                }
+        }
 }
 
 :is(.clr-text-link-secondary, .clr-text-link-secondary > a) {
@@ -79,6 +79,10 @@ a:not(.clr-text-primary):active {
 
 .clr-border-secondary {
         border-color: var(--border-secondary);
+}
+
+.clr-border-invert {
+        border-color: var(--border-invert);
 }
 
 button {

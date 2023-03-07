@@ -27,6 +27,7 @@
 
         --border-primary: #{$nu-theme-light-border-primary};
         --border-secondary: #{$nu-theme-light-border-secondary};
+        --border-invert: #{$nu-theme-light-background-primary};
 
         --button-primary-default: #{$nu-theme-light-button-primary-default};
         --button-primary-hover: #{$nu-theme-light-button-primary-hover};
@@ -91,6 +92,7 @@
 
         --border-primary: #{$nu-theme-dark-border-primary};
         --border-secondary: #{$nu-theme-dark-border-secondary};
+        --border-invert: #{$nu-theme-dark-background-primary};
 
         --button-primary-default: #{$nu-theme-dark-button-primary-default};
         --button-primary-hover: #{$nu-theme-dark-button-primary-hover};
