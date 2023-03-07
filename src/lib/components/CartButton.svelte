@@ -65,6 +65,7 @@
                         font-mono
                         cursor-pointer
                         
+                        hover:translate-y-0
                         hover:scale-105
                         active:scale-95
                 "
