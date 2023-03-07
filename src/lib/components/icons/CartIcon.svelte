@@ -7,11 +7,12 @@
         viewBox="0 0 576 512"
         class:mr-0={itemCount > 0}
         class="
-                        aspect-square 
-                        h-[1.25em] m-[0.6em] 
-                        opacity-100 
-                        clr-text-invert
-                "
+                transition-[margin] duration-300 ease-out
+                aspect-square 
+                h-[1.25em] m-[0.6em] 
+                opacity-100 
+                clr-text-invert
+        "
 >
         <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
         <path

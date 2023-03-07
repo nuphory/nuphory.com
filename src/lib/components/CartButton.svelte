@@ -93,12 +93,12 @@
                         @apply mr-0;
                 }
                 span {
-                        @apply max-w-full min-w-[2em] h-[2em] m-1 px-2;
+                        @apply max-w-[2em] min-w-[2em] h-[2em] m-1 px-2;
                 }
         }
 
         span.item-count {
-                @apply max-w-full min-w-[2em] h-[2em] m-1 px-2;
+                @apply max-w-[2em] min-w-[2em] h-[2em] m-1 px-2;
         }
         span {
                 @apply max-w-0 min-w-0 h-0 m-0 px-0;
