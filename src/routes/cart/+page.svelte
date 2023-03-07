@@ -33,6 +33,45 @@
         <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
+<section id="page-title">
+        <h1>cart</h1>
+</section>
+<div role="separator" />
+
+<section id="cart-list" class="flex-1 flex flex-col justify-between items-center">
+        <a
+                href="/cart/checkout"
+                class:hidden={items.length === 1}
+                class="         
+                                w-full max-w-xs
+                                {items.length === 0 ? 'max-h-0 py-0' : 'sm:max-h-0 sm:py-0'}
+                                py-2 px-4
+                                rounded-full
+                                
+                                clr-text-invert clr-bg-invert
+                                font-mono
+                        "
+        >
+                checkout
+        </a>
+        <CartList />
+        <a
+                href="/cart/checkout"
+                class:opacity-50={items.length === 0}
+                class="
+                                w-full max-w-xs
+                                py-2 px-4
+                                rounded-full
+                                
+                                clr-text-invert clr-bg-invert
+                                font-mono
+                        "
+        >
+                checkout
+        </a>
+</section>
+
+<!-- 
 <div id="top" class="relative flex flex-1 flex-col justify-between items-center min-h-screen py-8">
         <section class="">
                 <div id="page-title" class=""><h1>cart</h1></div>
@@ -60,19 +99,4 @@
                         >
                 </section>
         {/if}
-
-        <section id="back-to-home" class="mb-0 flex justify-center items-center ">
-                <a
-                        id="checkout-button"
-                        class="w-80 py-2 py-1 px-4 clr-text-invert clr-bg-invert rounded-full font-mono"
-                        href="/"><b>home</b></a
-                >
-        </section>
-</div>
-
-<style>
-        .disabled {
-                pointer-events: none;
-                opacity: 0.5;
-        }
-</style>
+</div> -->
