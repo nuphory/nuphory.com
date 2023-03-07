@@ -74,6 +74,7 @@
 
                         <div
                                 class="
+                                        transition-[background-color,left,top] duration-300 ease-out
                                         absolute
                                         h-[1.5em] w-[1.5em]
                                         rounded-full
