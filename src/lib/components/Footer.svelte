@@ -3,8 +3,8 @@
         import { _siteName } from '$src/routes/+layout';
 </script>
 
-<footer class="clr-bg-invert clr-text-invert text-center py-4">
-        <h4>{_siteName}</h4>
+<footer id="booking" class="clr-bg-invert clr-text-invert text-center py-4">
+        <h4 id="booking-btt">{_siteName}</h4>
 
         <div id="content">
                 <section id="impressum" class="footer-area">
