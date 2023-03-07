@@ -1,45 +1,45 @@
-<svg data-name="nuphory-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="julie_with_headphones" data-name="julie with headphones" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
     <style>
       .cls-1, .cls-2, .cls-3 {
-      fill: none;
-      stroke: var(--text-primary, #000);
-      stroke-width: var(--sw);
-      stroke-linecap: round;
-      stroke-linejoin: round;
+        fill: none;
+        stroke: #231f20;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
-      .cls-1 { --sw: 1px; }
-      .cls-2 { --sw: 15px; }
-      .cls-3 { --sw: 1.6px; }
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke-width: 15px;
+      }
+
+      .cls-3 {
+        stroke-width: 1.6px;
+      }
     </style>
   </defs>
-  <circle data-name="#nuphory-logo-circle" class="cls-1" cx="256"
-    cy="256" r="255" />
-  <g data-name="#nuphory-logo">
-    <g data-name="#nuphory-face">
-      <g data-name="#nuphory-logo-face-eyes">
-        <g data-name="#nuphory-logo-face-eyes-closed">
-          <line
-            data-name="#nuphory-logo-face-eyes-closed-right" class="cls-2" x1="362.5" y1="283.5"
-            x2="462.5" y2="283.5" />
-          <line
-            data-name="#nuphory-logo-face-eyes-closed-left" class="cls-2" x1="49.5" y1="283.5"
-            x2="149.5" y2="283.5" />
+  <g id="_nuphory-logo" data-name="#nuphory-logo">
+    <rect id="_nuphory-logo-background" data-name="#nuphory-logo-background" class="cls-4" y="0" width="512" height="512"/>
+    <g id="_nuphory-logo-face" data-name="#nuphory-logo-face">
+      <g id="_nuphory-logo-face-eyes" data-name="#nuphory-logo-face-eyes">
+        <g id="_nuphory-logo-face-eyes-closed" data-name="#nuphory-logo-face-eyes-closed">
+          <line id="_nuphory-logo-face-eyes-closed-right" data-name="#nuphory-logo-face-eyes-closed-right" class="cls-2" x1="362.5" y1="283.5" x2="462.5" y2="283.5"/>
+          <line id="_nuphory-logo-face-eyes-closed-left" data-name="#nuphory-logo-face-eyes-closed-left" class="cls-2" x1="49.5" y1="283.5" x2="149.5" y2="283.5"/>
         </g>
       </g>
-      <path class="cls-2"
-        d="m313.61,327.5c-13.28-1.04-47.84-21.78-57.61-37-9.77,15.22-45.22,35.96-58.5,37" />
+      <path class="cls-2" d="m313.61,327.5c-13.28-1.04-47.84-21.78-57.61-37-9.77,15.22-45.22,35.96-58.5,37"/>
     </g>
-    <g data-name="#nuphory-logo-tm">
-      <polyline data-name="#nuphory-logo-tm-m" class="cls-3"
-        points="489.84 261.5 489.84 253.5 485.84 260 481.84 253.5 481.84 261.5" />
-      <g data-name="#nuphory-logo-tm-t">
-        <line data-name="#nuphory-logo-tm-t-top" class="cls-3"
-          x1="479.34" y1="253.5" x2="472.34" y2="253.5" />
-        <line data-name="#nuphory-logo-tm-t-shaft" class="cls-3"
-          x1="475.84" y1="261.5" x2="475.84" y2="253.5" />
+    <g id="_nuphory-logo-tm" data-name="#nuphory-logo-tm">
+      <polyline id="_nuphory-logo-tm-m" data-name="#nuphory-logo-tm-m" class="cls-3" points="489.84 261.5 489.84 253.5 485.84 260 481.84 253.5 481.84 261.5"/>
+      <g id="_nuphory-logo-tm-t" data-name="#nuphory-logo-tm-t">
+        <line id="_nuphory-logo-tm-t-top" data-name="#nuphory-logo-tm-t-top" class="cls-3" x1="479.34" y1="253.5" x2="472.34" y2="253.5"/>
+        <line id="_nuphory-logo-tm-t-shaft" data-name="#nuphory-logo-tm-t-shaft" class="cls-3" x1="475.84" y1="261.5" x2="475.84" y2="253.5"/>
       </g>
     </g>
+    <circle id="_nuphory-logo-circle" data-name="#nuphory-logo-circle" class="cls-1" cx="256" cy="256" r="255"/>
   </g>
 </svg>
