@@ -1,7 +1,8 @@
 @use '$lib/styles/ui/color-palette.scss' as *;
+@use '$lib/styles/ui/design.scss';
+@use '$lib/styles/ui/base/nu.scss';
 @use '$lib/styles/ui/base/themes.scss';
 @use '$lib/styles/ui/base/typography.scss';
-@use '$lib/styles/ui/base/dx.scss';
 
 @use '$lib/styles/ui/utils/_color.scss';
 
@@ -14,10 +15,24 @@
 *,
 *::before,
 *::after {
-	transition: background-color 150ms ease-out, color 150ms ease-out;
+        transition-property: transform, opacity, background-color, color, fill, stroke;
+        transition-duration: 300ms;
+        transition-timing-function: ease-out;
+        box-sizing: border-box;
+	
+}
+
+html,
+body {
+        min-height: 100vh;
+
+        font-family: sans-serif;
+
+	scroll-padding-top: 6.3rem;
+	scroll-behavior: smooth;
 }
 
 body {
-	background-color: var(--background-primary);
-	color: var(--text-primary);
+        background-color: var(--background-primary);
+        color: var(--text-primary);
 }
