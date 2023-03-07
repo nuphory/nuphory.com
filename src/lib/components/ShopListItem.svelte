@@ -32,7 +32,7 @@
         }
 </script>
 
-<li class="w-xs p-4 rounded-[2em] outline outline-[3px]">
+<li class="w-xs m-4 p-4 rounded-[2em] outline outline-[3px]">
         <!-- product listing -->
 
         <!-- product showcase -->
@@ -46,7 +46,7 @@
                                 class="
                                         relative 
                                         aspect-square 
-                                        w-80 max-w-xs 
+                                        w-full max-w-xs 
                                         rounded-2xl outline outline-[1px] 
                                         bg-white
                                 "
