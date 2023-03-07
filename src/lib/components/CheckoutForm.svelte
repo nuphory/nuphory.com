@@ -42,7 +42,7 @@
 </script>
 
 <form
-        class="relative grid p-4 rounded-[2em] border-[3px] grid-cols-1 xl:grid-cols-2 gap-2 max-w-[20em] lg:max-w-full"
+        class="relative grid m-4 p-4 rounded-[2em] outline outline-3 grid-cols-1 xl:grid-cols-2 gap-2 max-w-[20em] lg:max-w-full text-left"
 >
         <h4 class="text-2xl font-bold xl:col-start-1">Shipping</h4>
         <section
@@ -236,9 +236,14 @@
 
         input,
         select {
-                @apply w-full;
-                @apply rounded-[0.5em] border-[1px];
-                @apply border-[var(--color-border)];
+                @apply w-full border-none outline-none;
+                @apply rounded-2xl;
+                @apply text-[var(--text-invert)];
+                @apply bg-[var(--background-invert)];
+        }
+
+        label {
+                @apply ml-4;
         }
 
         h6 {

@@ -39,16 +39,16 @@
 </script>
 
 <li
-        class="flex flex-col basis-1 justify-between items-center m-4 p-4 rounded-[2em] border-[3px] gap-4 sm:flex-row xs:items-start"
+        class="flex flex-col basis-1 justify-between items-center m-4 p-4 rounded-[2em] outline outline-3 gap-4 sm:flex-row xs:items-start"
 >
         <img
                 src={item.files[1].preview_url}
                 alt={item.name}
-                class="aspect-square w-full max-w-xs rounded-2xl border-[1px]"
+                class="aspect-square w-full max-w-xs rounded-2xl outline outline-[1px]"
         />
 
         <div class="flex flex-col max-h-80 h-full justify-between gap-4">
-                <h5 class="border-b">{item.name}</h5>
+                <h5 class="border-b clr-border">{item.name}</h5>
                 <div class="flex-1 flex flex-col justify-between items-start overflow-auto">
                         <div class="w-full flex flex-col overflow-auto">
                                 {#each Array(item.quantity) as _, i}
@@ -67,7 +67,7 @@
                                 {/each}
                         </div>
                         <div
-                                class="w-full flex flex-col justify-between items-start border-t sm:flex-row sm:items-center"
+                                class="w-full flex flex-col justify-between items-start border-t clr-border sm:flex-row sm:items-center"
                         >
                                 <p>Subtotal</p>
                                 <p class="hidden sm:inline-flex">—</p>
@@ -78,16 +78,16 @@
                         </div>
                 </div>
                 <div
-                        class="flex flex-col justify-between items start sm:flex-row sm:items-center gap-2"
+                        class="flex flex-col justify-between items start sm:flex-row sm:items-center gap-4"
                 >
                         <label for="quantity">Quantity: </label>
-                        <div class="quantity-buttons flex flex-row justify-end gap-1">
+                        <div class="quantity-buttons flex flex-row justify-end gap-2">
                                 <button
                                         class="badge aspect-square cursor-pointer clr-text-invert clr-bg-invert font-mono font-bold hover:scale-105"
                                         on:click={subtractItem}>-</button
                                 >
                                 <input
-                                        class="badge w-full text-right clr-text-invert clr-bg-invert font-mono sm:max-w-[5em]"
+                                        class="badge w-full text-right clr-text-invert bg-[var(--background-invert)] font-mono sm:max-w-[5em] border-none outline-none"
                                         type="number"
                                         name="quantity"
                                         min="1;"

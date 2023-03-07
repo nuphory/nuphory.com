@@ -17,7 +17,7 @@
 
 <ul
         id="cart"
-        class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-[2em] border-[3px]"
+        class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-3xl outline outline-3"
 >
         {#each order.items as item}
                 <SimpleCartListItem {item} />

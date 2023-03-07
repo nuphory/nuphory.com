@@ -11,11 +11,11 @@
         <img
                 src={item.files[1].preview_url}
                 alt={item.name}
-                class="aspect-square w-full max-w-[4em] rounded-2xl border-[1px]"
+                class="aspect-square w-full max-w-[4em] rounded-2xl border-[1px] clr-border"
         />
 
         <div class="flex flex-1 flex-col justify-between gap-4">
-                <p class="border-b">{item.name}</p>
+                <p class="border-b clr-border">{item.name}</p>
                 <div class="flex-1 flex flex-col justify-between items-start overflow-auto">
                         <div class="w-full flex flex-col overflow-auto">
                                 <div class="flex flex-col justify-between items-start">
@@ -34,7 +34,7 @@
                                         </p>
                                 </div>
                         </div>
-                        <div class="w-full flex flex-row justify-between items-start border-t">
+                        <div class="w-full flex flex-row justify-between items-start border-t clr-border">
                                 <p>Subtotal</p>
                                 <p class="text-right w-full">
                                         {(parseInt(item.retail_price) * item.quantity).toFixed(2)}

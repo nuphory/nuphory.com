@@ -75,14 +75,17 @@ a {
 
 .clr-border {
         border-color: var(--border-primary);
+        outline-color: var(--border-primary);
 }
 
 .clr-border-secondary {
         border-color: var(--border-secondary);
+        outline-color: var(--border-secondary);
 }
 
 .clr-border-invert {
         border-color: var(--border-invert);
+        outline-color: var(--border-invert);
 }
 
 button {

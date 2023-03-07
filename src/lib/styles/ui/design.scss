@@ -4,4 +4,6 @@
 
 div[role='separator'] {
         @apply mx-auto border border-b max-w-xs w-full;
+        border-color: var(--border-primary);
+        outline-color: var(--border-primary);
 }

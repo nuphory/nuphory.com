@@ -15,7 +15,7 @@
 *,
 *::before,
 *::after {
-        transition-property: transform, opacity, background-color, color, fill, stroke;
+        transition-property: transform, opacity, background-color, color, fill, stroke, border-color, outline-color;
         transition-duration: 300ms;
         transition-timing-function: ease-out;
         box-sizing: border-box;

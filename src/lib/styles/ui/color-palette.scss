@@ -137,7 +137,7 @@ $nu-color-cyan-15: color.change($nu-color-cyan, $lightness: 15%);
 $nu-color-cyan-10: color.change($nu-color-cyan, $lightness: 10%);
 $nu-color-cyan-5: color.change($nu-color-cyan, $lightness: 5%);
 
-$nu-color-highlight: hsl(23, 100%, 98%);
+$nu-color-highlight: #fffaf7;
 $nu-color-shadow: color.change($nu-color-blue, $saturation: 20%, $lightness: 19%);
 
 // Light theme

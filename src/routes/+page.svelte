@@ -163,7 +163,7 @@
         </nav>
 </section>
 
-<div role="separator" />
+<div role="separator" class="clr-border"/>
 
 <section id="merch" class="space-y-12">
         <h3 id="merch-btt" class="leading-4 m-0 mb-16">Merch</h3>
@@ -175,7 +175,7 @@
                 </p>
         </div>
 </section>
-<div role="separator" />
+<div role="separator" class="clr-border" />
 
 <section id="socials" class="space-y-12">
         <div class="mb-4">
@@ -188,7 +188,7 @@
                         <h4 class="m-0 pointer-events-none">back to top</h4>
                 </a>
         </div>
-        <div id="buttons" class="flex flex-col items-center justify-center">
+        <div id="buttons" class="flex flex-col gap-2 md:gap-1 items-center justify-center">
                 <Buttons />
         </div>
 </section>
