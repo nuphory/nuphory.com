@@ -6,19 +6,19 @@
 <footer id="booking" class="clr-bg-invert clr-text-invert text-center py-4">
         <h4 id="booking-btt">{_siteName}</h4>
 
-        <div id="content">
-                <section id="impressum" class="footer-area">
+        <div id="content" class="flex flex-col justify-center items-center sm:flex-row sm:items-start">
+                <section id="impressum" class="w-64 m-8 text-left">
                         <Impressum />
                 </section>
 
-                <section id="contact" class="footer-area">
+                <section id="contact" class="w-64 m-8 text-left">
                         <h4 class="grow">contact</h4>
-                        <ul>
+                        <ul class="list-none">
                                 <!-- link opens in new tab-->
                                 <li>
                                         e-mail:
                                         <a
-                                                class="clr-text-primary"
+                                                class="clr-text-invert"
                                                 href="mailto:nuphory@gmail.com"
                                                 target="_blank"
                                         >
@@ -35,53 +35,6 @@
 </footer>
 
 <style>
-        .footer-area {
-                @apply w-64 m-8;
-                @apply text-left;
-        }
 
-        ul {
-                list-style-type: none;
-                padding: 0px;
-        }
 
-        a {
-                color: var(--color-text);
-        }
-
-        a:hover {
-                color: var(--color-text);
-        }
-
-        .footer-area {
-                width: 250px;
-                /* display: inline-block; */
-                text-align: left;
-        }
-
-        #title {
-                text-align: center;
-                margin: 16px;
-        }
-
-        #content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-        }
-
-        #contact {
-                text-align: left;
-                margin-bottom: 16px;
-        }
-
-        @media only screen and (min-width: 768px) {
-                #content {
-                        height: 300px;
-                        flex-direction: row;
-                        justify-content: center;
-                        align-items: flex-start;
-                }
-        }
 </style>
