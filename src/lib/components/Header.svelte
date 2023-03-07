@@ -8,45 +8,49 @@
         import { page } from '$app/stores';
         import { _siteName } from '$src/routes/+layout';
 
-        let isHeaderVisible: boolean = true;
-
         let theme: string | null;
         let mounted: boolean = false;
 
-        onMount(() => {
+        let pageTitleVisible: boolean = false;
+
+        onMount(async () => {
                 mounted = true;
                 if (browser) {
                         theme = document.documentElement.getAttribute('data-theme');
 
-                        isHeaderVisible = isElementInViewport('#page-title');
+                        checkVisibility('#page-title');
 
                         window.addEventListener('scroll', () => {
-                                isHeaderVisible = isElementInViewport('#page-title');
+                                console.debug(
+                                        'scroll',
+                                        pageTitleVisible,
+                                        isElementInViewport('#page-title')
+                                );
+                                checkVisibility('#page-title');
                         });
                 }
         });
-        afterUpdate(() => {
-                if (browser) {
-                        isHeaderVisible = isElementInViewport('#page-title');
-                }
-        });
+
+        async function checkVisibility(query: string) {
+                pageTitleVisible = isElementInViewport(query);
+        }
 </script>
 
-<header class="sticky z-10 top-0 {isHeaderVisible ? '' : 'clr-bg-primary'} text-center h-min">
+<header class="sticky z-10 top-0 {pageTitleVisible ? '' : 'clr-bg-primary'} text-center h-min">
         <nav class="max-w-5xl mx-auto">
                 <ul class="mx-auto flex justify-between items-center max-w-5xl">
                         <li class="grow basis-0 m-4 text-left">
                                 <ThemeToggle />
                         </li>
                         <li>
-                                <div
-                                        class="overflow-hidden"
-                                >
+                                <div class="overflow-hidden">
                                         <h4
                                                 class="
                                                         transition-[transform] duration-300 ease-out
                                                         m-0
-                                                        {isHeaderVisible && mounted ? 'translate-y-full' : ''}
+                                                        {pageTitleVisible && mounted
+                                                        ? 'translate-y-full'
+                                                        : ''}
                                         "
                                         >
                                                 {$page.route.id?.split('/').pop() || _siteName}
@@ -62,7 +66,9 @@
                         data-scroll="0"
                         class="
                                 transition-[width] duration-150  ease-out
-                                {isHeaderVisible && mounted ? 'opacity-0 w-0' : 'opacity-100 w-full lg:w-96'}
+                                {pageTitleVisible && mounted
+                                ? 'opacity-0 w-0'
+                                : 'opacity-100 w-full lg:w-96'}
                                 block m-auto
                                 outline outline-[1.5px] outline-[var(--text-primary)]
                         "
