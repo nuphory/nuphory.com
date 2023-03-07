@@ -3,20 +3,14 @@
         import type { AnimationItem } from 'lottie-web';
         import { onMount } from 'svelte';
 
-        import NuphoryLogo from './icons/NuphoryLogo.svelte';
+        export let classList: string = "";
 
-        let width: number;
-        let height: number;
-
-        export let href: string | null = null;
-
+        // export let href: string = "";
         export let onmouseover: any;
         export let fallback: any = onmouseover;
         export let onmouseleave: any = onmouseover;
-        export let Placeholder: any = NuphoryLogo;
 
         let state = 'stopped';
-
         let animation: AnimationItem;
 
         if (browser) {
@@ -75,22 +69,15 @@
         }
 </script>
 
-<div id="lottie" class="mx-auto translate-y-[-25%]">
+<div id="lottie" class={classList}>
         {#if !animation}
-                 <Placeholder id="placeholder" />
+                 <slot />
         {/if}
 </div>
 
 <style lang="scss">
-        #lottie {
-                width: var(--player-width);
-                height: var(--player-height);
-        }
-
-        :global(#headbop-tm-stroke),
-        :global(#headbop-face-stroke),
-        :global(#headbop-ellipse-stroke) {
+        :global(path.stroke) {
                 transition: all 300ms ease-out;
-                stroke: var(--text-primary);
+                stroke: var(--text-primary) !important;
         }
 </style>
