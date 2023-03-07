@@ -10,7 +10,7 @@
         // Components
         import Footer from '$src/lib/components/Footer.svelte';
         import Header from '$src/lib/components/Header.svelte';
-        import PageTransition from '$src/lib/components/PageTransition.svelte';
+        import PageTransition from '$src/lib/components/utils/PageTransition.svelte';
 
         // Typefaces
         import '@fontsource/montserrat/400.css';
@@ -50,23 +50,6 @@
                                 )?.scrollIntoView({
                                         behavior: 'smooth'
                                 });
-                        });
-                });
-
-                // Collapsible
-                let collapsibles = document.querySelectorAll('.collapsible');
-                collapsibles.forEach((collapsible) => {
-                        collapsible.addEventListener('click', () => {
-                                collapsible.classList.toggle('active');
-                                let content = collapsible.nextElementSibling as HTMLElement;
-                                if (!content) return;
-
-                                // toggle content maxheight
-                                if (content.style.maxHeight) {
-                                        content.style.removeProperty('max-height');
-                                } else {
-                                        content.style.maxHeight = content.scrollHeight + 'px';
-                                }
                         });
                 });
 
@@ -124,16 +107,18 @@
         <meta name="twitter:creator" content="@{_siteName}" />
 </svelte:head>
 
-<div class="relative flex flex-col justify-between min-h-screen min-h-[100dvh]">
-        <Header />
+<div class="relative space-y-0 min-h-screen min-h-[100dvh]">
+        <div class="top-0 flex flex-col min-h-screen h-auto">
+                <Header />
 
-        <!-- <OnMount> -->
-        <PageTransition url={data.pathname} duration={500}>
-                <main id="content" class="m-4 relative mx-auto text-center max-w-5xl">
+                <PageTransition
+                        classList="relative flex-1 max-w-5xl w-full mx-auto text-center "
+                        url={data.pathname}
+                        duration={500}
+                >
                         <slot />
-                </main>
-        </PageTransition>
-        <!-- </OnMount> -->
+                </PageTransition>
+        </div>
 
         <!-- <main class="relative flex flex-col items-center w-full max-w-5xl mx-auto my-0">
                 <slot />
@@ -143,7 +128,7 @@
 
 <style>
         :global(*) {
-                /* outline: 1px solid green; */
+                outline: 1px solid green;
         }
         :global(#page-title h1) {
                 font-size: 2.25em;
