@@ -100,7 +100,7 @@
                                 
                                 sm:max-w-0
                                 sm:max-h-0
-                                m-0 mx-auto
+                                m-0 mt-8 mx-auto
 
                                 flex justify-center items-end
 
