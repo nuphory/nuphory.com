@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-div[role="separator"] {
-	@apply mx-auto border border-b max-w-xs
+div[role='separator'] {
+        @apply mx-auto border border-b max-w-xs w-full;
 }
