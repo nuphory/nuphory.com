@@ -7,13 +7,7 @@
         import Buttons from '$src/lib/components/Buttons.svelte';
         import ProductList from '$src/lib/components/ShopList.svelte';
 
-        // lottie animations
-
         import NuphoryLogo from '$src/lib/components/icons/NuphoryLogo.svelte';
-
-        // export let data;
-
-        // let { products } = data;
 
         async function scrollTo(event) {
                 const sender = event.target;

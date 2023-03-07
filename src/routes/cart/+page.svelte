@@ -47,7 +47,7 @@
                 <section id="checkout" class="flex justify-center items-center">
                         <a
                                 id="checkout-button"
-                                class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
+                                class="w-80 py-2 px-4 clr-text-invert clr-bg-invert rounded-full font-mono"
                                 href="/cart/checkout"><b>checkout</b></a
                         >
                 </section>
@@ -55,7 +55,7 @@
                 <section id="checkout" class="flex justify-center items-center">
                         <a
                                 id="checkout-button"
-                                class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono disabled"
+                                class="w-80 py-2 px-4 clr-text-invert clr-bg-invert rounded-full font-mono disabled"
                                 href="/cart/checkout"><b>checkout</b></a
                         >
                 </section>
@@ -64,7 +64,7 @@
         <section id="back-to-home" class="mb-0 flex justify-center items-center ">
                 <a
                         id="checkout-button"
-                        class="w-80 badge py-1 px-4 clr-bg clr-text clr-inverse !rounded-full font-mono"
+                        class="w-80 py-2 py-1 px-4 clr-text-invert clr-bg-invert rounded-full font-mono"
                         href="/"><b>home</b></a
                 >
         </section>
