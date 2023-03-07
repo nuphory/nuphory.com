@@ -62,7 +62,7 @@ h3 {
         text-shadow: 0px 1px, 1px 0px, 1px 1px, 1px 2px, 2px 1px, 0px 2px, 2px 0px, 2px 2px;
         text-indent: var(--header-letter-spacing);
         letter-spacing: var(--header-letter-spacing);
-        text-align: center;
+        @apply select-none text-center;
 }
 
 // bold headers
