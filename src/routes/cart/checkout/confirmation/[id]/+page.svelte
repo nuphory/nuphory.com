@@ -1,4 +1,5 @@
 <script lang="ts">
+        // TODO new themes
         import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
 
         import { browser } from '$app/environment';

@@ -21,11 +21,11 @@
                         checkVisibility('#page-title');
 
                         window.addEventListener('scroll', () => {
-                                console.debug(
-                                        'scroll',
-                                        pageTitleVisible,
-                                        isElementInViewport('#page-title')
-                                );
+                                // console.debug(
+                                //         'scroll',
+                                //         pageTitleVisible,
+                                //         isElementInViewport('#page-title')
+                                // );
                                 checkVisibility('#page-title');
                         });
                 }
