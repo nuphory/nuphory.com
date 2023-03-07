@@ -21,7 +21,7 @@ export async function DELETE({ request }): Promise<Response> {
 
                 const json = await (await res).json();
 
-                console.debug('order cancellation', json);
+                // console.debug('order cancellation', json);
 
                 return new Response(JSON.stringify(json), {
                         status: 200,

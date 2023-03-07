@@ -16,7 +16,7 @@ export async function POST({ request }): Promise<Response> {
 
                 const json = await res.json();
 
-                console.debug('cost estimation', json);
+                // console.debug('cost estimation', json);
 
                 return new Response(JSON.stringify(json), {
                         status: 200,

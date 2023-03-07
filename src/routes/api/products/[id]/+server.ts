@@ -9,7 +9,7 @@ export async function GET({ params }): Promise<Response> {
 
                 const json = await (await res).json();
 
-                console.debug('products', json);
+                // console.debug('products', json);
 
                 return new Response(JSON.stringify(json), {
                         status: 200,
