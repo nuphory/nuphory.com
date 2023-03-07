@@ -39,7 +39,7 @@
 </script>
 
 <li
-        class="flex flex-col basis-1  justify-between items-center m-4 p-4 rounded-[2em] border-[3px] gap-4 sm:flex-row xs:items-start"
+        class="flex flex-col basis-1 justify-between items-center m-4 p-4 rounded-[2em] border-[3px] gap-4 sm:flex-row xs:items-start"
 >
         <img
                 src={item.files[1].preview_url}
@@ -82,26 +82,21 @@
                 >
                         <label for="quantity">Quantity: </label>
                         <div class="quantity-buttons flex flex-row justify-end gap-1">
-                                <a
-                                        href=" "
-                                        class="badge aspect-square cursor-pointer clr-text clr-bg clr-inverse font-mono"
-                                        on:click={subtractItem}
-                                        on:keydown={subtractItem}>-</a
+                                <button
+                                        class="badge aspect-square cursor-pointer clr-text-invert clr-bg-invert font-mono font-bold hover:scale-105"
+                                        on:click={subtractItem}>-</button
                                 >
                                 <input
-                                        class="badge w-full text-right clr-text clr-bg clr-inverse font-mono sm:max-w-[5em]"
+                                        class="badge w-full text-right clr-text-invert clr-bg-invert font-mono sm:max-w-[5em]"
                                         type="number"
                                         name="quantity"
                                         min="1;"
                                         value={item.quantity}
                                         on:input={setQuantity}
                                 />
-                                <a
-                                        href=" "
-                                        class="badge aspect-square cursor-pointer clr-text clr-bg clr-inverse font-mono"
-                                        on:click={addItem}
-                                        on:keydown={addItem}
-                                        ><span class="pointer-events-none">+</span></a
+                                <button
+                                        class="badge aspect-square cursor-pointer clr-text-invert clr-bg-invert font-mono font-bold hover:scale-105"
+                                        on:click={addItem}>+</button
                                 >
                         </div>
                 </div>

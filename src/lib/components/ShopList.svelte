@@ -1,7 +1,7 @@
 <script lang="ts">
         import type { Product, SyncProduct } from '$lib/types/product';
         import { api } from '../api/internalApi';
-        import ProductListItem from './ProductListItem.svelte';
+        import ProductListItem from './ShopListItem.svelte';
 
         async function fetchProducts() {
                 try {
@@ -33,7 +33,7 @@
         export let products: Product[] = [];
 </script>
 
-<ul id="products" class="flex flex-col justify-center items-center md:flex-row">
+<ul id="products" class="flex flex-col justify-center items-center md:flex-row gap-8">
         {#await fetchProducts()}
                 {#each Array(2) as product, i}
                         <!-- <li>{i}</li> -->

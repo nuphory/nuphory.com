@@ -32,7 +32,7 @@
         }
 </script>
 
-<li class="w-xs m-4 p-4 rounded-[2em] outline outline-[3px]">
+<li class="w-xs p-4 rounded-[2em] outline outline-[3px]">
         <!-- product listing -->
 
         <!-- product showcase -->
@@ -153,7 +153,7 @@
                         on:keydown={addItem}
                         tabindex="0"
                 >
-                        <CartPlus height="18px" />
+                        <CartPlus classList="fill-[var(--color-text)] max-w-[20px]" />
                 </button>
         </div>
 </li>

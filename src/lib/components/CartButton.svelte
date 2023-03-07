@@ -53,7 +53,6 @@
         id="cart-div"
         href="/cart"
         class="
-                        transition-all duration-300 ease-out
                         flex justify-center items-center
 
                         ml-auto

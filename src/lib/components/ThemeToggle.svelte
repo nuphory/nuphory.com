@@ -24,7 +24,6 @@
                 for="theme-toggle"
                 class="
                         z-10
-                        transition-all duration-300 ease-out
                         relative
                         inline-block
                         cursor-pointer
@@ -42,12 +41,10 @@
                 />
                 <figure
                         class="
-                                transition-all duration-300 ease-out
                                 absolute
                                 left-1/2 top-1/2
                                 translate-x-[-50%] translate-y-[-50%]
                                 h-[2em] w-[2em]
-                                hover:scale-[85%]
                                 overflow-clip
                                 rounded-full
                                 clr-bg-primary
@@ -55,7 +52,6 @@
                 >
                         <div
                                 class="
-                                        transition-all duration-300 ease-out
                                         absolute
                                         right-1/2 bottom-1/2
                                         translate-x-1/2 translate-y-1/2
@@ -67,7 +63,6 @@
 
                         <div
                                 class="
-                                        transition-all duration-300 ease-out
                                         absolute
                                         right-1/2 bottom-1/2
                                         translate-x-1/2 translate-y-1/2
@@ -79,7 +74,6 @@
 
                         <div
                                 class="
-                                        transition-all duration-300 ease-out
                                         absolute
                                         h-[1.5em] w-[1.5em]
                                         rounded-full
@@ -92,8 +86,8 @@
         <a
                 href="/"
                 class="
-                        z-0
-                        transition-all duration-300 ease-out
+                        transition-[transform,opacity,max-width] duration-300 ease-out
+                        
                         opacity-0 sm:opacity-100
                         -translate-x-full sm:translate-x-0
                         max-w-0 sm:max-w-full
@@ -107,7 +101,7 @@
         >
                 <ul
                         class="
-                                transition-all duration-300 ease-out
+                                
                                 block
                                 clr-text-primary
                                 translate-y-0
@@ -126,6 +120,14 @@
 </div>
 
 <style lang="scss">
+
+        label:hover {
+                @apply scale-105;
+                figure {
+                        @apply scale-[85%];
+                }
+
+        }
         :global([data-theme='dark']) {
                 figure {
                         > div:last-child {

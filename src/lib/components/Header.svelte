@@ -2,7 +2,7 @@
         import CartButton from './CartButton.svelte';
         import ThemeToggle from './ThemeToggle.svelte';
         import { isElementInViewport } from '$lib/utils/DOMutils';
-        import { onMount } from 'svelte';
+        import { afterUpdate, onMount } from 'svelte';
         import { browser } from '$app/environment';
 
         import { page } from '$app/stores';
@@ -11,16 +11,23 @@
         let isHeaderVisible: boolean = true;
 
         let theme: string | null;
+        let mounted: boolean = false;
 
         onMount(() => {
+                mounted = true;
                 if (browser) {
                         theme = document.documentElement.getAttribute('data-theme');
 
                         isHeaderVisible = isElementInViewport('#page-title');
 
-                        window.addEventListener('scroll', (event) => {
+                        window.addEventListener('scroll', () => {
                                 isHeaderVisible = isElementInViewport('#page-title');
                         });
+                }
+        });
+        afterUpdate(() => {
+                if (browser) {
+                        isHeaderVisible = isElementInViewport('#page-title');
                 }
         });
 </script>
@@ -37,9 +44,9 @@
                                 >
                                         <h4
                                                 class="
-                                                transition-all duration-300 
-                                                m-0
-                                                {isHeaderVisible ? 'translate-y-full' : ''}
+                                                        transition-[transform] duration-300 ease-out
+                                                        m-0
+                                                        {isHeaderVisible && mounted ? 'translate-y-full' : ''}
                                         "
                                         >
                                                 {$page.route.id?.split('/').pop() || _siteName}
@@ -50,12 +57,12 @@
                                 <CartButton />
                         </li>
                 </ul>
-                <div
+                <span
                         role="separator"
                         data-scroll="0"
                         class="
-                                transition-all duration-150 ease-out
-                                {isHeaderVisible ? 'opacity-0 w-0' : 'opacity-100 w-full lg:w-96'}
+                                transition-[width] duration-150  ease-out
+                                {isHeaderVisible && mounted ? 'opacity-0 w-0' : 'opacity-100 w-full lg:w-96'}
                                 block m-auto
                                 outline outline-[1.5px] outline-[var(--text-primary)]
                         "

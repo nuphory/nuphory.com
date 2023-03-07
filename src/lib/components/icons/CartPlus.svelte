@@ -1,9 +1,9 @@
 <script lang="ts">
-        export let height: string = '18px';
+        export let classList: string = "";
 </script>
 
 <svg
-        class="fill-[var(--color-text)] max-h-[{height}]"
+        class={classList}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 576 512"
 >

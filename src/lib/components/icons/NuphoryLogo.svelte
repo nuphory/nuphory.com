@@ -1,7 +1,7 @@
 <script lang="ts">
 
         // Components
-        import LottiePlayer from "../LottiePlayer.svelte";
+        import LottiePlayer from "../utils/LottiePlayer.svelte";
 
         // Lottie animations
         // import intro from '$lib/assets/lottie/intro.json';

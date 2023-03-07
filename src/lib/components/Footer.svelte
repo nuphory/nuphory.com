@@ -3,7 +3,7 @@
         import { _siteName } from '$src/routes/+layout';
 </script>
 
-<footer class="clr-bg-invert clr-text-invert text-center">
+<footer class="clr-bg-invert clr-text-invert text-center py-4">
         <h4>{_siteName}</h4>
 
         <div id="content">
@@ -29,7 +29,9 @@
                 </section>
         </div>
 
-        <div id="copyright">© 2022 nuphory</div>
+        <div role=separator class="clr-border-invert"></div>
+
+        <div id="copyright" class="my-4 text-center">© 2022-{(new Date()).getFullYear()} nuphory</div>
 </footer>
 
 <style>
@@ -72,12 +74,6 @@
         #contact {
                 text-align: left;
                 margin-bottom: 16px;
-        }
-
-        #copyright {
-                border-top: 1px solid var(--color-text);
-                text-align: center;
-                padding-top: 16px;
         }
 
         @media only screen and (min-width: 768px) {

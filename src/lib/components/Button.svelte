@@ -10,7 +10,6 @@
         rel="noreferrer"
         class="
                 button
-                transition-all duration-300 ease-out
                 flex justify-center items-center
                 mx-[8px] my-[4px] rounded-full
                 
