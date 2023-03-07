@@ -8,10 +8,7 @@
         import ProductList from '$src/lib/components/ProductList.svelte';
 
         // lottie animations
-        // import intro from '$lib/assets/lottie/intro.json';
-        // import headbang from '$lib/assets/lottie/headbang.json';
-        // import settle from '$lib/assets/lottie/settle.json';
-        import headbop from '$lib/assets/lottie/headbop.json';
+        
         import NuphoryLogo from '$src/lib/components/icons/NuphoryLogo.svelte';
 
         // export let data;
@@ -78,15 +75,18 @@
 </svelte:head>
 
 <section id="hero" class="relative mx-auto">
-        <div id="logo" class="h-[10.3em] mx-auto">
-                <LottiePlayer
-                        --player-width="{360}px"
-                        --player-height="{360}px"
-                        onmouseover={headbop}
-                        Placeholder={NuphoryLogo}
+        <div id="logo" class="relative aspect-square w-full max-w-[360px] mx-auto">
+                <NuphoryLogo 
+                        classList="
+                                absolute 
+                                bottom-1/2 right-1/2 
+                                translate-y-1/2 translate-x-1/2 
+                                aspect-square w-full max-w-[360px] 
+                                mx-auto
+                        "
                 />
         </div>
-        <header class="z-10">
+        <header class="mt-[-6.5em]">
                 <h1 id="page-title"><b>{_siteName}</b></h1>
         </header>
 </section>
