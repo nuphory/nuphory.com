@@ -1,5 +1,6 @@
 <script lang="ts">
         import { browser } from '$app/environment';
+        import type { AnimationItem } from 'lottie-web';
         import { onMount } from 'svelte';
 
         import NuphoryLogo from './icons/NuphoryLogo.svelte';
@@ -16,20 +17,20 @@
 
         let state = 'stopped';
 
+        let animation: AnimationItem;
+
         if (browser) {
                 onMount(async () => {
                         const { default: web } = await import('lottie-web');
 
                         let lottieElement = document.querySelector('#lottie') as HTMLDivElement;
 
-                        let animation = web.loadAnimation({
+                        animation = web.loadAnimation({
                                 container: lottieElement!,
                                 animationData: fallback,
                                 loop: false,
                                 autoplay: false
                         });
-
-                        document.querySelector('#placeholder')?.remove();
 
                         lottieElement?.addEventListener('mouseover', () => {
                                 animation.play();
@@ -75,7 +76,9 @@
 </script>
 
 <div id="lottie" class="mx-auto translate-y-[-25%]">
-        <Placeholder id="placeholder" />
+        {#if !animation}
+                 <Placeholder id="placeholder" />
+        {/if}
 </div>
 
 <style lang="scss">
