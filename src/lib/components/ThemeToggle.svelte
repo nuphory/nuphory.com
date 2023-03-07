@@ -1,3 +1,7 @@
+<script context="module">
+        export const prerender = false;
+</script>
+
 <script lang="ts">
         import { browser } from '$app/environment';
         import { onMount } from 'svelte';
