@@ -8,18 +8,11 @@
 
         let theme: string | null;
 
-        onMount(() => {
-                if (!browser) return;
-                theme = document.documentElement.getAttribute('data-theme');
-        });
-
         function toggleTheme(event: Event) {
                 const html = document.documentElement;
-
                 const checkbox = event.target as HTMLInputElement;
 
                 html.setAttribute('data-theme', checkbox.checked ? 'light' : 'dark');
-                theme = document.documentElement.getAttribute('data-theme');
         }
 </script>
 
@@ -110,10 +103,8 @@
                                 block
                                 clr-text-primary
                                 translate-y-0
-                                {theme === 'dark' ? 'hover:translate-y-0 -translate-y-6' : ''}
-                                {theme === 'light'
-                                ? 'hover:-translate-y-[4.5em] -translate-y-12'
-                                : ''}
+                                group-data-[theme='dark']:hover:translate-y-0 group-data-[theme='dark']:-translate-y-6
+                                group-data-[theme='light']:hover:-translate-y-[4.5em] group-data-[theme='light']:-translate-y-12
                         "
                 >
                         <li>nuphory</li>
@@ -125,13 +116,11 @@
 </div>
 
 <style lang="scss">
-
         label:hover {
                 @apply scale-105;
                 figure {
                         @apply scale-[85%];
                 }
-
         }
         :global([data-theme='dark']) {
                 figure {
