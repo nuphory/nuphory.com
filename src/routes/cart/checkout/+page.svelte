@@ -180,10 +180,6 @@
 
                                 currentOrder.clearItems();
 
-                                // window.alert(
-                                //         `Your order with id ${$currentOrder.external_id} was confirmed.\n\nCurrently, the order confirmation page can be broken or incomplete, we're working on it.`
-                                // );
-
                                 window.location.href = `/store/order/${$currentOrder.external_id}`;
                         } catch (error) {
                                 console.error('Could not confirm order. ', error);
@@ -217,16 +213,6 @@
                                 'Something went wrong while cancelling your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
                         );
                 }
-                // await fetch(`/api/checkout/cancel`, {
-                //         method: 'DELETE',
-                //         body: JSON.stringify({ printful_order_id: orderId })
-                // });
-                // localStorage.setItem(
-                //         `order.${$currentOrder.external_id}`,
-                //         JSON.stringify({ ...$currentOrder, status: 'cancelled' })
-                // );
-                // currentOrder.createId();
-                // window.alert('Order cancelled, returned to checkout.');
         }
 
         async function onError(error: Record<string, unknown>) {
@@ -256,20 +242,6 @@
                                 'Something went wrong while cancelling your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
                         );
                 }
-
-                // await fetch(`/api/checkout/cancel`, {
-                //         method: 'DELETE',
-                //         body: JSON.stringify({ printful_order_id: orderId })
-                // });
-                // localStorage.setItem(
-                //         `order.${$currentOrder.external_id}`,
-                //         JSON.stringify({ ...$currentOrder, status: 'failed', error })
-                // );
-                // currentOrder.createId();
-                // window.alert(
-                //         `Order failed, returned to checkout.\n\n Check the console for more info.`
-                // );
-                // console.error(error);
         }
 
         onMount(() => {
@@ -322,31 +294,6 @@
                                         errElement.classList.remove('hidden');
                                         console.error(JSON.parse(err.message));
                                 });
-
-                        // fetch('/api/orders/estimate-costs', {
-                        //         body: JSON.stringify(order),
-                        //         method: 'POST'
-                        // })
-                        //         .then((response) => response.json())
-                        //         .then((data) => {
-                        //                 // console.debug('estimateJson', data);
-                        //                 if (data.code != 200) {
-                        //                         // console.debug(data);
-                        //                         if (!browser) return;
-                        //                         errElement.innerHTML = data.result;
-                        //                         errElement.classList.remove('hidden');
-                        //                         return;
-                        //                 }
-                        //                 shipping_available = true;
-                        //                 errElement.innerHTML = '';
-                        //                 errElement.classList.add('hidden');
-
-                        //                 currentOrder.setRetailCosts({
-                        //                         shipping: data.result.costs.shipping,
-                        //                         tax: data.result.costs.tax
-                        //                 });
-                        //                 lastRecipient = _.cloneDeep(order.recipient);
-                        //         });
                 });
         });
 </script>
@@ -369,7 +316,49 @@
         <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
-<div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
+<section id="page-title">
+        <h1 class="tracking-[0.125em]">checkout</h1>
+</section>
+<div role="separator" />
+
+<div
+        id="checkout-content"
+        class="relative flex-1 flex flex-col justify-center items-center lg:flex-row lg:items-start"
+>
+        <section id="cart-list" class="flex flex-col justify-center items-center lg:order-2">
+                <SimpleCartList order={$currentOrder} />
+                <a
+                        href="/cart"
+                        class=" 
+                                h-12 w-full max-w-xs
+                                py-2 px-4 m-4
+                                rounded-full
+                                
+                                clr-text-invert clr-bg-invert
+                                font-yeysk
+                        "
+                >
+                        back to cart
+                </a>
+        </section>
+        <div role="separator" class="lg:hidden" />
+        <section id="checkout-form" class="max-w-2xl lg:order-1">
+                <CheckoutForm />
+        </section>
+</div>
+<div role="separator" />
+<section id="complete-order" class="flex justify-center">
+        <div
+                id="paypal-button-container"
+                class="
+                        w-full max-w-xs m-4 p-8 pb-4 
+                        rounded-3xl bg-white
+                        outline outline-3 clr-border
+                "
+        />
+</section>
+
+<!-- <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
         <section id="page-title" class="pointer-events-none">
                 <h1 class="tracking-[0.125em]">checkout</h1>
         </section>
@@ -394,4 +383,4 @@
         <section id="#complete-order">
                 <div id="paypal-button-container" class="" />
         </section>
-</div>
+</div> -->

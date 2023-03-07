@@ -36,67 +36,36 @@
 <section id="page-title">
         <h1>cart</h1>
 </section>
-<div role="separator" />
+<div role="separator" class="clr-border" />
 
-<section id="cart-list" class="flex-1 flex flex-col justify-between items-center">
-        <a
-                href="/cart/checkout"
-                class:hidden={items.length === 1}
-                class="         
-                                w-full max-w-xs
-                                {items.length === 0 ? 'max-h-0 py-0' : 'sm:max-h-0 sm:py-0'}
-                                py-2 px-4
-                                rounded-full
-                                
-                                clr-text-invert clr-bg-invert
-                                font-mono
-                        "
-        >
-                checkout
-        </a>
+<section id="cart-list" class="relative flex-1 flex flex-col justify-between items-center mb-0">
+        <div />
         <CartList />
-        <a
-                href="/cart/checkout"
-                class:opacity-50={items.length === 0}
-                class="
-                                w-full max-w-xs
-                                py-2 px-4
+        <section class="sticky bottom-0 w-full mb-0 clr-bg-primary">
+                <span
+                        role="separator"
+                        data-scroll="0"
+                        class="
+                                transition-[width] duration-150 ease-out
+                                w-full lg:w-96
+                                block mx-auto
+                                outline outline-[1.5px]
+                        "
+                />
+                <a
+                        href="/cart/checkout"
+                        class:opacity-50={items.length === 0}
+                        class=" 
+                                h-12 w-full max-w-xs
+                                py-2 px-4 m-4
                                 rounded-full
                                 
-                                clr-text-invert clr-bg-invert
-                                font-mono
-                        "
-        >
-                checkout
-        </a>
-</section>
 
-<!-- 
-<div id="top" class="relative flex flex-1 flex-col justify-between items-center min-h-screen py-8">
-        <section class="">
-                <div id="page-title" class=""><h1>cart</h1></div>
+                                clr-text-invert clr-bg-invert
+                                font-yeysk
+                        "
+                >
+                        checkout
+                </a>
         </section>
-        <section
-                id="cart-list"
-                class="grow relative grow flex flex-col justify-center items-center"
-        >
-                <CartList />
-        </section>
-        {#if items.length > 0}
-                <section id="checkout" class="flex justify-center items-center">
-                        <a
-                                id="checkout-button"
-                                class="w-80 py-2 px-4 clr-text-invert clr-bg-invert rounded-full font-mono"
-                                href="/cart/checkout"><b>checkout</b></a
-                        >
-                </section>
-        {:else}
-                <section id="checkout" class="flex justify-center items-center">
-                        <a
-                                id="checkout-button"
-                                class="w-80 py-2 px-4 clr-text-invert clr-bg-invert rounded-full font-mono disabled"
-                                href="/cart/checkout"><b>checkout</b></a
-                        >
-                </section>
-        {/if}
-</div> -->
+</section>
