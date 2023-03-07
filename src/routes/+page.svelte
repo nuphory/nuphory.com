@@ -71,7 +71,10 @@
         <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
-<section id="hero" class="relative flex flex-col justify-between mx-auto min-h-[calc(100dvh-32rem)]">
+<section
+        id="hero"
+        class="relative flex flex-col justify-between mx-auto min-h-[calc(100dvh-32rem)]"
+>
         <div />
         <div>
                 <div id="logo" class="relative aspect-square w-full max-w-[360px] mx-auto">
@@ -90,6 +93,25 @@
                 </header>
         </div>
         <nav class="mx-auto">
+                <h4
+                        class="
+                                transition-[transform,opacity,max-height] duration-300 ease-out
+                                sm:opacity-0
+                                
+                                sm:max-w-0
+                                sm:max-h-0
+                                m-0 mx-auto
+
+                                flex justify-center items-end
+
+                        "
+                >
+                        <a href="#socials" class="select-none clr-text-primary" on:click={scrollTo}>
+                                socials<br />
+                                ⮟
+                        </a>
+                </h4>
+
                 <ul
                         class="
                                 transition-[transform,opacity,max-height] duration-300 ease-out
@@ -188,14 +210,14 @@
                                 content: '';
                         }
                         &::before {
-                                content: '🡡';
+                                content: '⮝';
                         }
                 }
 
                 &::after {
                         color: var(--text-primary);
 
-                        content: '🡣';
+                        content: '⮟';
                 }
                 &::before {
                         content: '';
