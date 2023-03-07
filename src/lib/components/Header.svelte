@@ -16,36 +16,24 @@
                 if (browser) {
                         theme = document.documentElement.getAttribute('data-theme');
 
-                        isHeaderVisible = isElementInViewport(
-                                document.querySelector('#page-title') as HTMLElement
-                        );
+                        isHeaderVisible = isElementInViewport('#page-title');
 
                         window.addEventListener('scroll', (event) => {
-                                let pageTitle = document.querySelector(
-                                        '#page-title'
-                                ) as HTMLElement;
-
-                                isHeaderVisible = isElementInViewport(pageTitle);
-                                console.debug('scroll', isHeaderVisible);
+                                isHeaderVisible = isElementInViewport('#page-title');
                         });
                 }
         });
 </script>
 
-<header class="sticky z-10 top-0 clr-bg-primary text-center h-min">
+<header class="sticky z-10 top-0 {isHeaderVisible ? '' : 'clr-bg-primary'} text-center h-min">
         <nav class="max-w-5xl mx-auto">
                 <ul class="mx-auto flex justify-between items-center max-w-5xl">
                         <li class="grow basis-0 m-4 text-left">
                                 <ThemeToggle />
                         </li>
                         <li>
-                                <a
-                                        href="#"
-                                        class="
-                                                overflow-hidden
-                                                clr-text-primary 
-                                                hover:no-underline hover:scale-105
-                                        "
+                                <div
+                                        class="overflow-hidden"
                                 >
                                         <h4
                                                 class="
@@ -55,8 +43,8 @@
                                         "
                                         >
                                                 {$page.route.id?.split('/').pop() || _siteName}
-                                        </h4></a
-                                >
+                                        </h4>
+                                </div>
                         </li>
                         <li class="grow basis-0 m-4">
                                 <CartButton />
