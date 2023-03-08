@@ -2,14 +2,14 @@
         import Details from './utils/Details.svelte';
 </script>
 
-<Details classList="group rounded-3xl outline outline-1 overflow-clip">
+<Details classList="rounded-3xl outline outline-1 overflow-clip">
         <h4
                 slot="summary"
                 class="
-                        transition-[transform] duration-300 ease-out
-                        px-4 pt-2 pb-3
+                        transition-[transform] duration-[var(--duration)] ease-out
                         w-full
                         m-0
+                        px-4 pt-2 pb-3
                         hover:-translate-y-1 active:translate-y-1
                 "
         >

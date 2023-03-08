@@ -1,6 +1,12 @@
 <script lang="ts">
         import type { Product, SyncProduct } from '$lib/types/product';
-        import { api } from '../api/internalApi';
+        import wretch from 'wretch';
+        import AbortAddon from 'wretch/addons/abort';
+
+        const api = wretch('/api').content('application/json').addon(AbortAddon()).middlewares([]);
+
+
+        // Components
         import ProductListItem from './ShopListItem.svelte';
 
         async function fetchProducts() {
@@ -26,7 +32,6 @@
                         return await Promise.all(products);
                 } catch (error) {
                         return [];
-                        console.error(error);
                 }
         }
 
@@ -35,9 +40,9 @@
 
 <ul id="products" class="flex flex-col justify-center items-center md:flex-row gap-8">
         {#await fetchProducts()}
-                {#each Array(2) as product, i}
+                {#each Array(2) as obj, i}
                         <!-- <li>{i}</li> -->
-                        <ProductListItem {product} />
+                        <ProductListItem />
                 {/each}
         {:then products}
                 <!-- promise was fulfilled -->

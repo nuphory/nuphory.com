@@ -1,5 +1,5 @@
 @use '$lib/styles/ui/color-palette.scss' as *;
-@use '$lib/styles/ui/design.scss';
+@use '$lib/styles/ui/utils/design.scss';
 @use '$lib/styles/ui/base/nu.scss';
 @use '$lib/styles/ui/base/themes.scss';
 @use '$lib/styles/ui/base/typography.scss';
@@ -10,29 +10,26 @@
 @tailwind components;
 @tailwind utilities;
 
-// Colors
+:root {
+        // transition duration
+        --duration: 500ms;
+}
 
+// Colors
 *,
 *::before,
 *::after {
-        transition-property: transform, opacity, background-color, color, fill, stroke, border-color, outline-color;
-        transition-duration: 300ms;
-        transition-timing-function: ease-out;
-        box-sizing: border-box;
-	
+        @apply transition-layout duration-[var(--duration)] ease-out;
+        // @apply transition-layout duration-1000 ease-in;
+        @apply box-border;
 }
 
 html,
 body {
-        min-height: 100vh;
-
-        font-family: sans-serif;
-
-	scroll-padding-top: 6.3rem;
-	scroll-behavior: smooth;
+        @apply min-h-[100dvh] scroll-pt-[6.3rem] scroll-smooth;
 }
 
 body {
-        background-color: var(--background-primary);
-        color: var(--text-primary);
+        @apply bg-secondary text-primary;
+        @apply transition-colors duration-[var(--duration)] ease-out;
 }

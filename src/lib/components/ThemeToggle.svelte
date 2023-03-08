@@ -1,18 +1,30 @@
-<script context="module">
-        export const prerender = false;
-</script>
-
 <script lang="ts">
-        import { browser } from '$app/environment';
-        import { onMount } from 'svelte';
-
         let theme: string | null;
 
         function toggleTheme(event: Event) {
                 const html = document.documentElement;
                 const checkbox = event.target as HTMLInputElement;
 
+                event.stopPropagation();
+
+                // event.preventDefault();
+                // checkbox.checked = !checkbox.checked;
+
                 html.setAttribute('data-theme', checkbox.checked ? 'light' : 'dark');
+        }
+        function preventScroll(event: Event) {
+                const label = event.target as HTMLLabelElement;
+
+                console.log(event);
+
+                event.preventDefault();
+
+                if (event.type === 'keydown') {
+                        const key = event as KeyboardEvent;
+                        if (key.key !== 'Enter' && key.key !== 'Space') return;
+                }
+
+                (document.querySelector(`#${label.getAttribute('for')}`) as HTMLElement)?.click();
         }
 </script>
 
@@ -20,20 +32,27 @@
         <label
                 for="theme-toggle"
                 class="
-                        z-10
-                        relative
+                        relative z-10
                         inline-block
-                        cursor-pointer
+                        
                         aspect-square w-[2.5em]
                         rounded-full
+
+                        cursor-pointer
                         hover:scale-105
-                        clr-bg-invert clr-text-invert
+                        focus-within:scale-105
+                        bg-primary
+
+                        [&>figure]:hover:scale-[85%]
+                        [&>figure]:focus-within:scale-[85%]
                 "
+                on:click={preventScroll}
+                on:keydown={preventScroll}
         >
                 <input
                         id="theme-toggle"
                         type="checkbox"
-                        class="opacity-0 w-0 h-0"
+                        class="w-0 h-0 opacity-0"
                         on:click={toggleTheme}
                 />
                 <figure
@@ -41,20 +60,23 @@
                                 absolute
                                 left-1/2 top-1/2
                                 translate-x-[-50%] translate-y-[-50%]
+                                
                                 h-[2em] w-[2em]
-                                overflow-clip
                                 rounded-full
-                                clr-bg-primary
+
+                                overflow-clip
+                                bg-secondary
                         "
                 >
                         <div
                                 class="
                                         absolute
                                         right-1/2 bottom-1/2
-                                        translate-x-1/2 translate-y-1/2
+                                        scale-75 translate-x-1/2 translate-y-1/2
+
                                         h-[1.5em] w-[1.5em]
                                         rounded-full
-                                        clr-bg-invert
+                                        bg-primary
                                 "
                         />
 
@@ -63,19 +85,24 @@
                                         absolute
                                         right-1/2 bottom-1/2
                                         translate-x-1/2 translate-y-1/2
+
                                         h-[1.5em] w-[1.5em]
                                         rounded-full
-                                        clr-bg-invert opacity-30
+
+                                        group-data-[theme='light']:opacity-50
+                                        bg-primary
                                 "
                         />
 
                         <div
                                 class="
-                                        transition-[background-color,left,top] duration-300 ease-out
                                         absolute
                                         h-[1.5em] w-[1.5em]
                                         rounded-full
-                                        clr-bg-primary
+                                        bg-secondary
+
+                                        group-data-[theme='dark']:left-[35%] group-data-[theme='dark']:-top-[5%]
+                                        group-data-[theme='light']:left-full group-data-[theme='light']:-top-[25%]
                                 "
                         />
                 </figure>
@@ -84,27 +111,23 @@
         <a
                 href="/"
                 class="
-                        transition-[transform,opacity,max-width] duration-300 ease-out
-                        
-                        opacity-0 sm:opacity-100
                         -translate-x-full sm:translate-x-0
-                        max-w-0 sm:max-w-full
-                        overflow-clip 
                         max-h-6
-                        text-base
+                        max-w-0 sm:max-w-full
+                        opacity-0 sm:opacity-100
+                        overflow-clip 
+                        
                         font-bold
-                        clr-text-primary
                         hover:scale-100 active:scale-95 hover:no-underline
                 "
         >
                 <ul
                         class="
-                                
                                 block
-                                clr-text-primary
                                 translate-y-0
-                                group-data-[theme='dark']:hover:translate-y-0 group-data-[theme='dark']:-translate-y-6
-                                group-data-[theme='light']:hover:-translate-y-[4.5em] group-data-[theme='light']:-translate-y-12
+
+                                group-data-[theme='dark']:-translate-y-6   group-data-[theme='dark']:hover:translate-y-0 
+                                group-data-[theme='light']:-translate-y-12 group-data-[theme='light']:hover:-translate-y-[4.5em]
                         "
                 >
                         <li>nuphory</li>
@@ -116,26 +139,12 @@
 </div>
 
 <style lang="scss">
-        label:hover {
-                @apply scale-105;
-                figure {
-                        @apply scale-[85%];
-                }
-        }
-        :global([data-theme='dark']) {
-                figure {
-                        > div:last-child {
-                                @apply left-[35%] top-[-5%];
-                        }
-                }
-        }
-        :global([data-theme='light']) {
-                figure {
-                        > div:first-child {
-                                @apply scale-75;
-                        }
-                        > div:last-child {
-                                @apply left-full top-[-25%];
+        label {
+                @apply transition-quick duration-[var(--duration)] ease-in-out;
+                * {
+                        @apply transition-quick duration-1000 ease-in-out;
+                        &:not(input) {
+                                @apply pointer-events-none;
                         }
                 }
         }

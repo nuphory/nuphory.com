@@ -19,6 +19,8 @@
         import { browser } from '$app/environment';
         import currentOrder from '$lib/api/stores/order';
         import defaultOrder from '$lib/types/order';
+        import wretch, { type Wretch } from 'wretch';
+        import AbortAddon from 'wretch/addons/abort';
 
         // Types
         import type { Recipient } from '$lib/types/recipient';
@@ -28,7 +30,8 @@
         import CheckoutForm from '$src/lib/components/CheckoutForm.svelte';
         import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
         import { onMount } from 'svelte';
-        import { api } from '$src/lib/api/internalApi';
+
+        const api = wretch('/api').content('application/json').addon(AbortAddon()).middlewares([]);
 
         let orderId: string;
         let shipping_available = false;
@@ -250,7 +253,7 @@
                 let lastRecipient: Recipient = _.cloneDeep(defaultOrder.recipient);
 
                 let estimateAbortController: AbortController | null = null;
-                let estimateWretch: Wretch | null = null;
+                let estimateWretch: Wretch;
 
                 currentOrder.subscribe((order) => {
                         if (_.isEqual(lastRecipient, order.recipient)) return;
@@ -271,12 +274,9 @@
 
                         // console.debug('fetching shipping costs', order.recipient);
 
-                        [estimateAbortController, estimateWretch] = api
+                        api
                                 .url('/orders/estimate-costs')
                                 .post(order)
-                                .controller();
-
-                        estimateWretch
                                 .json((json) => {
                                         shipping_available = true;
                                         errElement.innerHTML = '';
@@ -330,11 +330,12 @@
                 <a
                         href="/cart"
                         class=" 
+                                transition-quick duration-[var(--duration)] ease-out
                                 h-12 w-full max-w-xs
                                 py-2 px-4 m-4
                                 rounded-full
                                 
-                                clr-text-invert clr-bg-invert
+                                bg-primary text-secondary
                                 font-yeysk
                         "
                 >
@@ -351,9 +352,11 @@
         <div
                 id="paypal-button-container"
                 class="
+                        transition-quick duration-[var(--duration)] ease-out
                         w-full max-w-xs m-4 p-8 pb-4 
-                        rounded-3xl bg-white
-                        outline outline-3 clr-border
+                        rounded-3xl
+                        ring-primary ring-3
+                        bg-[white]
                 "
         />
 </section>

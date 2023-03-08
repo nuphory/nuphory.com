@@ -76,8 +76,7 @@
 </div>
 
 <style lang="scss">
-        :global(path.stroke) {
-                transition: all 300ms ease-out;
-                stroke: var(--text-primary) !important;
+        :global(.stroke-primary) {
+                @apply transition-[stroke] duration-[var(--duration)] ease-out;
         }
 </style>

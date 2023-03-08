@@ -41,27 +41,28 @@
 <section id="cart-list" class="relative flex-1 flex flex-col justify-between items-center mb-0">
         <div />
         <CartList />
-        <section class="sticky bottom-0 w-full mb-0 clr-bg-primary">
+        <section class="sticky bottom-0 w-full mb-0 bg-secondary">
                 <span
                         role="separator"
                         data-scroll="0"
                         class="
-                                transition-[width] duration-150 ease-out
+                                transition-quick duration-[var(--duration)] ease-out
                                 w-full lg:w-96
                                 block mx-auto
-                                outline outline-[1.5px]
+                                ring-1 ring-primary
                         "
                 />
                 <a
                         href="/cart/checkout"
                         class:opacity-50={items.length === 0}
                         class=" 
+                                transition-quick duration-[var(--duration)] ease-out
                                 h-12 w-full max-w-xs
                                 py-2 px-4 m-4
                                 rounded-full
                                 
 
-                                clr-text-invert clr-bg-invert
+                                text-secondary bg-primary
                                 font-yeysk
                         "
                 >

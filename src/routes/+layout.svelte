@@ -1,19 +1,18 @@
 <script lang="ts">
-
         /* TODO
-        * probably rewrite the way i currently display the products
-        * right now there's 3 different components each handling item lists very similarly
-        * i should mess about with svelte slots and see if i can make 
-        * a single component that can handle all of them
-        */
+         * probably rewrite the way i currently display the products
+         * right now there's 3 different components each handling item lists very similarly
+         * i should mess about with svelte slots and see if i can make
+         * a single component that can handle all of them
+         */
 
         // Imports
         import { _siteDescription, _siteName } from './+layout';
-        import { browser } from '$app/environment';
 
         // PageData
         /** @type {import('./$types').LayoutData} */
         export let data: { pathname: string };
+        let { pathname } = data;
 
         // Components
         import Footer from '$src/lib/components/Footer.svelte';
@@ -30,26 +29,18 @@
         // import '../app.css';
         import '$lib/styles/app.scss';
 
-        // import '$lib/styles/colors.scss';
-        import '$lib/styles/typography.scss';
-        import '$lib/styles/layout.scss';
+        import type { Wretch } from 'wretch/types';
 
-        import '$lib/styles/styles.scss';
-
-        (async () => {
-                if (!browser) return;
-
-                /**
-                 * website designed by patch: https://twitter.com/patchstep
-                 */
-                console.info(
-                        `%c${_siteName}%c\n\n\n${_siteName}.com was made by %cPatch\n%chttps://twitter.com/patchstep`,
-                        "font-family: 'Yeysk'; font-size: 6em; font-weight: bold; text-stroke: 2px #272d3b; color: #fffaf7;",
-                        'font-size: 2em; color: #fffaf7;',
-                        'font-size: 2em; color: #fffaf7; font-weight: bold;',
-                        'font-size: 1em; color: #fffaf7; font-weight: bold;'
-                );
-        })();
+        /**
+         * website designed by patch: https://twitter.com/patchstep
+         */
+        console.info(
+                `%c${_siteName}%c\n\n\n${_siteName}.com was made by %cPatch\n%chttps://twitter.com/patchstep`,
+                "font-family: 'Yeysk'; font-size: 6em; font-weight: bold; text-stroke: 2px #272d3b; color: #fffaf7;",
+                'font-size: 2em; color: #fffaf7;',
+                'font-size: 2em; color: #fffaf7; font-weight: bold;',
+                'font-size: 1em; color: #fffaf7; font-weight: bold;'
+        );
 </script>
 
 <svelte:head>
@@ -93,22 +84,23 @@
         <meta name="twitter:creator" content="@{_siteName}" />
 </svelte:head>
 
-<div class="relative space-y-0 min-h-screen min-h-[100dvh]">
-        <div class="top-0 flex flex-col min-h-screen h-auto">
+<div class="relative min-h-screen min-h-[100dvh]">
+        <div class="flex flex-col min-h-screen h-auto">
                 <Header />
 
                 <PageTransition
-                        classList="relative flex-1 flex flex-col min-h-[calc(100dvh-4.5rem)] max-w-5xl w-full mx-auto text-center"
-                        url={data.pathname}
-                        duration={500}
+                        classList="
+                                flex flex-col flex-1
+                                max-w-5xl w-full
+                                mx-auto
+                                text-center
+                        "
+                        url={pathname}
+                        duration={300}
                 >
                         <slot />
                 </PageTransition>
         </div>
-
-        <!-- <main class="relative flex flex-col items-center w-full max-w-5xl mx-auto my-0">
-                <slot />
-        </main> -->
         <Footer />
 </div>
 

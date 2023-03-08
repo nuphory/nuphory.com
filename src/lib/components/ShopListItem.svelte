@@ -2,37 +2,27 @@
         import { fade } from 'svelte/transition';
         import type { Product, SyncVariant } from '$lib/types/product';
         import currentOrder from '$lib/api/stores/order';
-        import CartPlus from './icons/CartPlus.svelte';
+        import CartPlus from './icons/CartPlusIcon.svelte';
 
-        export let product: Product;
+        export let product: Product | undefined = undefined;
 
         let selectedVariant: SyncVariant;
         function selectVariant(event) {
                 document.querySelector('.cart-button')?.classList.remove('disabled');
 
-                selectedVariant = product.sync_variants.find(
+                selectedVariant = product?.sync_variants.find(
                         (variant: SyncVariant) => variant.id == event.target.value
                 ) as SyncVariant;
         }
 
         function addItem(event) {
-                // console.debug('addItem');
                 if (!selectedVariant) return;
-                // console.debug('addItem', selectedVariant);
-                if (event.type != 'click') {
-                        switch (event.key) {
-                                case 'Enter':
-                                        break;
-                                default:
-                                        return;
-                        }
-                }
 
                 currentOrder.addItem(selectedVariant);
         }
 </script>
 
-<li class="w-xs m-4 p-4 rounded-[2em] outline outline-[3px]">
+<li class="w-xs m-4 p-4 rounded-[2em] ring-primary ring-3">
         <!-- product listing -->
 
         <!-- product showcase -->
@@ -47,7 +37,7 @@
                                         relative 
                                         aspect-square 
                                         w-full max-w-xs 
-                                        rounded-2xl outline outline-[1px] 
+                                        rounded-2xl ring-primary ring-1 
                                         bg-white
                                 "
                         />
@@ -58,7 +48,7 @@
                                                 relative 
                                                 aspect-square 
                                                 w-80 max-w-xs 
-                                                rounded-2xl outline outline-[1px] 
+                                                rounded-2xl ring-primary ring-1 
                                                 bg-white
                                         "
                         >
@@ -74,15 +64,16 @@
                         <span
                                 in:fade={{ duration: 500 }}
                                 class="
+                                        transition-colors duration-[var(--duration)] ease-out
                                         absolute 
                                         right-2 bottom-0 
                                         translate-y-1/3 
                                         py-1 px-3 
                                         font-mono
 
-                                        outline outline-[3px] outline-[var(--text-invert)]
+                                        ring-secondary ring-3
 
-                                        clr-bg-invert clr-text-invert
+                                        bg-primary text-secondary
                                         badge
                                 "
                         >
@@ -97,15 +88,16 @@
                         <span
                                 in:fade={{ duration: 500 }}
                                 class="
+                                        transition-colors duration-[var(--duration)] ease-out
                                         absolute 
                                         right-2 bottom-0 
                                         translate-y-1/3 
                                         py-1 px-3 
                                         font-mono
 
-                                        outline outline-[3px] outline-[var(--text-invert)]
+                                        ring-secondary ring-3
 
-                                        clr-bg-invert clr-text-invert
+                                        bg-primary text-secondary
                                         badge
                                 "
                         >
@@ -115,17 +107,23 @@
         </div>
         <!-- product name -->
         {#if product}
-                <h4 in:fade={{ duration: 500 }} class="text-center">
+                <h4 in:fade={{ duration: 500 }} class="text-center m-4">
                         {product.sync_product.name}
                 </h4>
         {:else}
-                <h4 in:fade={{ duration: 500 }} class="text-center">Loading...</h4>
+                <h4 in:fade={{ duration: 500 }} class="text-center m-4">Loading...</h4>
         {/if}
         <!-- size selection -->
 
         <div class="flex flex-row justify-between items-center gap-4">
                 <select
-                        class="grow badge outline outline-[1px] clr-bg-invert clr-text-invert"
+                        class="
+                                transition-colors duration-[var(--duration)] ease-out 
+                                grow 
+                                bg-primary text-secondary
+                                ring-primary ring-1 border-none
+                                badge
+                        "
                         name="variant"
                         on:change={selectVariant}
                 >
@@ -145,15 +143,16 @@
                         {/if}
                 </select>
                 <button
-                        class="	cart-button badge aspect-square cursor-pointer  
-				clr-bg-invert clr-text-invert 
+                        class="	
+                                transition-[background,transform] duration-[var(--duration)] ease-out
+                                badge aspect-square cursor-pointer  
+				bg-primary
 				hover:scale-105 active:scale-95
 				disabled"
                         on:click={addItem}
-                        on:keydown={addItem}
                         tabindex="0"
                 >
-                        <CartPlus classList="fill-[var(--color-text)] max-w-[20px]" />
+                        <CartPlus classList="fill-secondary max-w-[20px]" />
                 </button>
         </div>
 </li>

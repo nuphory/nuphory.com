@@ -51,7 +51,7 @@
                 <section id="page-title" class="pointer-events-none">
                         <h1 class="tracking-[0.125em]">order confirmed</h1>
                 </section>
-                <div class="content flex flex-col flex-1 justify-center items-center">
+                <div class="content flex flex-col flex-1 justify-center items-center max-w-xl">
                         <p class="w-full text-center">{`ORDER ID: ${order.external_id}`}</p>
                         <p class="w-full text-center">
                                 Please note this order ID down somewhere, as we don't have email
@@ -87,7 +87,7 @@
                 <section id="page-title" class="pointer-events-none">
                         <h1 class="tracking-[0.125em]">order not found</h1>
                 </section>
-                <div class="content flex flex-col flex-1 justify-center items-center">
+                <div class="content flex flex-col flex-1 justify-center items-center max-w-xl">
                         <p class="w-full text-center">
                                 The order with id {data.order_id} was either not confirmed, or doesn't
                                 exist.

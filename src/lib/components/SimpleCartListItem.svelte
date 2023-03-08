@@ -6,16 +6,16 @@
 </script>
 
 <li
-        class="flex flex-row basis-1 justify-between items-start m-4 gap-4 xs:items-start last:border-[0px] border-b clr-border"
+        class="flex flex-row basis-1 justify-between items-start m-4 gap-4 xs:items-start last:border-[0px] border-b border-primary"
 >
         <img
                 src={item.files[1].preview_url}
                 alt={item.name}
-                class="aspect-square w-full max-w-[4em] rounded-2xl border-[1px] clr-border"
+                class="aspect-square w-full max-w-[4em] rounded-2xl ring-primary ring-offset-1"
         />
 
         <div class="flex flex-1 flex-col justify-between gap-4">
-                <p class="border-b clr-border">{item.name}</p>
+                <p class="border-b border-primary">{item.name}</p>
                 <div class="flex-1 flex flex-col justify-between items-start overflow-auto">
                         <div class="w-full flex flex-col overflow-auto">
                                 <div class="flex flex-col justify-between items-start">
@@ -34,7 +34,7 @@
                                         </p>
                                 </div>
                         </div>
-                        <div class="w-full flex flex-row justify-between items-start border-t clr-border">
+                        <div class="w-full flex flex-row justify-between items-start border-t border-primary">
                                 <p>Subtotal</p>
                                 <p class="text-right w-full">
                                         {(parseInt(item.retail_price) * item.quantity).toFixed(2)}

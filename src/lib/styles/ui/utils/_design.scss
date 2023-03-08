@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+div[role='separator'] {
+        @apply transition-colors duration-[var(--duration)] ease-out;
+        // @apply transition-colors duration-1000 ease-in;
+        @apply mx-auto border-b-2 border-primary max-w-xs w-full;
+}
+
+section {
+        @apply my-8;
+}
+
+.badge {
+        @apply flex justify-center items-center;
+        @apply h-[2.5em];
+        @apply rounded-2xl;
+        // @apply rounded-[0.5em];
+}
+
+a {
+        @apply inline-block no-underline;
+        &:hover {
+                @apply underline -translate-y-1;
+        }
+        &:active {
+                @apply underline translate-y-1;
+        }
+}

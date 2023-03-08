@@ -42,12 +42,15 @@
 </script>
 
 <form
-        class="relative grid m-4 p-4 rounded-[2em] outline outline-3 grid-cols-1 xl:grid-cols-2 gap-2 max-w-[20em] lg:max-w-full text-left"
+        class="
+                transition-colors duration-[var(--duration)] ease-out
+                relative grid m-4 p-4 rounded-[2em] outline outline-3 grid-cols-1 xl:grid-cols-2 gap-2 max-w-[20em] lg:max-w-full text-left
+        "
 >
         <h4 class="text-2xl font-bold xl:col-start-1">Shipping</h4>
         <section
                 id="shipping"
-                class="grid grid-cols-1 xl:grid-cols-2 xl:col-start-1 justify-items-stretch place-content-start gap-2"
+                class="grid grid-cols-1 xl:grid-cols-2 xl:col-start-1 xl:mb-0 place-content-start gap-2"
         >
                 <div id="for-name" class="xl:col-span-2">
                         <h6><label for="name" class="required">Full Name</label></h6>
@@ -190,7 +193,7 @@
         <h4 class="text-2xl font-bold xl:row-start-1 xl:col-start-2">Contact</h4>
         <section
                 id="contact"
-                class="flex flex-col w-full xl:col-start-2 -stretch place-content-start gap-2"
+                class="flex flex-col w-full xl:col-start-2 place-content-start gap-2"
         >
                 <div id="for-email" class="col-span-1 w-full">
                         <h6><label for="email" class="required">Email</label></h6>
@@ -236,10 +239,10 @@
 
         input,
         select {
+                @apply transition-colors duration-[var(--duration)] ease-out;
                 @apply w-full border-none outline-none;
                 @apply rounded-2xl;
-                @apply text-[var(--text-invert)];
-                @apply bg-[var(--background-invert)];
+                @apply bg-primary text-secondary;
         }
 
         label {

@@ -1,96 +1,36 @@
 // @use '$lib/styles/ui/base/themes.scss' as *;
 
-.clr-text-primary {
-        color: var(--text-primary);
+.bg-primary,.bg-secondary {
+        @apply transition-[background] duration-[var(--duration)] ease-out;
 }
 
-.clr-text-secondary {
-        color: var(--text-secondary);
+.text-primary,.text-secondary {
+        @apply transition-[color] duration-[var(--duration)] ease-out;
 }
 
-.clr-text-inactive {
-        color: var(--text-inactive);
+.stroke-primary,.stroke-secondary {
+        @apply transition-[stroke] duration-[var(--duration)] ease-out;
 }
 
-.clr-text-invert {
-        color: var(--text-invert);
-        fill: var(--text-invert);
+.fill-primary,.fill-secondary {
+        @apply transition-[fill] duration-[var(--duration)] ease-out;
 }
 
-a {
-        &:not(.clr-text-primary, .clr-text-secondary, .clr-text-inactive, .clr-text-invert) {                
-                color: var(--text-link-primary-default);
-                :hover {
-                        color: var(--text-link-primary-hover);
-                }
-                :active {
-                        color: var(--text-link-primary-active);
-                }
-        }
+.border-primary,.border-secondary {
+        @apply transition-[border-color] duration-[var(--duration)] ease-out;
 }
 
-:is(.clr-text-link-secondary, .clr-text-link-secondary > a) {
-        color: var(--text-link-secondary-default);
+.outline-primary,.outline-secondary {
+        @apply transition-[outline-color] duration-[var(--duration)] ease-out;
 }
 
-:is(.clr-text-link-secondary, .clr-text-link-secondary > a):hover {
-        color: var(--text-link-secondary-hover);
+.ring-primary,.ring-secondary {
+        @apply transition-[box-shadow] duration-[var(--duration)] ease-out;
 }
 
-:is(.clr-text-link-secondary, .clr-text-link-secondary > a):active {
-        color: var(--text-link-secondary-active);
-}
-
-.clr-bg-primary {
-        background-color: var(--background-primary);
-}
-
-.clr-bg-secondary {
-        background-color: var(--background-secondary);
-}
-
-.clr-bg-tertiary {
-        background-color: var(--background-tertiary);
-}
-
-.clr-bg-info {
-        background-color: var(--background-information);
-}
-
-.clr-bg-warning {
-        background-color: var(--background-warning);
-}
-
-.clr-bg-critical {
-        background-color: var(--background-critical);
-}
-
-.clr-bg-success {
-        background-color: var(--background-success);
-}
-
-.clr-bg-invert {
-        background-color: var(--background-invert);
-}
-
-.clr-border {
-        border-color: var(--border-primary);
-        outline-color: var(--border-primary);
-}
-
-.clr-border-secondary {
-        border-color: var(--border-secondary);
-        outline-color: var(--border-secondary);
-}
-
-.clr-border-invert {
-        border-color: var(--border-invert);
-        outline-color: var(--border-invert);
-}
-
-button {
-        @apply flex justify-center items-center;
-        @apply rounded;
-        background-color: var(--button-primary-default);
-        color: var(--text-invert);
-}
+// button {
+//         @apply flex justify-center items-center;
+//         @apply rounded;
+//         background-color: var(--button-primary-default);
+//         color: var(--text-invert);
+// }

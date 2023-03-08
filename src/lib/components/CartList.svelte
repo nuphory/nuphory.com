@@ -10,7 +10,7 @@
         });
 </script>
 
-<ul id="cart" class="flex flex-col justify-center items-center rounded-">
+<ul id="cart" class="flex flex-col justify-center items-center">
         {#if items.length === 0}
                 <li class="text-center text-gray-500">
                         <p>Nothing to see here...</p>

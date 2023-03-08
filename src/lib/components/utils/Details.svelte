@@ -5,13 +5,14 @@
 <details class="relative group {classList} open:pb-1">
         <summary
                 class=" 
+                        transition-colors duration-[var(--duration)] ease-out
                         inline-block
                         
                         w-full
                         cursor-pointer
 
-                        group-open:bg-[var(--background-primary)] 
-                        group-open:text-[var(--text-primary)]
+                        group-open:bg-secondary
+                        group-open:text-primary
 
                         [&>*:first-child]:select-none
                         [&>*:first-child]:before:inline-block
@@ -23,7 +24,7 @@
         >
                 <slot name="summary" />
         </summary>
-        <slot name="content"/>
+        <slot name="content" />
 </details>
 
 <style lang="scss">

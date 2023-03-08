@@ -13,38 +13,17 @@
         let cartIcon: HTMLImageElement;
         let cartDiv: HTMLDivElement;
 
+        let jumping: boolean;
+
         onMount(() => {
-                if (browser) {
-                        cartCount = document.querySelector('#cart-button') as HTMLSpanElement;
-                        cartIcon = document.querySelector('#cart-icon') as HTMLImageElement;
-                        cartDiv = document.querySelector('#cart-div') as HTMLDivElement;
-
-                        // displayCount(cartCount, cartIcon);
-                }
-
                 currentOrder.subscribe((order) => {
                         if (currentOrder.getItemCount() == itemCount) return;
                         itemCount = currentOrder.getItemCount();
 
-                        if (browser) {
-                                cartCount = document.querySelector(
-                                        '#cart-button'
-                                ) as HTMLSpanElement;
-                                cartIcon = document.querySelector('#cart-icon') as HTMLImageElement;
-                                cartDiv = document.querySelector('#cart-div') as HTMLDivElement;
-
-                                cartDiv.classList.add('ease-out');
-                                cartDiv.classList.remove('ease-in');
-                                cartDiv.classList.add('translate-y-[-1em]');
-                                cartDiv.classList.add('scale-105');
-
-                                setTimeout(() => {
-                                        cartDiv.classList.add('ease-in');
-                                        cartDiv.classList.remove('ease-out');
-                                        cartDiv.classList.remove('translate-y-[-1em]');
-                                        cartDiv.classList.remove('scale-105');
-                                }, 300);
-                        }
+                        jumping = true;
+                        setTimeout(() => {
+                                jumping = false;
+                        }, 300);
                 });
         });
 </script>
@@ -53,55 +32,54 @@
         id="cart-div"
         href="/cart"
         class="
-                        flex justify-center items-center
+                transition-quick duration-[var(--duration)] ease-out
+                flex justify-center items-center
+                hover:scale-105 active:scale-95 hover:translate-y-0
+                {jumping ? 'ease-out -translate-y-4 scale-105' : 'ease-in'}
 
-                        ml-auto
-                        w-fit
-                        h-[2.5em] min-w-[2.5em]
-                        rounded-full
-                        
-                        clr-bg-invert clr-text-invert
-                        
-                        font-mono
-                        cursor-pointer
-                        
-                        hover:translate-y-0
-                        hover:scale-105
-                        active:scale-95
-                "
+                h-[2.5em] min-w-[2.5em]
+                w-fit
+                rounded-full
+
+                ml-auto
+                
+                bg-primary
+                
+                font-mono
+                cursor-pointer
+
+                [&>svg]:hover:mr-0
+                [&>span]:hover:h-[2em] 
+                [&>span]:hover:max-w-[2em] [&>span]:hover:min-w-[2em] 
+                [&>span]:hover:m-1 [&>span]:hover:px-2
+        "
 >
-        <CartIcon {itemCount} />
+        <CartIcon
+                classList="
+                        transition-[fill,margin] duration-[var(--duration)] ease-out
+                        aspect-square h-[1.25em] 
+                        m-[0.6em] 
+                        fill-secondary
+                        opacity-100 
+                "
+                {itemCount}
+        />
         <span
                 id="cart-button"
-                class:item-count={itemCount > 0}
                 class="
-                                transition-all duration-300 ease-out
-                                flex justify-center items-center
-                                
-                                overflow-clip
-                                rounded-full
+                        transition-quick duration-[var(--duration)] ease-out
+                        flex justify-center items-center
 
-                                clr-bg-primary clr-text-primary
-                        "
+                        overflow-clip
+                        rounded-full
+
+                        bg-secondary
+
+                        {itemCount > 0
+                        ? 'h-[2em] max-w-[2em] min-w-[2em] m-1 px-2'
+                        : 'h-0 max-w-0 min-w-0 m-0 px-0'}
+                "
         >
                 {itemCount}
         </span>
 </a>
-
-<style lang="scss">
-        a:hover {
-                :global(svg) {
-                        @apply mr-0;
-                }
-                span {
-                        @apply max-w-[2em] min-w-[2em] h-[2em] m-1 px-2;
-                }
-        }
-
-        span.item-count {
-                @apply max-w-[2em] min-w-[2em] h-[2em] m-1 px-2;
-        }
-        span {
-                @apply max-w-0 min-w-0 h-0 m-0 px-0;
-        }
-</style>

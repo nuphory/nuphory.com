@@ -3,39 +3,52 @@
         import { _siteName } from '$src/routes/+layout';
 </script>
 
-<footer id="booking" class="clr-bg-invert clr-text-invert text-center py-4">
+<footer
+        id="booking"
+        class="
+                transition-colors duration-[var(--duration)] ease-out
+                bg-primary text-secondary text-center py-4
+        "
+>
         <h4 id="booking-btt">{_siteName}</h4>
 
         <div
                 id="content"
-                class="flex flex-col justify-center items-center sm:flex-row sm:items-start"
+                class="
+                        flex flex-col justify-start items-center 
+                        sm:flex-row sm:justify-center sm:items-start
+                        min-h-[26rem] sm:min-h-[20rem]
+                "
         >
-                <section id="impressum" class="w-64 m-8 text-left">
-                        <Impressum />
-                </section>
-
-                <section id="contact" class="w-64 m-8 text-left">
+                <section id="contact" class="w-64 m-8 text-left sm:order-2">
                         <h4 class="grow">contact</h4>
                         <ul class="list-none">
                                 <!-- link opens in new tab-->
                                 <li>
                                         e-mail:
-                                        <a
-                                                class="clr-text-invert"
-                                                href="mailto:nuphory@gmail.com"
-                                                target="_blank"
-                                        >
+                                        <a href="mailto:nuphory@gmail.com" target="_blank">
                                                 nuphory@gmail.com
                                         </a>
                                 </li>
                         </ul>
                 </section>
+                <section id="impressum" class="w-64 m-8 text-left sm:order-1">
+                        <Impressum />
+                </section>
         </div>
 
-        <div role="separator" class="clr-border-invert" />
+        <div role="separator" class="!border-secondary" />
 
-        <div id="copyright" class="my-4 text-center">© 2022-{new Date().getFullYear()} nuphory</div>
+        <div class="my-4 flex justify-center gap-3">
+                <span>
+                        © 2022-{new Date().getFullYear()} nuphory
+                </span>
+                •
+                <span>
+                        made by
+                        <a href="https://twitter.com/patchstep" rel="noreferrer" target="_blank">
+                                patch
+                        </a>
+                </span>
+        </div>
 </footer>
-
-<style>
-</style>

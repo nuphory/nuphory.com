@@ -3,7 +3,6 @@
         import { _siteName, _siteDescription, _tagLine } from './+layout';
 
         // components
-        import LottiePlayer from '$src/lib/components/utils/LottiePlayer.svelte';
         import Buttons from '$src/lib/components/Buttons.svelte';
         import ProductList from '$src/lib/components/ShopList.svelte';
 
@@ -73,29 +72,47 @@
 
 <section
         id="hero"
-        class="relative flex flex-col justify-between mx-auto min-h-[calc(100dvh-32rem)]"
+        class="
+                relative 
+                flex flex-col justify-between 
+                min-h-[calc(100dvh-12rem)]
+                mx-auto mt-0
+        "
 >
         <div />
         <div>
-                <div id="logo" class="relative aspect-square w-full max-w-[360px] mx-auto">
+                <div
+                        id="logo"
+                        class="
+                                transition-layout duration-[var(--duration)]
+
+                                relative
+                                aspect-square w-full max-w-[260px] sm:max-w-[360px]
+
+                                mx-auto
+                        "
+                >
                         <NuphoryLogo
                                 classList="
+                                        transition-[stroke] duration-[var(--duration)] ease-out
                                         absolute
                                         bottom-1/2 right-1/2
                                         translate-y-1/2 translate-x-1/2
-                                        aspect-square w-full max-w-[360px]
+                                        w-full 
+                                        
                                         mx-auto
+                                        stroke-primary
                                 "
                         />
                 </div>
-                <header class="mt-[-6.5em]">
+                <header class="-mt-8">
                         <h1 id="page-title"><b>{_siteName}</b></h1>
                 </header>
         </div>
         <nav class="mx-auto">
                 <h4
                         class="
-                                transition-[transform,opacity,max-height] duration-300 ease-out
+                                transition-[transform,opacity,max-height] duration-[var(--duration)] ease-out
                                 sm:opacity-0
                                 
                                 sm:max-w-0
@@ -106,7 +123,7 @@
 
                         "
                 >
-                        <a href="#socials" class="select-none clr-text-primary" on:click={scrollTo}>
+                        <a href="#socials" class="select-none text-primary" on:click={scrollTo}>
                                 socials<br />
                                 ▼
                         </a>
@@ -114,47 +131,35 @@
 
                 <ul
                         class="
-                                transition-[transform,opacity,max-height] duration-300 ease-out
+                                transition-[transform,opacity,max-height] duration-[var(--duration)] ease-out
 
                                 opacity-0 sm:opacity-100
                                 translate-y-12 sm:translate-y-0
                                 
                                 overflow-clip
-                                max-w-0 sm:max-w-md
+                                max-w-0 sm:max-w-lg
                                 max-h-0 sm:max-h-12
                                 
-                                flex justify-center items-end gap-8 
+                                flex justify-center items-end gap-16 
                         "
                 >
                         <li>
-                                <h4 class="m-0">
-                                        <a
-                                                href="#socials"
-                                                class="select-none clr-text-primary"
-                                                on:click={scrollTo}
-                                        >
+                                <h4 class="m-0 text-xl">
+                                        <a href="#socials" class="select-none" on:click={scrollTo}>
                                                 socials
                                         </a>
                                 </h4>
                         </li>
                         <li>
                                 <h4 class="m-0 text-3xl">
-                                        <a
-                                                href="#merch"
-                                                class="select-none clr-text-primary"
-                                                on:click={scrollTo}
-                                        >
+                                        <a href="#merch" class="select-none" on:click={scrollTo}>
                                                 merch
                                         </a>
                                 </h4>
                         </li>
                         <li>
-                                <h4 class="m-0">
-                                        <a
-                                                href="#booking"
-                                                class="select-none clr-text-primary"
-                                                on:click={scrollTo}
-                                        >
+                                <h4 class="m-0 text-xl">
+                                        <a href="#booking" class="select-none" on:click={scrollTo}>
                                                 booking
                                         </a>
                                 </h4>
@@ -163,26 +168,38 @@
         </nav>
 </section>
 
-<div role="separator" class="clr-border"/>
+<div role="separator" />
 
-<section id="merch" class="space-y-12">
-        <h3 id="merch-btt" class="leading-4 m-0 mb-16">Merch</h3>
-        <ProductList />
-        <div class="max-w-xl mx-auto">
-                <p>
+<section
+        id="merch"
+        class="
+                flex flex-col justify-between
+                min-h-[calc(100dvh-16rem)]
+        "
+>
+        <h2 id="merch-btt" class="relative flex flex-col justify-between flex-1">
+                <div class="flex-1" />
+                <div class="block sticky bottom-0 pb-8">Merch</div>
+                <div class="flex-1" />
+        </h2>
+        <div class="max-w-xl mx-auto space-y-4">
+                <ProductList />
+
+                <p class="mx-4">
                         All profits from this limited time merch run will be used to fund future
                         projects and create opportunities for myself and other artists in the scene.
                 </p>
         </div>
+        <div class="flex-1" />
 </section>
-<div role="separator" class="clr-border" />
+<div role="separator" />
 
 <section id="socials" class="space-y-12">
         <div class="mb-4">
                 <a
                         href="#top"
                         id="socials-btt"
-                        class="m-0 text-center scroll-button clr-text-primary "
+                        class="m-0 text-center scroll-button"
                         on:click={scrollBack}
                 >
                         <h4 class="m-0 pointer-events-none">back to top</h4>
@@ -194,7 +211,7 @@
 </section>
 
 <div id="book-me" class="mb-4">
-        <span class="m-0 text-center scroll-button clr-text-primary ">
+        <span class="m-0 text-center scroll-button">
                 <h4 class="m-0 pointer-events-none">book me</h4>
         </span>
 </div>

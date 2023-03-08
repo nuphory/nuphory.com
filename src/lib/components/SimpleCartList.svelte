@@ -17,17 +17,17 @@
 
 <ul
         id="cart"
-        class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-3xl outline outline-3"
+        class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-3xl ring-primary ring-3"
 >
         {#each order.items as item}
                 <SimpleCartListItem {item} />
         {/each}
         <li
-                class="w-full  flex flex-row basis-1 justify-between items-start px-4 m-4 gap-4 xs:items-start last:border-[0px] border-b clr-border"
+                class="w-full  flex flex-row basis-1 justify-between items-start px-4 m-4 gap-4 xs:items-start last:border-[0px] border-b border-primary"
         >
                 <div class="flex flex-col w-full">
                         <div
-                                class="flex flex-row flex-1 grow basis-1 justify-between items-start border-b clr-border"
+                                class="flex flex-row flex-1 grow basis-1 justify-between items-start border-b border-primary"
                         >
                                 <p class="">Subtotal</p>
                                 <!-- <p class="">—</p> -->
@@ -38,7 +38,7 @@
                         </div>
 
                         <div
-                                class="flex flex-row flex-1 grow basis-1 justify-between items-start border-b clr-border"
+                                class="flex flex-row flex-1 grow basis-1 justify-between items-start border-b border-primary"
                         >
                                 <p class="">Shipping</p>
                                 <!-- <p class="">—</p> -->
@@ -49,7 +49,7 @@
                         </div>
                         {#if order.retail_costs.tax > 0}
                                 <div
-                                        class="flex flex-row flex-1 grow basis-1 justify-between items-start border-b clr-border"
+                                        class="flex flex-row flex-1 grow basis-1 justify-between items-start border-b border-primary"
                                 >
                                         <p class="">TAX</p>
                                         <!-- <p class="">—</p> -->

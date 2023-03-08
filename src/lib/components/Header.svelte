@@ -19,13 +19,7 @@
                         theme = document.documentElement.getAttribute('data-theme');
 
                         checkVisibility('#page-title');
-
                         window.addEventListener('scroll', () => {
-                                // console.debug(
-                                //         'scroll',
-                                //         pageTitleVisible,
-                                //         isElementInViewport('#page-title')
-                                // );
                                 checkVisibility('#page-title');
                         });
                 }
@@ -36,28 +30,31 @@
         }
 </script>
 
-<header class="sticky z-10 top-0 {pageTitleVisible ? '' : 'clr-bg-primary'} text-center h-min">
+<header 
+        class:bg-secondary={!pageTitleVisible} 
+        class="
+                transition-colors duration-[var(--duration)] ease-out
+                text-primary
+                sticky 
+                z-10 top-0 h-min text-center
+        "
+>
         <nav class="max-w-5xl mx-auto">
-                <ul class="mx-auto flex justify-between items-center max-w-5xl">
-                        <li class="grow basis-0 m-4 text-left">
+                <ul class="flex justify-between items-center max-w-5xl mx-auto">
+                        <li class="flex-1 m-4 text-left">
                                 <ThemeToggle />
                         </li>
                         <li>
                                 <div class="overflow-hidden">
                                         <h4
-                                                class="
-                                                        transition-[transform] duration-300 ease-out
-                                                        m-0
-                                                        {pageTitleVisible && mounted
-                                                        ? 'translate-y-full'
-                                                        : ''}
-                                        "
+                                                class:translate-y-full={pageTitleVisible && mounted}
+                                                class="transition-[transform] duration-[var(--duration)] ease-out m-0"
                                         >
-                                                {$page.route.id?.split('/').pop() || _siteName}
+                                                {$page?.route?.id?.split('/').pop() || _siteName}
                                         </h4>
                                 </div>
                         </li>
-                        <li class="grow basis-0 m-4">
+                        <li class="flex-1 m-4">
                                 <CartButton />
                         </li>
                 </ul>
@@ -65,12 +62,16 @@
                         role="separator"
                         data-scroll="0"
                         class="
-                                transition-[width] duration-150 ease-out
+                                transition-quick duration-150 ease-out
+
+                                block 
+                                mx-auto
+
                                 {pageTitleVisible && mounted
-                                ? 'opacity-0 w-0'
-                                : 'opacity-100 w-full lg:w-96'}
-                                block mx-auto
-                                outline outline-[1.5px] outline-[var(--text-primary)]
+                                ? 'w-0 opacity-0'
+                                : 'w-full lg:w-96 opacity-100'}
+
+                                ring-primary ring-[1.5px]
                         "
                 />
         </nav>
