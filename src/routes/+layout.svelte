@@ -12,7 +12,6 @@
         // PageData
         /** @type {import('./$types').LayoutData} */
         export let data: { pathname: string };
-        let { pathname } = data;
 
         // Components
         import Footer from '$src/lib/components/Footer.svelte';
@@ -28,8 +27,15 @@
         // Styles
         // import '../app.css';
         import '$lib/styles/app.scss';
+        import { beforeNavigate } from '$app/navigation';
+        import { onMount } from 'svelte';
+        import { fly } from 'svelte/transition';
 
-        import type { Wretch } from 'wretch/types';
+        let mounted: boolean = false;
+
+        onMount(() => {
+                mounted = true;
+        });
 
         /**
          * website designed by patch: https://twitter.com/patchstep
@@ -87,28 +93,37 @@
 <div class="relative min-h-screen min-h-[100dvh]">
         <div class="flex flex-col min-h-screen h-auto">
                 <Header />
-
-                <PageTransition
-                        classList="
-                                flex flex-col flex-1
-                                max-w-5xl w-full
-                                mx-auto
-                                text-center
-                        "
-                        url={pathname}
-                        duration={300}
-                >
-                        <slot />
-                </PageTransition>
+                {#key data.pathname}
+                        {#if mounted}
+                                <main
+                                        class="
+                                                flex flex-col flex-1
+                                                max-w-5xl w-full
+                                                mx-auto
+                                                text-center
+                                        "
+                                        in:fly={{
+                                                x: -5,
+                                                duration: 300,
+                                                delay: 300
+                                        }}
+                                        out:fly={{ x: 5, duration: 300 }}
+                                >
+                                        <slot />
+                                </main>
+                        {/if}
+                {/key}
         </div>
         <Footer />
 </div>
 
-<style>
-        :global(*) {
-                /* outline: 1px solid green; */
-        }
-        :global(#page-title h1) {
-                font-size: 2.25em;
-        }
+<style lang="scss">
+        // :global() {
+        //         :root {
+
+        //         }
+        //         * {
+        //                 /* outline: 1px solid green; */
+        //         }
+        // }
 </style>
