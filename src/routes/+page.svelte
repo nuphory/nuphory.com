@@ -103,7 +103,7 @@
                                 "
                         />
                 </div>
-                <header class="relative z-10 -mt-8">
+                <header class="relative z-0 -mt-8">
                         <h1 id="page-title">{_siteName}</h1>
                 </header>
         </div>
