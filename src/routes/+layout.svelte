@@ -16,7 +16,6 @@
         // Components
         import Footer from '$src/lib/components/Footer.svelte';
         import Header from '$src/lib/components/Header.svelte';
-        import PageTransition from '$src/lib/components/utils/PageTransition.svelte';
 
         // Typefaces
         import '@fontsource/montserrat/400.css';
@@ -27,7 +26,6 @@
         // Styles
         // import '../app.css';
         import '$lib/styles/app.scss';
-        import { beforeNavigate } from '$app/navigation';
         import { onMount } from 'svelte';
         import { fly } from 'svelte/transition';
 
