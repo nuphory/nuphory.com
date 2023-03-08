@@ -44,7 +44,7 @@
         <section
                 class="
                         transition-colors duration-[var(--duration)] ease-out
-                        sticky md:relative bottom-0 w-full mb-0 bg-secondary md:bg-[#00000000]
+                        sticky md:relative bottom-0 w-full mb-0 bg-secondary lg:bg-none
                 "
         >
                 <span

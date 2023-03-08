@@ -14,7 +14,8 @@ module.exports = {
                 },
                 colors: {
                         primary: 'var(--clr-primary)',
-                        secondary: 'var(--clr-secondary)'
+                        secondary: 'var(--clr-secondary)',
+                        none: 'transparent'
                 }
         },
         plugins: [

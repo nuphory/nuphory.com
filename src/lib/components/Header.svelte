@@ -62,7 +62,7 @@
                         role="separator"
                         data-scroll="0"
                         class="
-                                transition-quick duration-150 ease-out
+                                transition-quick duration-[var(--duration)] ease-out
 
                                 block 
                                 mx-auto
