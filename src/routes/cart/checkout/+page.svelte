@@ -274,8 +274,7 @@
 
                         // console.debug('fetching shipping costs', order.recipient);
 
-                        api
-                                .url('/orders/estimate-costs')
+                        api.url('/orders/estimate-costs')
                                 .post(order)
                                 .json((json) => {
                                         shipping_available = true;

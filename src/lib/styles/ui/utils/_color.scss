@@ -1,30 +1,37 @@
 // @use '$lib/styles/ui/base/themes.scss' as *;
 
-.bg-primary,.bg-secondary {
+.bg-primary,
+.bg-secondary {
         @apply transition-[background] duration-[var(--duration)] ease-out;
 }
 
-.text-primary,.text-secondary {
+.text-primary,
+.text-secondary {
         @apply transition-[color] duration-[var(--duration)] ease-out;
 }
 
-.stroke-primary,.stroke-secondary {
+.stroke-primary,
+.stroke-secondary {
         @apply transition-[stroke] duration-[var(--duration)] ease-out;
 }
 
-.fill-primary,.fill-secondary {
+.fill-primary,
+.fill-secondary {
         @apply transition-[fill] duration-[var(--duration)] ease-out;
 }
 
-.border-primary,.border-secondary {
+.border-primary,
+.border-secondary {
         @apply transition-[border-color] duration-[var(--duration)] ease-out;
 }
 
-.outline-primary,.outline-secondary {
+.outline-primary,
+.outline-secondary {
         @apply transition-[outline-color] duration-[var(--duration)] ease-out;
 }
 
-.ring-primary,.ring-secondary {
+.ring-primary,
+.ring-secondary {
         @apply transition-[box-shadow] duration-[var(--duration)] ease-out;
 }
 

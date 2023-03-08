@@ -1,6 +1,6 @@
-export function isElementInViewport(query: string): boolean  {
+export function isElementInViewport(query: string): boolean {
         const el = document.querySelector(query);
-        
+
         if (!el) return false;
 
         const rect = el.getBoundingClientRect();

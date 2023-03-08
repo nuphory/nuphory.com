@@ -30,8 +30,8 @@
         }
 </script>
 
-<header 
-        class:bg-secondary={!pageTitleVisible} 
+<header
+        class:bg-secondary={!pageTitleVisible}
         class="
                 transition-colors duration-[var(--duration)] ease-out
                 text-primary

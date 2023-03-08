@@ -6,7 +6,11 @@
 </script>
 
 <li
-        class="flex flex-row basis-1 justify-between items-start m-4 gap-4 xs:items-start last:border-[0px] border-b border-primary"
+        class="
+                transition-colors duration-[var(--duration)] ease-out
+                flex flex-row justify-between items-start flex-1 xs:items-start 
+                m-4 gap-4 last:border-[0px] 
+                border-b border-primary"
 >
         <img
                 src={item.files[1].preview_url}
@@ -34,7 +38,9 @@
                                         </p>
                                 </div>
                         </div>
-                        <div class="w-full flex flex-row justify-between items-start border-t border-primary">
+                        <div
+                                class="w-full flex flex-row justify-between items-start border-t border-primary"
+                        >
                                 <p>Subtotal</p>
                                 <p class="text-right w-full">
                                         {(parseInt(item.retail_price) * item.quantity).toFixed(2)}

@@ -4,6 +4,6 @@ export const _siteDescription =
 export const _tagLine = 'HYPERTRANCE & NEOY2K';
 
 /** @type {impor('./$types').LayoutLoad} */
-export async function load({ url: { pathname }}) {
+export async function load({ url: { pathname } }) {
         return { pathname };
 }

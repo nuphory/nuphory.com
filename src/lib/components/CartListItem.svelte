@@ -39,7 +39,15 @@
 </script>
 
 <li
-        class="flex flex-col basis-1 justify-between items-center m-4 p-4 rounded-[2em] ring-3 ring-primary gap-4 sm:flex-row xs:items-start"
+        class="
+                transition-colors duration-[var(--duration)] ease-out
+                flex flex-col justify-between items-center flex-1
+                sm:flex-row xs:items-start
+                
+                rounded-3xl m-4 p-4 
+                bg-secondary 
+                ring-3 ring-primary gap-4 
+        "
 >
         <img
                 src={item.files[1].preview_url}

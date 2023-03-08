@@ -41,7 +41,12 @@
 <section id="cart-list" class="relative flex-1 flex flex-col justify-between items-center mb-0">
         <div />
         <CartList />
-        <section class="sticky bottom-0 w-full mb-0 bg-secondary">
+        <section
+                class="
+                        transition-colors duration-[var(--duration)] ease-out
+                        sticky md:relative bottom-0 w-full mb-0 md:bg-secondary
+                "
+        >
                 <span
                         role="separator"
                         data-scroll="0"
@@ -60,7 +65,6 @@
                                 h-12 w-full max-w-xs
                                 py-2 px-4 m-4
                                 rounded-full
-                                
 
                                 text-secondary bg-primary
                                 font-yeysk

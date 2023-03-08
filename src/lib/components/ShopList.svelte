@@ -5,7 +5,6 @@
 
         const api = wretch('/api').content('application/json').addon(AbortAddon()).middlewares([]);
 
-
         // Components
         import ProductListItem from './ShopListItem.svelte';
 

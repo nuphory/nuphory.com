@@ -17,7 +17,10 @@
 
 <ul
         id="cart"
-        class=" m-4 mb-0 w-80 flex flex-col justify-center items-center rounded-3xl ring-primary ring-3"
+        class="                
+                transition-colors duration-[var(--duration)] ease-out
+                flex flex-col justify-center items-center
+                m-4 mb-0 w-80 rounded-3xl ring-primary ring-3 bg-secondary"
 >
         {#each order.items as item}
                 <SimpleCartListItem {item} />
