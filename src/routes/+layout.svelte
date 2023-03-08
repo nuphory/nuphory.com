@@ -113,7 +113,42 @@
                 {/key}
         </div>
         <Footer />
-        <div class="-z-10 fixed -top-1/4 -left-1/2 h-96 w-full rounded-full ring-primary ring-3" />
+        <div class="relative -z-10 opacity-30">
+                <div
+                        class="fixed h-[36rem] w-[256rem] rounded-full ring-primary ring-3 top-0 left-1/2 translate-x-[15rem] -translate-y-[24rem] "
+                />
+                <div
+                        class="fixed h-[64rem] w-[256rem] rounded-full ring-primary ring-3 bottom-0 right-1/2 -translate-x-[20rem] translate-y-[24rem] "
+                />
+                <div
+                        class="fixed h-[32rem] w-[256rem] rounded-full ring-primary ring-3 bottom-0 right-1/2 -translate-x-[36rem] translate-y-[8rem] "
+                />
+
+                <div
+                        class="fixed h-[32rem] w-[256rem] rounded-full ring-primary ring-3 bottom-0 right-1/2 -translate-x-[34rem] -translate-y-[32.2rem] "
+                />
+                <div
+                        class="fixed h-[16rem] w-[256rem] rounded-full ring-primary ring-3 bottom-0 right-1/2 -translate-x-[42rem] -translate-y-[40.2rem] "
+                />
+                <div
+                        class="fixed h-[256rem] w-[48rem] rounded-full ring-primary ring-3 top-0 right-1/2 -translate-x-[30rem] -translate-y-[188.3rem] "
+                />
+                <div
+                        class="fixed h-[256rem] w-[24rem] rounded-full ring-primary ring-3 top-0 right-1/2 -translate-x-[42rem] -translate-y-[200.3rem] "
+                />
+                <div
+                        class="fixed h-[32rem] w-[256rem] rounded-full ring-primary ring-3 bottom-0 left-1/2 translate-x-[24rem] -translate-y-[4rem] "
+                />
+                <div
+                        class="fixed h-[16rem] w-[256rem] rounded-full ring-primary ring-3 bottom-0 left-1/2 translate-x-[32rem] -translate-y-[12rem] "
+                />
+                <div
+                        class="fixed h-[256rem] w-[32rem] rounded-full ring-primary ring-3 bottom-0 left-1/2 translate-x-[25rem] -translate-y-[5rem] "
+                />
+                <div
+                        class="fixed h-[256rem] w-[16rem] rounded-full ring-primary ring-3 bottom-0 left-1/2 translate-x-[33rem] -translate-y-[13rem] "
+                />
+        </div>
 </div>
 
 <style lang="scss">

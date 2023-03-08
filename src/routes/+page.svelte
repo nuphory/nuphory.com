@@ -190,14 +190,24 @@
         </div>
         <div class="relative flex flex-col justify-between flex-1">
                 <div class="flex-1" />
-                <a
-                        href="#top"
-                        id="merch-btt"
-                        class="inline-block sticky bottom-0 py-8 m-0 text-center scroll-button"
-                        on:click={scrollBack}
-                >
-                        <h4 class="m-0 pointer-events-none">back to top</h4>
-                </a>
+                <div class="inline-block sticky bottom-0 py-8">
+                        <a
+                                href="#top"
+                                id="merch-btt"
+                                class="group m-0 text-center scroll-button"
+                                on:click={scrollBack}
+                        >
+                                <h4
+                                        class="
+                                                m-0 pointer-events-none 
+                                                after:content-['_to_top']
+                                                after:group-data-[return-pos]:content-[''] 
+                                        "
+                                >
+                                        back
+                                </h4>
+                        </a>
+                </div>
         </div>
 </section>
 
@@ -220,14 +230,24 @@
         </div>
         <div class="relative flex flex-col justify-between flex-1">
                 <div class="flex-1" />
-                <a
-                        href="#top"
-                        id="socials-btt"
-                        class="inline-block sticky bottom-0 py-8 m-0 text-center scroll-button"
-                        on:click={scrollBack}
-                >
-                        <h4 class="m-0 pointer-events-none">back to top</h4>
-                </a>
+                <div class="inline-block sticky bottom-0 py-8">
+                        <a
+                                href="#top"
+                                id="socials-btt"
+                                class="group m-0 text-center scroll-button"
+                                on:click={scrollBack}
+                        >
+                                <h4
+                                        class="
+                                                m-0 pointer-events-none 
+                                                after:content-['_to_top']
+                                                after:group-data-[return-pos]:content-[''] 
+                                        "
+                                >
+                                        back
+                                </h4>
+                        </a>
+                </div>
         </div>
 </section>
 
@@ -240,7 +260,6 @@
 </div>
 
 <style lang="scss">
-
         .scroll-button {
                 transition: all 0.3s ease-out;
 
