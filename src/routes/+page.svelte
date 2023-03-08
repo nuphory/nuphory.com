@@ -11,15 +11,13 @@
 
         async function scrollTo(event) {
                 const sender = event.target;
-                const target = document.querySelector(
-                        `${sender.getAttribute('href')}-btt`
-                ) as HTMLElement;
 
-                if (!target) return;
                 event.preventDefault();
                 goto(sender.getAttribute('href'));
 
-                target.setAttribute('data-return-pos', `${window.scrollY}`);
+                (
+                        document.querySelector(`${sender.getAttribute('href')}-btt`) as HTMLElement
+                )?.setAttribute('data-return-pos', `${window.scrollY}`);
         }
 
         async function scrollBack(event) {
@@ -95,7 +93,7 @@
                         <NuphoryLogo
                                 classList="
                                         transition-[stroke] duration-[var(--duration)] ease-out
-                                        absolute
+                                        absolute z-0
                                         bottom-1/2 right-1/2
                                         translate-y-1/2 translate-x-1/2
                                         w-full 
@@ -105,8 +103,8 @@
                                 "
                         />
                 </div>
-                <header class="-mt-8">
-                        <h1 id="page-title"><b>{_siteName}</b></h1>
+                <header class="relative z-10 -mt-8">
+                        <h1 id="page-title">{_siteName}</h1>
                 </header>
         </div>
         <nav class="mx-auto">
@@ -177,7 +175,7 @@
                 min-h-[calc(100dvh-16rem)]
         "
 >
-        <h2 id="merch-btt" class="relative flex flex-col justify-between flex-1">
+        <h2 class="relative flex flex-col justify-between flex-1">
                 <div class="flex-1" />
                 <div class="block sticky bottom-0 pb-8">Merch</div>
                 <div class="flex-1" />
@@ -190,33 +188,59 @@
                         projects and create opportunities for myself and other artists in the scene.
                 </p>
         </div>
-        <div class="flex-1" />
-</section>
-<div role="separator" />
-
-<section id="socials" class="space-y-12">
-        <div class="mb-4">
+        <div class="relative flex flex-col justify-between flex-1">
+                <div class="flex-1" />
                 <a
                         href="#top"
-                        id="socials-btt"
-                        class="m-0 text-center scroll-button"
+                        id="merch-btt"
+                        class="inline-block sticky bottom-0 py-8 m-0 text-center scroll-button"
                         on:click={scrollBack}
                 >
                         <h4 class="m-0 pointer-events-none">back to top</h4>
                 </a>
         </div>
-        <div id="buttons" class="flex flex-col gap-2 md:gap-1 items-center justify-center">
+</section>
+
+<div role="separator" />
+
+<section
+        id="socials"
+        class="
+                flex flex-col justify-between
+                min-h-[calc(100dvh-48rem)]
+        "
+>
+        <h2 class="relative flex flex-col justify-between flex-1">
+                <div class="flex-1" />
+                <div class="block sticky bottom-0 pb-8">Socials</div>
+                <div class="flex-1" />
+        </h2>
+        <div id="buttons" class="mx-auto flex flex-col gap-2 md:gap-1 items-center justify-center">
                 <Buttons />
+        </div>
+        <div class="relative flex flex-col justify-between flex-1">
+                <div class="flex-1" />
+                <a
+                        href="#top"
+                        id="socials-btt"
+                        class="inline-block sticky bottom-0 py-8 m-0 text-center scroll-button"
+                        on:click={scrollBack}
+                >
+                        <h4 class="m-0 pointer-events-none">back to top</h4>
+                </a>
         </div>
 </section>
 
-<div id="book-me" class="mb-4">
+<div role="separator" />
+
+<div id="book-me" class="my-8">
         <span class="m-0 text-center scroll-button">
                 <h4 class="m-0 pointer-events-none">book me</h4>
         </span>
 </div>
 
 <style lang="scss">
+
         .scroll-button {
                 transition: all 0.3s ease-out;
 

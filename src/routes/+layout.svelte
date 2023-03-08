@@ -89,7 +89,7 @@
 </svelte:head>
 
 <div class="relative min-h-screen min-h-[100dvh]">
-        <div class="flex flex-col min-h-screen h-auto">
+        <div class="z-10 flex flex-col min-h-screen h-auto">
                 <Header />
                 {#key data.pathname}
                         {#if mounted}
@@ -113,6 +113,7 @@
                 {/key}
         </div>
         <Footer />
+        <div class="-z-10 fixed -top-1/4 -left-1/2 h-96 w-full rounded-full ring-primary ring-3" />
 </div>
 
 <style lang="scss">

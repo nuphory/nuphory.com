@@ -22,7 +22,7 @@
         }
 </script>
 
-<li class="w-xs m-4 p-4 rounded-[2em] ring-primary ring-3">
+<li class="transition-colors duration-[var(--duration)] ease-out w-xs m-4 p-4 rounded-[2em] bg-secondary ring-primary ring-3">
         <!-- product listing -->
 
         <!-- product showcase -->
