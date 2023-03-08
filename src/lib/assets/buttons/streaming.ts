@@ -1,21 +1,21 @@
-import SpotifyButton from '$lib/components/icons/SpotifyButton.svelte';
-import SoundCloudButton from '$lib/components/icons/SoundCloudButton.svelte';
-import YouTubeButton from '$lib/components/icons/YouTubeButton.svelte';
+import SpotifyButton from '$src/lib/components/icons/SpotifyIcon.svelte';
+import SoundCloudButton from '$src/lib/components/icons/SoundCloudIcon.svelte';
+import YouTubeButton from '$src/lib/components/icons/YouTubeIcon.svelte';
 
 export default [
         {
                 label: 'spotify',
                 href: 'https://open.spotify.com/artist/1peAJRnCgGwBv46QXFJEbU',
-                img: SpotifyButton
+                Icon: SpotifyButton
         },
         {
                 label: 'soundcloud',
                 href: 'https://soundcloud.com/nuphory',
-                img: SoundCloudButton
+                Icon: SoundCloudButton
         },
         {
                 label: 'youtube',
                 href: 'https://www.youtube.com/nuphory',
-                img: YouTubeButton
+                Icon: YouTubeButton
         }
 ];

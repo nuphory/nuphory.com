@@ -1,15 +1,15 @@
-import TwitterButton from '$lib/components/icons/TwitterButton.svelte';
-import TikTokButton from '$lib/components/icons/TikTokButton.svelte';
+import TwitterButton from '$src/lib/components/icons/TwitterIcon.svelte';
+import TikTokButton from '$src/lib/components/icons/TikTokIcon.svelte';
 
 export default [
         {
                 label: 'twitter',
                 href: 'https://twitter.com/nuphory',
-                img: TwitterButton
+                Icon: TwitterButton
         },
         {
                 label: 'tiktok',
                 href: 'https://tiktok.com/@nuphory',
-                img: TikTokButton
+                Icon: TikTokButton
         }
 ];
