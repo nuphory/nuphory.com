@@ -60,6 +60,7 @@
                 <a
                         href="/cart/checkout"
                         class:opacity-50={items.length === 0}
+                        class:pointer-events-none={items.length === 0}
                         class=" 
                                 transition-quick duration-[var(--duration)] ease-out
                                 h-12 w-full max-w-xs
