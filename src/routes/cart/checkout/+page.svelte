@@ -1,6 +1,6 @@
 <script lang="ts">
         // Imports
-        import { _siteDescription, _siteName } from '$routes/+layout';
+        import site from '$lib/identity';
         import _ from 'lodash';
 
         import {
@@ -298,21 +298,21 @@
 </script>
 
 <svelte:head>
-        <title>checkout — {_siteName}</title>
-        <meta name="title" content="checkout — {_siteName}" />
+        <title>checkout — {site.name}</title>
+        <meta name="title" content="checkout — {site.name}" />
 
-        <link rel="canonical" href="https://{_siteName}.com/cart/checkout" />
+        <link rel="canonical" href="https://{site.name}.com/cart/checkout" />
 
         <meta name="robots" content="index, follow" />
 
-        <meta property="og:title" content="checkout — {_siteName}" />
-        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
-        <meta property="og:url" content="https://{_siteName}.com/cart/checkout" />
+        <meta property="og:title" content="checkout — {site.name}" />
+        <meta property="og:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
+        <meta property="og:url" content="https://{site.name}.com/cart/checkout" />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:title" content="checkout — {_siteName}" />
-        <meta name="twitter:description" content={_siteDescription} />
-        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta name="twitter:title" content="checkout — {site.name}" />
+        <meta name="twitter:description" content={site.description} />
+        <meta name="twitter:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
 <section id="page-title">

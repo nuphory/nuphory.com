@@ -1,6 +1,6 @@
 <script>
         import Impressum from '$src/lib/components/Impressum.svelte';
-        import { _siteName } from '$src/routes/+layout';
+        import site from '$lib/identity';
 </script>
 
 <footer
@@ -10,7 +10,7 @@
                 bg-primary text-secondary text-center py-4
         "
 >
-        <h4 id="booking-btt">{_siteName}</h4>
+        <h4 id="booking-btt">{site.name}</h4>
 
         <div
                 id="content"

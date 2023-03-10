@@ -7,7 +7,7 @@
          */
 
         // Imports
-        import { _siteDescription, _siteName } from './+layout';
+        import site from '$lib/identity';
 
         // PageData
         /** @type {import('./$types').LayoutData} */
@@ -39,7 +39,7 @@
          * website designed by patch: https://twitter.com/patchstep
          */
         console.info(
-                `%c${_siteName}%c\n\n\n${_siteName}.com was made by %cPatch\n%chttps://twitter.com/patchstep`,
+                `%c${site.name}%c\n\n\n${site.name}.com was made by %cPatch\n%chttps://twitter.com/patchstep`,
                 "font-family: 'Yeysk'; font-size: 6em; font-weight: bold; text-stroke: 2px #272d3b; color: #fffaf7;",
                 'font-size: 2em; color: #fffaf7;',
                 'font-size: 2em; color: #fffaf7; font-weight: bold;',
@@ -73,19 +73,19 @@
         <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#fffaf7" />
 
-        <meta property="og:site_name" content={_siteName} />
+        <meta property="og:site_name" content={site.name} />
 
         <meta
                 name="keywords"
-                content="{_siteName}, {_siteName}music, {_siteName} music, volant, volantmusic, music, house, trance, hypertrance, neoy2k, progressive house"
+                content="{site.name}, {site.name}music, {site.name} music, volant, volantmusic, music, house, trance, hypertrance, neoy2k, progressive house"
         />
-        <meta name="description" content={_siteDescription} />
+        <meta name="description" content={site.description} />
 
-        <meta property="og:description" content={_siteDescription} />
+        <meta property="og:description" content={site.description} />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@{_siteName}" />
-        <meta name="twitter:creator" content="@{_siteName}" />
+        <meta name="twitter:site" content="@{site.name}" />
+        <meta name="twitter:creator" content="@{site.name}" />
 </svelte:head>
 
 <div class="relative min-h-screen min-h-[100dvh]">

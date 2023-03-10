@@ -1,12 +1,13 @@
 <script lang="ts">
         // Imports
         import currentOrder from '$lib/api/stores/order';
+        import site from '$lib/identity';
+
         // Types
         import type { Item } from '$lib/types/product';
 
         // Components
         import CartList from '$src/lib/components/CartList.svelte';
-        import { _siteDescription, _siteName } from '../+layout';
 
         let items: Item[] = $currentOrder.items;
 
@@ -16,21 +17,21 @@
 </script>
 
 <svelte:head>
-        <title>cart — {_siteName}</title>
-        <meta name="title" content="cart — {_siteName}" />
+        <title>cart — {site.name}</title>
+        <meta name="title" content="cart — {site.name}" />
 
-        <link rel="canonical" href="https://{_siteName}.com/cart" />
+        <link rel="canonical" href="https://{site.name}.com/cart" />
 
         <meta name="robots" content="index, follow" />
 
-        <meta property="og:title" content="cart — {_siteName}" />
-        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
-        <meta property="og:url" content="https://{_siteName}.com/cart" />
+        <meta property="og:title" content="cart — {site.name}" />
+        <meta property="og:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
+        <meta property="og:url" content="https://{site.name}.com/cart" />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:title" content="cart — {_siteName}" />
-        <meta name="twitter:description" content={_siteDescription} />
-        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta name="twitter:title" content="cart — {site.name}" />
+        <meta name="twitter:description" content={site.description} />
+        <meta name="twitter:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
 <section id="page-title">

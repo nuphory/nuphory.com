@@ -1,6 +1,6 @@
 <script lang="ts">
-        // constants
-        import { _siteName, _siteDescription, _tagLine } from './+layout';
+        // import
+        import site from '$lib/identity';
 
         // components
         import Buttons from '$src/lib/components/Buttons.svelte';
@@ -42,30 +42,30 @@
 </script>
 
 <svelte:head>
-        <title>{_siteName}</title>
-        <meta name="title" content="{_siteName} — {_tagLine}" />
+        <title>{site.name}</title>
+        <meta name="title" content="{site.name} — {site.tagline}" />
         <meta
                 name="keywords"
-                content="{_siteName}, {_siteName}music, {_siteName} music, volant, volantmusic, music, house, trance, hypertrance, neoy2k, progressive house"
+                content="{site.name}, {site.name}music, {site.name} music, volant, volantmusic, music, house, trance, hypertrance, neoy2k, progressive house"
         />
-        <meta name="description" content={_siteDescription} />
+        <meta name="description" content={site.description} />
 
         <link rel="canonical" href="https://nuphory.com" />
 
         <meta name="robots" content="index, follow" />
 
-        <meta property="og:title" content="{_siteName} — {_tagLine}" />
-        <meta property="og:description" content={_siteDescription} />
-        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
-        <meta property="og:url" content="https://{_siteName}.com" />
+        <meta property="og:title" content="{site.name} — {site.tagline}" />
+        <meta property="og:description" content={site.description} />
+        <meta property="og:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
+        <meta property="og:url" content="https://{site.name}.com" />
         <meta property="og:type" content="website" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@{_siteName}" />
-        <meta name="twitter:creator" content="@{_siteName}" />
-        <meta name="twitter:title" content="{_siteName} — {_tagLine}" />
-        <meta name="twitter:description" content={_siteDescription} />
-        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta name="twitter:site" content="@{site.name}" />
+        <meta name="twitter:creator" content="@{site.name}" />
+        <meta name="twitter:title" content="{site.name} — {site.tagline}" />
+        <meta name="twitter:description" content={site.description} />
+        <meta name="twitter:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
 <section
@@ -104,7 +104,7 @@
                         />
                 </div>
                 <header class="relative z-0 -mt-8">
-                        <h1 id="page-title">{_siteName}</h1>
+                        <h1 id="page-title">{site.name}</h1>
                 </header>
         </div>
         <nav class="mx-auto">

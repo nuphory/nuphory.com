@@ -6,7 +6,6 @@
         import { browser } from '$app/environment';
 
         import { page } from '$app/stores';
-        import { _siteName } from '$src/routes/+layout';
 
         let theme: string | null;
         let mounted: boolean = false;
@@ -50,7 +49,7 @@
                                                 class:translate-y-full={pageTitleVisible && mounted}
                                                 class="transition-[transform] duration-[var(--duration)] ease-out m-0"
                                         >
-                                                {$page?.route?.id?.split('/').pop() || _siteName}
+                                                {$page?.route?.id?.split('/').pop() || site.name}
                                         </h4>
                                 </div>
                         </li>

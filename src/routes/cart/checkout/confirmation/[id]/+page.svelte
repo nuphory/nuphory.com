@@ -1,10 +1,10 @@
 <script lang="ts">
         // TODO new themes
         import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
+        import site from '$lib/identity';
 
         import { browser } from '$app/environment';
         import type { Order } from '$lib/types/order';
-        import { _siteDescription, _siteName } from '$routes/+layout';
 
         export let data;
 
@@ -22,27 +22,27 @@
 </script>
 
 <svelte:head>
-        <title>order confirmation — {_siteName}</title>
-        <meta name="title" content="order confirmation — {_siteName}" />
+        <title>order confirmation — {site.name}</title>
+        <meta name="title" content="order confirmation — {site.name}" />
 
         <link
                 rel="canonical"
-                href="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}"
+                href="https://{site.name}.com/cart/checkout/confirmation/{data.order_id}"
         />
 
         <meta name="robots" content="index, follow" />
 
-        <meta property="og:title" content="order confirmation — {_siteName}" />
-        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta property="og:title" content="order confirmation — {site.name}" />
+        <meta property="og:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
         <meta
                 property="og:url"
-                content="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}"
+                content="https://{site.name}.com/cart/checkout/confirmation/{data.order_id}"
         />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:title" content="order confirmation — {_siteName}" />
-        <meta name="twitter:description" content={_siteDescription} />
-        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta name="twitter:title" content="order confirmation — {site.name}" />
+        <meta name="twitter:description" content={site.description} />
+        <meta name="twitter:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
