@@ -10,13 +10,13 @@ module.exports = {
                                 colors: 'color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow',
                                 layout: 'inset,transform,height,min-height,max-height,width,min-width,max-width,margin,padding,outline-color,opacity,font-size',
                                 quick: 'box-shadow,color,background-color,border-color,text-decoration-color,fill,stroke,inset,transform,height,min-height,max-height,width,min-width,max-width,margin,padding,outline-color,opacity,font-size'
+                        },
+                        colors: {
+                                primary: 'var(--clr-primary)',
+                                secondary: 'var(--clr-secondary)',
+                                none: 'transparent'
                         }
                 },
-                colors: {
-                        primary: 'var(--clr-primary)',
-                        secondary: 'var(--clr-secondary)',
-                        none: 'transparent'
-                }
         },
         plugins: [
                 require('@tailwindcss/typography'),

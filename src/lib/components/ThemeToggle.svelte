@@ -1,4 +1,7 @@
 <script lang="ts">
+
+        // TODO store current theme in localStorage
+
         let theme: string | null;
 
         function toggleTheme(event: Event) {

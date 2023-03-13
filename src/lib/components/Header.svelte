@@ -1,11 +1,15 @@
 <script lang="ts">
-        import CartButton from './CartButton.svelte';
-        import ThemeToggle from './ThemeToggle.svelte';
-        import { isElementInViewport } from '$lib/utils/DOMutils';
+        // Imports
+        import site from '$lib/identity';
         import { afterUpdate, onMount } from 'svelte';
         import { browser } from '$app/environment';
-
         import { page } from '$app/stores';
+        import { isElementInViewport } from '$lib/utils/DOMutils';
+        
+        // Components
+        import CartButton from './CartButton.svelte';
+        import ThemeToggle from './ThemeToggle.svelte';
+
 
         let theme: string | null;
         let mounted: boolean = false;
