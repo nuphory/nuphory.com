@@ -31,7 +31,12 @@
         import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
         import { onMount } from 'svelte';
 
-        const api = wretch('/api').content('application/json').addon(AbortAddon()).middlewares([]);
+        import { page } from '$app/stores';
+
+        const api = wretch($page.url.origin + '/api')
+                .content('application/json')
+                .addon(AbortAddon())
+                .middlewares([]);
 
         let orderId: string;
         let shipping_available = false;

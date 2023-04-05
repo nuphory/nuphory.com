@@ -3,7 +3,12 @@
         import wretch from 'wretch';
         import AbortAddon from 'wretch/addons/abort';
 
-        const api = wretch('/api').content('application/json').addon(AbortAddon()).middlewares([]);
+        import { page } from '$app/stores';
+
+        const api = wretch($page.url.origin + '/api')
+                .content('application/json')
+                .addon(AbortAddon())
+                .middlewares([]);
 
         // Components
         import ProductListItem from './ShopListItem.svelte';
