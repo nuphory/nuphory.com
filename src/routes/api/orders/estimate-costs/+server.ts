@@ -1,36 +1,53 @@
-import { error } from '@sveltejs/kit';
-
-import { PRINTFUL_API_TOKEN } from '$env/static/private';
+import { printfulApi } from '$src/lib/api/externalApis';
 import type { Order } from '$src/lib/types/order';
+import { retry } from 'wretch/middlewares';
+import { WretchError } from 'wretch/resolver';
 
-const endpoint = 'https://api.printful.com/orders/estimate-costs';
-
-const headers = {
-        Authorization: `Bearer ${PRINTFUL_API_TOKEN}`,
-        'Content-Type': 'application/json'
-};
+const printfulOrdersApi = printfulApi
+        .middlewares([retry({ maxAttempts: 1, resolveWithLatestResponse: true })])
+        .url('/orders');
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
+export async function POST({ request }): Promise<Response> {
         const body: Order = await request.json();
 
-        return new Response(JSON.stringify(await fetchCosts(body)), {
-                headers: { 'Content-Type': 'application/json' }
-        });
-}
-async function fetchCosts(body: Order) {
         try {
-                const response = await fetch(endpoint, {
-                        method: 'POST',
-                        body: JSON.stringify(body),
-                        headers
+                const res = await printfulOrdersApi.url(`/estimate-costs`).post(body).res();
+
+                const json = await res.json();
+
+                // console.debug('cost estimation', json);
+
+                return new Response(JSON.stringify(json), {
+                        status: 200,
+                        headers: { 'Content-Type': 'application/json' }
                 });
-                const data = await response.json();
-
-                console.debug(data);
-
-                return data;
         } catch (error) {
-                console.error(error);
+                if (error instanceof WretchError) {
+                        console.error(error.message);
+
+                        return new Response(
+                                JSON.stringify({
+                                        message: 'Could not estimate costs for order',
+                                        details: JSON.parse(error.message)
+                                }),
+                                {
+                                        status: 500,
+                                        headers: { 'Content-Type': 'text/plain' }
+                                }
+                        );
+                } else {
+                        console.error(error);
+                        return new Response(
+                                JSON.stringify({
+                                        message: 'Could not estimate costs for order',
+                                        details: error
+                                }),
+                                {
+                                        status: 500,
+                                        headers: { 'Content-Type': 'text/plain' }
+                                }
+                        );
+                }
         }
 }

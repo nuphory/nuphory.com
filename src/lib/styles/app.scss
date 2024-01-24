@@ -1,0 +1,35 @@
+@use '$lib/styles/ui/color-palette.scss' as *;
+@use '$lib/styles/ui/utils/design.scss';
+@use '$lib/styles/ui/base/nu.scss';
+@use '$lib/styles/ui/base/themes.scss';
+@use '$lib/styles/ui/base/typography.scss';
+
+@use '$lib/styles/ui/utils/_color.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+        // transition duration
+        --duration: 500ms;
+}
+
+// Colors
+*,
+*::before,
+*::after {
+        @apply transition-layout duration-[var(--duration)] ease-out;
+        // @apply transition-layout duration-1000 ease-in;
+        @apply box-border;
+}
+
+html,
+body {
+        @apply min-h-[100dvh] scroll-pt-[6.3rem] scroll-smooth;
+}
+
+body {
+        @apply bg-secondary text-primary;
+        @apply transition-colors duration-[var(--duration)] ease-out;
+}

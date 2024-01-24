@@ -1,0 +1,231 @@
+@use 'sass:color';
+
+// Colors
+
+$nu-color-white: hsl(0, 0%, 100%);
+
+$nu-color-neutral-98: hsl(0, 0%, 98%);
+$nu-color-neutral-95: hsl(0, 0%, 95%);
+$nu-color-neutral-90: hsl(0, 0%, 90%);
+$nu-color-neutral-85: hsl(0, 0%, 85%);
+$nu-color-neutral-80: hsl(0, 0%, 80%);
+$nu-color-neutral-75: hsl(0, 0%, 75%);
+$nu-color-neutral-70: hsl(0, 0%, 70%);
+$nu-color-neutral-65: hsl(0, 0%, 65%);
+$nu-color-neutral-60: hsl(0, 0%, 60%);
+$nu-color-neutral-55: hsl(0, 0%, 55%);
+$nu-color-neutral-50: hsl(0, 0%, 50%);
+$nu-color-neutral-45: hsl(0, 0%, 45%);
+$nu-color-neutral-40: hsl(0, 0%, 40%);
+$nu-color-neutral-35: hsl(0, 0%, 35%);
+$nu-color-neutral-30: hsl(0, 0%, 30%);
+$nu-color-neutral-25: hsl(0, 0%, 25%);
+$nu-color-neutral-20: hsl(0, 0%, 20%);
+$nu-color-neutral-15: hsl(0, 0%, 15%);
+$nu-color-neutral-13: hsl(0, 0%, 13%);
+$nu-color-neutral-10: hsl(0, 0%, 10%);
+$nu-color-neutral-5: hsl(0, 0%, 5%);
+$nu-color-black: hsl(0, 0%, 0%);
+
+$nu-color-orange: hsl(38, 100%, 50%);
+
+$nu-color-orange-50: $nu-color-orange;
+$nu-color-orange-95: color.change($nu-color-orange, $lightness: 95%);
+$nu-color-orange-90: color.change($nu-color-orange, $lightness: 90%);
+$nu-color-orange-85: color.change($nu-color-orange, $lightness: 85%);
+$nu-color-orange-80: color.change($nu-color-orange, $lightness: 80%);
+$nu-color-orange-75: color.change($nu-color-orange, $lightness: 75%);
+$nu-color-orange-70: color.change($nu-color-orange, $lightness: 70%);
+$nu-color-orange-65: color.change($nu-color-orange, $lightness: 65%);
+$nu-color-orange-60: color.change($nu-color-orange, $lightness: 60%);
+$nu-color-orange-55: color.change($nu-color-orange, $lightness: 55%);
+$nu-color-orange-45: color.change($nu-color-orange, $lightness: 45%);
+$nu-color-orange-40: color.change($nu-color-orange, $lightness: 40%);
+$nu-color-orange-35: color.change($nu-color-orange, $lightness: 35%);
+$nu-color-orange-30: color.change($nu-color-orange, $lightness: 30%);
+$nu-color-orange-25: color.change($nu-color-orange, $lightness: 25%);
+$nu-color-orange-20: color.change($nu-color-orange, $lightness: 20%);
+$nu-color-orange-15: color.change($nu-color-orange, $lightness: 15%);
+$nu-color-orange-10: color.change($nu-color-orange, $lightness: 10%);
+$nu-color-orange-5: color.change($nu-color-orange, $lightness: 5%);
+
+$nu-color-blue: hsl(222, 100%, 50%);
+
+$nu-color-blue-50: $nu-color-blue;
+$nu-color-blue-95: color.change($nu-color-blue, $lightness: 95%);
+$nu-color-blue-90: color.change($nu-color-blue, $lightness: 90%);
+$nu-color-blue-85: color.change($nu-color-blue, $lightness: 85%);
+$nu-color-blue-80: color.change($nu-color-blue, $lightness: 80%);
+$nu-color-blue-75: color.change($nu-color-blue, $lightness: 75%);
+$nu-color-blue-70: color.change($nu-color-blue, $lightness: 70%);
+$nu-color-blue-65: color.change($nu-color-blue, $lightness: 65%);
+$nu-color-blue-60: color.change($nu-color-blue, $lightness: 60%);
+$nu-color-blue-55: color.change($nu-color-blue, $lightness: 55%);
+$nu-color-blue-45: color.change($nu-color-blue, $lightness: 45%);
+$nu-color-blue-40: color.change($nu-color-blue, $lightness: 40%);
+$nu-color-blue-35: color.change($nu-color-blue, $lightness: 35%);
+$nu-color-blue-30: color.change($nu-color-blue, $lightness: 30%);
+$nu-color-blue-25: color.change($nu-color-blue, $lightness: 25%);
+$nu-color-blue-20: color.change($nu-color-blue, $lightness: 20%);
+$nu-color-blue-15: color.change($nu-color-blue, $lightness: 15%);
+$nu-color-blue-10: color.change($nu-color-blue, $lightness: 10%);
+$nu-color-blue-5: color.change($nu-color-blue, $lightness: 5%);
+
+$nu-color-green: hsl(143, 100%, 50%);
+
+$nu-color-green-50: $nu-color-green;
+$nu-color-green-95: color.change($nu-color-green, $lightness: 95%);
+$nu-color-green-90: color.change($nu-color-green, $lightness: 90%);
+$nu-color-green-85: color.change($nu-color-green, $lightness: 85%);
+$nu-color-green-80: color.change($nu-color-green, $lightness: 80%);
+$nu-color-green-75: color.change($nu-color-green, $lightness: 75%);
+$nu-color-green-70: color.change($nu-color-green, $lightness: 70%);
+$nu-color-green-65: color.change($nu-color-green, $lightness: 65%);
+$nu-color-green-60: color.change($nu-color-green, $lightness: 60%);
+$nu-color-green-55: color.change($nu-color-green, $lightness: 55%);
+$nu-color-green-45: color.change($nu-color-green, $lightness: 45%);
+$nu-color-green-40: color.change($nu-color-green, $lightness: 40%);
+$nu-color-green-35: color.change($nu-color-green, $lightness: 35%);
+$nu-color-green-30: color.change($nu-color-green, $lightness: 30%);
+$nu-color-green-25: color.change($nu-color-green, $lightness: 25%);
+$nu-color-green-20: color.change($nu-color-green, $lightness: 20%);
+$nu-color-green-15: color.change($nu-color-green, $lightness: 15%);
+$nu-color-green-10: color.change($nu-color-green, $lightness: 10%);
+$nu-color-green-5: color.change($nu-color-green, $lightness: 5%);
+
+$nu-color-red: hsl(345, 100%, 50%);
+
+$nu-color-red-50: $nu-color-red;
+$nu-color-red-95: color.change($nu-color-red, $lightness: 95%);
+$nu-color-red-90: color.change($nu-color-red, $lightness: 90%);
+$nu-color-red-85: color.change($nu-color-red, $lightness: 85%);
+$nu-color-red-80: color.change($nu-color-red, $lightness: 80%);
+$nu-color-red-75: color.change($nu-color-red, $lightness: 75%);
+$nu-color-red-70: color.change($nu-color-red, $lightness: 70%);
+$nu-color-red-65: color.change($nu-color-red, $lightness: 65%);
+$nu-color-red-60: color.change($nu-color-red, $lightness: 60%);
+$nu-color-red-55: color.change($nu-color-red, $lightness: 55%);
+$nu-color-red-45: color.change($nu-color-red, $lightness: 45%);
+$nu-color-red-40: color.change($nu-color-red, $lightness: 40%);
+$nu-color-red-35: color.change($nu-color-red, $lightness: 35%);
+$nu-color-red-30: color.change($nu-color-red, $lightness: 30%);
+$nu-color-red-25: color.change($nu-color-red, $lightness: 25%);
+$nu-color-red-20: color.change($nu-color-red, $lightness: 20%);
+$nu-color-red-15: color.change($nu-color-red, $lightness: 15%);
+$nu-color-red-10: color.change($nu-color-red, $lightness: 10%);
+$nu-color-red-5: color.change($nu-color-red, $lightness: 5%);
+
+$nu-color-cyan: hsl(191, 40%, 50%);
+
+$nu-color-cyan-50: $nu-color-cyan;
+$nu-color-cyan-95: color.change($nu-color-cyan, $lightness: 95%);
+$nu-color-cyan-90: color.change($nu-color-cyan, $lightness: 90%);
+$nu-color-cyan-85: color.change($nu-color-cyan, $lightness: 85%);
+$nu-color-cyan-80: color.change($nu-color-cyan, $lightness: 80%);
+$nu-color-cyan-75: color.change($nu-color-cyan, $lightness: 75%);
+$nu-color-cyan-70: color.change($nu-color-cyan, $lightness: 70%);
+$nu-color-cyan-65: color.change($nu-color-cyan, $lightness: 65%);
+$nu-color-cyan-60: color.change($nu-color-cyan, $lightness: 60%);
+$nu-color-cyan-55: color.change($nu-color-cyan, $lightness: 55%);
+$nu-color-cyan-45: color.change($nu-color-cyan, $lightness: 45%);
+$nu-color-cyan-40: color.change($nu-color-cyan, $lightness: 40%);
+$nu-color-cyan-35: color.change($nu-color-cyan, $lightness: 35%);
+$nu-color-cyan-30: color.change($nu-color-cyan, $lightness: 30%);
+$nu-color-cyan-25: color.change($nu-color-cyan, $lightness: 25%);
+$nu-color-cyan-20: color.change($nu-color-cyan, $lightness: 20%);
+$nu-color-cyan-15: color.change($nu-color-cyan, $lightness: 15%);
+$nu-color-cyan-10: color.change($nu-color-cyan, $lightness: 10%);
+$nu-color-cyan-5: color.change($nu-color-cyan, $lightness: 5%);
+
+// Light theme
+
+$nu-theme-light-primary: #272d3a;
+$nu-theme-light-secondary: #fffaf7;
+
+// $nu-theme-light-text-primary: $nu-theme-light-secondary;
+// $nu-theme-light-text-secondary: $nu-color-neutral-30; // unused
+// $nu-theme-light-text-inactive: color.change($nu-theme-light-secondary, $alpha: 0.65);
+
+// $nu-theme-light-text-link-primary-default: $nu-color-black;
+// $nu-theme-light-text-link-primary-hover: $nu-color-neutral-20;
+// $nu-theme-light-text-link-primary-active: $nu-color-black;
+
+// $nu-theme-light-text-link-secondary-default: $nu-color-blue-50; // unused
+// $nu-theme-light-text-link-secondary-hover: $nu-color-blue-60; // unused
+// $nu-theme-light-text-link-secondary-active: $nu-color-blue-35; // unused
+
+// $nu-theme-light-background-primary: $nu-theme-light-primary;
+// $nu-theme-light-background-secondary: $nu-theme-light-secondary; // unused
+// $nu-theme-light-background-tertiary: $nu-color-neutral-80; // unused
+
+// $nu-theme-light-border-primary: $nu-theme-light-secondary;
+// $nu-theme-light-border-secondary: $nu-theme-light-primary; // unused
+// $nu-theme-light-border-success: $nu-color-green-65; // unused
+
+// $nu-theme-light-button-primary-default: $nu-theme-light-secondary;
+// $nu-theme-light-button-primary-hover: color.change($nu-theme-light-secondary, $lightness: 35%);
+// $nu-theme-light-button-primary-active: color.change($nu-theme-light-secondary, $lightness: 15%);
+// $nu-theme-light-button-primary-inactive: color.change($nu-theme-light-secondary, $alpha: 0.65);
+
+// $nu-theme-light-button-secondary-default: $nu-color-green-50; // unused
+// $nu-theme-light-button-secondary-hover: $nu-color-green-65; // unused
+// $nu-theme-light-button-secondary-active: $nu-color-green-40; // unused
+// $nu-theme-light-button-secondary-inactive: color.change(
+//         $nu-color-orange-50,
+//         $alpha: 0.65
+// ); // unused
+
+// $nu-theme-light-icon-primary: $nu-color-neutral-40;
+// $nu-theme-light-icon-secondary: $nu-color-neutral-70;
+// $nu-theme-light-icon-information: $nu-color-blue-65;
+// $nu-theme-light-icon-warning: $nu-color-orange-65;
+// $nu-theme-light-icon-critical: $nu-color-red-65;
+// $nu-theme-light-icon-success: $nu-color-green-65;
+
+// $nu-theme-light-accent-primary: $nu-color-black;
+// $nu-theme-light-accent-secondary: $nu-theme-light-secondary; // unused
+
+// Dark theme
+
+$nu-theme-dark-primary: #fafafa;
+$nu-theme-dark-secondary: #212121;
+
+// $nu-theme-dark-text-primary: $nu-color-neutral-98;
+// $nu-theme-dark-text-secondary: $nu-color-neutral-80; // unused
+// $nu-theme-dark-text-inactive: color.change($nu-color-neutral-98, $alpha: 0.65);
+
+// $nu-theme-dark-text-link-primary-default: $nu-color-cyan-75;
+// $nu-theme-dark-text-link-primary-hover: $nu-color-cyan-85;
+// $nu-theme-dark-text-link-primary-active: $nu-color-cyan-65;
+
+// $nu-theme-dark-text-link-secondary-default: $nu-color-blue-60; // unused
+// $nu-theme-dark-text-link-secondary-hover: $nu-color-green-70; // unused
+// $nu-theme-dark-text-link-secondary-active: $nu-color-green-50; // unused
+
+// $nu-theme-dark-background-primary: $nu-color-neutral-13;
+// $nu-theme-dark-background-secondary: $nu-color-blue-20; // unused
+// $nu-theme-dark-background-tertiary: $nu-color-neutral-20; // unused
+
+// $nu-theme-dark-border-primary: $nu-color-neutral-98;
+// $nu-theme-dark-border-secondary: $nu-color-blue-65; // unused
+// $nu-theme-dark-border-success: $nu-color-green-65; // unused
+
+// $nu-theme-dark-button-primary-default: $nu-color-cyan-75;
+// $nu-theme-dark-button-primary-hover: $nu-color-cyan-85;
+// $nu-theme-dark-button-primary-active: $nu-color-cyan-65;
+// $nu-theme-dark-button-primary-inactive: color.change($nu-color-cyan-75, $alpha: 0.65);
+
+// $nu-theme-dark-button-secondary-default: $nu-color-green-50; // unused
+// $nu-theme-dark-button-secondary-hover: $nu-color-green-65; // unused
+// $nu-theme-dark-button-secondary-active: $nu-color-green-40; // unused
+// $nu-theme-dark-button-secondary-inactive: color.change($nu-color-green-50, $alpha: 0.65); // unused
+
+// $nu-theme-dark-icon-primary: $nu-color-neutral-60;
+// $nu-theme-dark-icon-secondary: $nu-color-neutral-70;
+// $nu-theme-dark-icon-information: $nu-color-blue-50;
+// $nu-theme-dark-icon-warning: $nu-color-orange-65;
+// $nu-theme-dark-icon-critical: $nu-color-red-65;
+// $nu-theme-dark-icon-success: $nu-color-green-65;
+
+// $nu-theme-dark-accent-primary: $nu-color-cyan-75;
+// $nu-theme-dark-accent-secondary: $nu-color-blue-50; // unused

@@ -1,9 +1,10 @@
 <script lang="ts">
-        import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+        // TODO new themes
+        import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
+        import site from '$lib/identity';
 
         import { browser } from '$app/environment';
         import type { Order } from '$lib/types/order';
-        import { _siteDescription, _siteName } from '$routes/+layout';
 
         export let data;
 
@@ -14,34 +15,34 @@
 
                 if (previousOrderString) {
                         order = JSON.parse(previousOrderString);
-                        console.log('found cached order: ', order);
+                        console.info('found cached order: ', order);
                         // console.debug('found cached order: ', order);
                 }
         }
 </script>
 
 <svelte:head>
-        <title>order confirmation — {_siteName}</title>
-        <meta name="title" content="order confirmation — {_siteName}" />
+        <title>order confirmation — {site.name}</title>
+        <meta name="title" content="order confirmation — {site.name}" />
 
         <link
                 rel="canonical"
-                href="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}"
+                href="https://{site.name}.com/cart/checkout/confirmation/{data.order_id}"
         />
 
         <meta name="robots" content="index, follow" />
 
-        <meta property="og:title" content="order confirmation — {_siteName}" />
-        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta property="og:title" content="order confirmation — {site.name}" />
+        <meta property="og:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
         <meta
                 property="og:url"
-                content="https://{_siteName}.com/cart/checkout/confirmation/{data.order_id}"
+                content="https://{site.name}.com/cart/checkout/confirmation/{data.order_id}"
         />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:title" content="order confirmation — {_siteName}" />
-        <meta name="twitter:description" content={_siteDescription} />
-        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta name="twitter:title" content="order confirmation — {site.name}" />
+        <meta name="twitter:description" content={site.description} />
+        <meta name="twitter:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
 <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
@@ -50,10 +51,18 @@
                 <section id="page-title" class="pointer-events-none">
                         <h1 class="tracking-[0.125em]">order confirmed</h1>
                 </section>
-                <div class="content flex flex-col flex-1 justify-center items-center">
+                <div class="content flex flex-col flex-1 justify-center items-center max-w-xl">
                         <p class="w-full text-center">{`ORDER ID: ${order.external_id}`}</p>
-                        <p class="w-full text-center">Please note this order ID down somewhere, as we don't have email order confirmation working just yet.</p>
-                        <p class="w-full text-center">If you have any questions, please contact us, including your order ID at <a href="mailto:nuphory@gmail.com">nuphory@gmail.com</a>, or a moderator on our <a href="https://discord.gg/RF7t34QJmr">discord</a>.</p>
+                        <p class="w-full text-center">
+                                Please note this order ID down somewhere, as we don't have email
+                                order confirmation working just yet.
+                        </p>
+                        <p class="w-full text-center">
+                                If you have any questions, please contact us, including your order
+                                ID at <a href="mailto:nuphory@gmail.com">nuphory@gmail.com</a>, or a
+                                moderator on our
+                                <a href="https://discord.gg/RF7t34QJmr">discord</a>.
+                        </p>
                         <section
                                 id="cart-list"
                                 class="w-80 relative flex flex-col justify-center items-center lg:order-2"
@@ -78,15 +87,18 @@
                 <section id="page-title" class="pointer-events-none">
                         <h1 class="tracking-[0.125em]">order not found</h1>
                 </section>
-                <div class="content flex flex-col flex-1 justify-center items-center">
+                <div class="content flex flex-col flex-1 justify-center items-center max-w-xl">
                         <p class="w-full text-center">
                                 The order with id {data.order_id} was either not confirmed, or doesn't
                                 exist.
                         </p>
                         <p class="w-full text-center">
-                                If you believe this to be an error, please contact us, including your order ID, at <a
-                                        href="mailto:nuphory@gmail.com">nuphory@gmail.com</a
-                                > or a moderator on our <a href="https://discord.gg/RF7t34QJmr">discord</a>.
+                                If you believe this to be an error, please contact us, including
+                                your order ID, at <a href="mailto:nuphory@gmail.com"
+                                        >nuphory@gmail.com</a
+                                >
+                                or a moderator on our
+                                <a href="https://discord.gg/RF7t34QJmr">discord</a>.
                         </p>
                         <section
                                 id="cart-list"

@@ -1,7 +1,7 @@
 type Button = {
         label: string;
         href: string;
-        img: string;
+        Icon: any;
 };
 
 export default Button;

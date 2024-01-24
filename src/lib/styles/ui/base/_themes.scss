@@ -1,0 +1,169 @@
+@use 'sass:color';
+@use '$lib/styles/ui/color-palette.scss' as *;
+
+@mixin light-theme {
+        --clr-primary: #{$nu-theme-light-primary};
+        --clr-secondary: #{$nu-theme-light-secondary};
+        // --text-primary: #{$nu-color-shadow};
+        // --text-secondary: #{$nu-theme-light-text-secondary};
+        // --text-inactive: #{$nu-theme-light-text-inactive};
+
+        // --text-link-primary-default: #{$nu-theme-light-text-link-primary-default};
+        // --text-link-primary-hover: #{$nu-theme-light-text-link-primary-hover};
+        // --text-link-primary-active: #{$nu-theme-light-text-link-primary-active};
+        // --text-link-secondary-default: #{$nu-theme-light-text-link-secondary-default};
+        // --text-link-secondary-hover: #{$nu-theme-light-text-link-secondary-hover};
+        // --text-link-secondary-active: #{$nu-theme-light-text-link-secondary-active};
+
+        // --text-invert: #{$nu-theme-light-background-primary};
+
+        // --background-primary: #{$nu-theme-light-background-primary};
+        // --background-secondary: #{$nu-theme-light-background-secondary};
+        // --background-tertiary: #{$nu-theme-light-background-tertiary};
+        // --background-information: #{color.change($nu-theme-light-icon-information, $alpha: 0.1)};
+        // --background-warning: #{color.change($nu-theme-light-icon-warning, $alpha: 0.1)};
+        // --background-critical: #{color.change($nu-theme-light-icon-critical, $alpha: 0.1)};
+        // --background-success: #{color.change($nu-theme-light-icon-success, $alpha: 0.1)};
+
+        // --background-invert: #{$nu-theme-light-text-primary};
+
+        // --border-primary: #{$nu-theme-light-border-primary};
+        // --border-secondary: #{$nu-theme-light-border-secondary};
+        // --border-invert: #{$nu-theme-light-background-primary};
+
+        // --button-primary-default: #{$nu-theme-light-button-primary-default};
+        // --button-primary-hover: #{$nu-theme-light-button-primary-hover};
+        // --button-primary-active: #{$nu-theme-light-button-primary-active};
+        // --button-primary-inactive: #{$nu-theme-light-button-primary-inactive};
+
+        // --button-secondary-default: #{$nu-theme-light-button-secondary-default};
+        // --button-secondary-hover: #{$nu-theme-light-button-secondary-hover};
+        // --button-secondary-active: #{$nu-theme-light-button-secondary-active};
+        // --button-secondary-inactive: #{$nu-theme-light-button-secondary-inactive};
+
+        // --icon-primary: #{$nu-theme-light-icon-primary};
+        // --icon-secondary: #{$nu-theme-light-icon-secondary};
+        // --icon-information: #{$nu-theme-light-icon-information};
+        // --icon-warning: #{$nu-theme-light-icon-warning};
+        // --icon-critical: #{$nu-theme-light-icon-critical};
+        // --icon-success: #{$nu-theme-light-icon-success};
+
+        // --accent-primary: #{$nu-theme-light-accent-primary};
+        // --accent-primary-engage: #{color.change($nu-theme-light-accent-primary, $alpha: 0.1)};
+
+        // --accent-secondary: #{$nu-theme-light-accent-secondary};
+        // --accent-tertiary: #{color.change($nu-color-blue-50, $alpha: 0.1)};
+
+        // --scrollbar-bg: transparent;
+        // --scrollbar-color: #{$nu-color-blue-10};
+
+        // --modal-backdrop-color: #{color.change($nu-theme-dark-background-primary, $alpha: 0.1)};
+        // --blend-color: #{color.change($nu-color-white, $alpha: 0.5)};
+
+        // --text-primary-red: #{$nu-color-red-40};
+        // --text-primary-green: #{$nu-color-green-40};
+        // --text-primary-blue: #{$nu-color-blue-40};
+        // --text-primary-orange: #{$nu-color-orange-40};
+
+        color-scheme: light;
+}
+
+@mixin dark-theme {
+        --clr-primary: #{$nu-theme-dark-primary};
+        --clr-secondary: #{$nu-theme-dark-secondary};
+        // --text-primary: #{$nu-theme-dark-text-primary};
+        // --text-secondary: #{$nu-theme-dark-text-secondary};
+        // --text-inactive: #{$nu-theme-dark-text-inactive};
+
+        // --text-link-primary-default: #{$nu-theme-dark-text-link-primary-default};
+        // --text-link-primary-hover: #{$nu-theme-dark-text-link-primary-hover};
+        // --text-link-primary-active: #{$nu-theme-dark-text-link-primary-active};
+        // --text-link-secondary-default: #{$nu-theme-dark-text-link-secondary-default};
+        // --text-link-secondary-hover: #{$nu-theme-dark-text-link-secondary-hover};
+        // --text-link-secondary-active: #{$nu-theme-dark-text-link-secondary-active};
+
+        // --text-invert: #{$nu-theme-dark-background-primary};
+
+        // --background-primary: #{$nu-theme-dark-background-primary};
+        // --background-secondary: #{$nu-theme-dark-background-secondary};
+        // --background-tertiary: #{$nu-theme-dark-background-tertiary};
+        // --background-information: #{color.change($nu-theme-dark-icon-information, $alpha: 0.1)};
+        // --background-warning: #{color.change($nu-theme-dark-icon-warning, $alpha: 0.1)};
+        // --background-critical: #{color.change($nu-theme-dark-icon-critical, $alpha: 0.1)};
+        // --background-success: #{color.change($nu-theme-dark-icon-success, $alpha: 0.1)};
+
+        // --background-invert: #{$nu-theme-dark-text-primary};
+
+        // --border-primary: #{$nu-theme-dark-border-primary};
+        // --border-secondary: #{$nu-theme-dark-border-secondary};
+        // --border-invert: #{$nu-theme-dark-background-primary};
+
+        // --button-primary-default: #{$nu-theme-dark-button-primary-default};
+        // --button-primary-hover: #{$nu-theme-dark-button-primary-hover};
+        // --button-primary-active: #{$nu-theme-dark-button-primary-active};
+        // --button-primary-inactive: #{$nu-theme-dark-button-primary-inactive};
+
+        // --button-secondary-default: #{$nu-theme-dark-button-secondary-default};
+        // --button-secondary-hover: #{$nu-theme-dark-button-secondary-hover};
+        // --button-secondary-active: #{$nu-theme-dark-button-secondary-active};
+        // --button-secondary-inactive: #{$nu-theme-dark-button-secondary-inactive};
+
+        // --icon-primary: #{$nu-theme-dark-icon-primary};
+        // --icon-secondary: #{$nu-theme-dark-icon-secondary};
+        // --icon-information: #{$nu-theme-dark-icon-information};
+        // --icon-warning: #{$nu-theme-dark-icon-warning};
+        // --icon-critical: #{$nu-theme-dark-icon-critical};
+        // --icon-success: #{$nu-theme-dark-icon-success};
+
+        // --accent-primary: #{$nu-theme-dark-accent-primary};
+        // --accent-primary-engage: #{color.change($nu-theme-dark-accent-primary, $alpha: 0.1)};
+
+        // --accent-secondary: #{$nu-theme-dark-accent-secondary};
+        // --accent-tertiary: #{color.change($nu-color-blue-50, $alpha: 0.1)};
+
+        // --scrollbar-bg: transparent;
+        // --scrollbar-color: #{$nu-color-blue-90};
+
+        // --modal-backdrop-color: #{color.change($nu-theme-light-background-primary, $alpha: 0.1)};
+        // --blend-color: #{color.change($nu-color-black, $alpha: 0.5)};
+
+        // --text-primary-red: #{$nu-color-red-60};
+        // --text-primary-green: #{$nu-color-green-60};
+        // --text-primary-blue: #{$nu-color-blue-60};
+        // --text-primary-orange: #{$nu-color-orange-60};
+
+        color-scheme: dark;
+}
+
+body,
+:root {
+        --clr-white: #{$nu-color-white};
+        --clr-black: #{$nu-color-black};
+
+        // --nu-color-white: #{$nu-color-white};
+        // --nu-color-black: #{$nu-color-black};
+        // --nu-color-dark-grey: #{$nu-color-neutral-30};
+        // --nu-background-dark: #{$nu-theme-dark-background-primary};
+        // --nu-background-light: #{$nu-theme-light-background-primary};
+        // --nu-background-light-grey: #{$nu-color-neutral-90};
+        // --color-announcement-banner-accent: #{$nu-color-orange-60};
+}
+
+[data-theme='light'] {
+        @include light-theme;
+}
+
+[data-theme='dark'] {
+        @include dark-theme;
+}
+
+// OS Default.
+:root:not([data-theme='light']):not([data-theme='dark']) {
+        @media (prefers-color-scheme: light) {
+                @include light-theme;
+        }
+
+        @media (prefers-color-scheme: dark) {
+                @include dark-theme;
+        }
+}

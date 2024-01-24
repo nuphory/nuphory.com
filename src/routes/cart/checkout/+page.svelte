@@ -1,6 +1,6 @@
 <script lang="ts">
         // Imports
-        import { _siteDescription, _siteName } from '$routes/+layout';
+        import site from '$lib/identity';
         import _ from 'lodash';
 
         import {
@@ -19,15 +19,24 @@
         import { browser } from '$app/environment';
         import currentOrder from '$lib/api/stores/order';
         import defaultOrder from '$lib/types/order';
+        import wretch, { type Wretch } from 'wretch';
+        import AbortAddon from 'wretch/addons/abort';
 
         // Types
         import type { Recipient } from '$lib/types/recipient';
         import type { Item } from '$lib/types/product';
 
         // Components
-        import CheckoutForm from '$lib/components/store/cart/checkout/CheckoutForm.svelte';
-        import SimpleCartList from '$lib/components/store/cart/checkout/SimpleCartList.svelte';
+        import CheckoutForm from '$src/lib/components/CheckoutForm.svelte';
+        import SimpleCartList from '$src/lib/components/SimpleCartList.svelte';
         import { onMount } from 'svelte';
+
+        import { page } from '$app/stores';
+
+        const api = wretch($page.url.origin + '/api')
+                .content('application/json')
+                .addon(AbortAddon())
+                .middlewares([]);
 
         let orderId: string;
         let shipping_available = false;
@@ -75,25 +84,25 @@
         async function onClick(data: Record<string, unknown>, actions: OnClickActions) {
                 if (!currentOrder.isRecipientValid() && shipping_available) return actions.reject();
 
-                // fetch cost estimate
-                const estimateResponse = await fetch('/api/orders/estimate-costs', {
-                        body: JSON.stringify($currentOrder),
-                        method: 'POST'
-                });
-                const estimateJson = await estimateResponse.json();
+                api.url('/orders/estimate-costs')
+                        .post($currentOrder)
+                        .json((json) => {
+                                currentOrder.setRetailCosts({
+                                        shipping: json.result.costs.shipping,
+                                        tax: json.result.costs.tax
+                                });
 
-                if (estimateJson.code != 200) return;
+                                currentOrder.createId();
 
-                // console.debug(estimateJson.result);
-
-                currentOrder.setRetailCosts({
-                        shipping: estimateJson.result.costs.shipping,
-                        tax: estimateJson.result.costs.tax
-                });
-
-                currentOrder.createId();
-
-                return actions.resolve();
+                                return actions.resolve();
+                        })
+                        .catch((error) => {
+                                console.error('Could not fetch shipping costs. ', error);
+                                window.alert(
+                                        'Could not fetch shipping costs. Please try again later.\n\nView the console for more details.'
+                                );
+                                return actions.reject();
+                        });
         }
 
         async function createOrder(
@@ -145,13 +154,11 @@
                         }
                 ];
 
-                let checkoutResponse = await fetch('/api/checkout', {
-                        method: 'POST',
-                        body: JSON.stringify($currentOrder)
-                });
-                let checkoutJson = await checkoutResponse.json();
-                orderId = checkoutJson.result.id;
+                const res = await api.url('/checkout').post($currentOrder).res();
 
+                const json = await res.json();
+
+                orderId = json.result.id;
                 return actions.order.create({
                         intent: 'CAPTURE',
                         purchase_units,
@@ -162,15 +169,17 @@
         }
 
         async function onApprove(data: OnApproveData, actions: OnApproveActions) {
-                return actions.order?.capture().then(async () => {
+                actions.order?.capture().then(async () => {
                         try {
-                                await fetch(`/api/checkout/confirm`, {
-                                        method: 'POST',
-                                        body: JSON.stringify({
+                                const res = api
+                                        .url('/checkout/confirm')
+                                        .post({
                                                 printful_order_id: orderId,
                                                 paypal_order_id: data.orderID
                                         })
-                                });
+                                        .res();
+
+                                const json = await (await res).json();
 
                                 localStorage.setItem(
                                         `order.${$currentOrder.external_id}`,
@@ -179,14 +188,11 @@
 
                                 currentOrder.clearItems();
 
-                                // window.alert(
-                                //         `Your order with id ${$currentOrder.external_id} was confirmed.\n\nCurrently, the order confirmation page can be broken or incomplete, we're working on that.`
-                                // );
-
-                                window.location.href = `/cart/checkout/confirmation/${$currentOrder.external_id}`;
-                        } catch (e) {
+                                window.location.href = `/store/order/${$currentOrder.external_id}`;
+                        } catch (error) {
+                                console.error('Could not confirm order. ', error);
                                 window.alert(
-                                        `Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\n${e}`
+                                        'Something went wrong while confirming your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
                                 );
                         }
                 });
@@ -194,33 +200,56 @@
 
         async function onCancel(data?: Record<string, unknown>, actions?: OnCancelledActions) {
                 if (!orderId) return;
-                await fetch(`/api/checkout/cancel`, {
-                        method: 'DELETE',
-                        body: JSON.stringify({ printful_order_id: orderId })
-                });
-                localStorage.setItem(
-                        `order.${$currentOrder.external_id}`,
-                        JSON.stringify({ ...$currentOrder, status: 'cancelled' })
-                );
-                currentOrder.createId();
-                window.alert('Order cancelled, returned to checkout.');
+                try {
+                        const res = api
+                                .url('/checkout/cancel')
+                                .json({ printful_order_id: orderId })
+                                .delete()
+                                .res();
+
+                        const json = await (await res).json();
+
+                        localStorage.setItem(
+                                `order.${$currentOrder.external_id}`,
+                                JSON.stringify({ ...$currentOrder, status: 'cancelled' })
+                        );
+                        currentOrder.createId();
+                        window.alert('Order cancelled, returned to checkout.');
+                } catch (err) {
+                        console.error('Could not cancel order. ', err);
+                        window.alert(
+                                'Something went wrong while cancelling your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
+                        );
+                }
         }
 
         async function onError(error: Record<string, unknown>) {
                 if (!orderId) return;
-                await fetch(`/api/checkout/cancel`, {
-                        method: 'DELETE',
-                        body: JSON.stringify({ printful_order_id: orderId })
-                });
-                localStorage.setItem(
-                        `order.${$currentOrder.external_id}`,
-                        JSON.stringify({ ...$currentOrder, status: 'failed', error })
-                );
-                currentOrder.createId();
-                window.alert(
-                        `Order failed, returned to checkout.\n\n Check the console for more info.`
-                );
-                console.error(error);
+
+                try {
+                        const res = api
+                                .url('/checkout/cancel')
+                                .json({ printful_order_id: orderId })
+                                .delete()
+                                .res();
+
+                        const json = await (await res).json();
+
+                        localStorage.setItem(
+                                `order.${$currentOrder.external_id}`,
+                                JSON.stringify({ ...$currentOrder, status: 'failed', error })
+                        );
+                        currentOrder.createId();
+                        window.alert(
+                                `Order failed, returned to checkout.\n\n Check the console for more info.`
+                        );
+                        console.error(error);
+                } catch (err) {
+                        console.error('Could not cancel order. ', err);
+                        window.alert(
+                                'Something went wrong while cancelling your order, please contact us at nuphory@gmail.com.\n\nView the console for more details.'
+                        );
+                }
         }
 
         onMount(() => {
@@ -228,8 +257,14 @@
 
                 let lastRecipient: Recipient = _.cloneDeep(defaultOrder.recipient);
 
+                let estimateAbortController: AbortController | null = null;
+                let estimateWretch: Wretch;
+
                 currentOrder.subscribe((order) => {
                         if (_.isEqual(lastRecipient, order.recipient)) return;
+                        estimateAbortController?.abort(
+                                'recipient changed, aborting previous request'
+                        );
                         lastRecipient = _.cloneDeep(order.recipient);
 
                         shipping_available = false;
@@ -244,53 +279,93 @@
 
                         // console.debug('fetching shipping costs', order.recipient);
 
-                        fetch('/api/orders/estimate-costs', {
-                                body: JSON.stringify(order),
-                                method: 'POST'
-                        })
-                                .then((response) => response.json())
-                                .then((data) => {
-                                        // console.debug('estimateJson', data);
-                                        if (data.code != 200) {
-                                                // console.debug(data);
-                                                if (!browser) return;
-                                                errElement.innerHTML = data.result;
-                                                errElement.classList.remove('hidden');
-                                                return;
-                                        }
+                        api.url('/orders/estimate-costs')
+                                .post(order)
+                                .json((json) => {
                                         shipping_available = true;
                                         errElement.innerHTML = '';
                                         errElement.classList.add('hidden');
-
                                         currentOrder.setRetailCosts({
-                                                shipping: data.result.costs.shipping,
-                                                tax: data.result.costs.tax
+                                                shipping: json.result.costs.shipping,
+                                                tax: json.result.costs.tax
                                         });
                                         lastRecipient = _.cloneDeep(order.recipient);
+                                })
+                                .catch((err) => {
+                                        if (!browser) return;
+                                        errElement.innerHTML =
+                                                JSON.parse(err.message).details.result ?? '';
+                                        errElement.classList.remove('hidden');
+                                        console.error(JSON.parse(err.message));
                                 });
                 });
         });
 </script>
 
 <svelte:head>
-        <title>checkout — {_siteName}</title>
-        <meta name="title" content="checkout — {_siteName}" />
+        <title>checkout — {site.name}</title>
+        <meta name="title" content="checkout — {site.name}" />
 
-        <link rel="canonical" href="https://{_siteName}.com/cart/checkout" />
+        <link rel="canonical" href="https://{site.name}.com/cart/checkout" />
 
         <meta name="robots" content="index, follow" />
 
-        <meta property="og:title" content="checkout — {_siteName}" />
-        <meta property="og:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
-        <meta property="og:url" content="https://{_siteName}.com/cart/checkout" />
+        <meta property="og:title" content="checkout — {site.name}" />
+        <meta property="og:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
+        <meta property="og:url" content="https://{site.name}.com/cart/checkout" />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:title" content="checkout — {_siteName}" />
-        <meta name="twitter:description" content={_siteDescription} />
-        <meta name="twitter:image" content="https://{_siteName}.com/assets/logo/png/summary.png" />
+        <meta name="twitter:title" content="checkout — {site.name}" />
+        <meta name="twitter:description" content={site.description} />
+        <meta name="twitter:image" content="https://{site.name}.com/assets/logo/png/summary.png" />
 </svelte:head>
 
-<div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
+<section id="page-title">
+        <h1 class="tracking-[0.125em]">checkout</h1>
+</section>
+<div role="separator" />
+
+<div
+        id="checkout-content"
+        class="relative flex-1 flex flex-col justify-center items-center lg:flex-row lg:items-start"
+>
+        <section id="cart-list" class="flex flex-col justify-center items-center lg:order-2">
+                <SimpleCartList order={$currentOrder} />
+                <a
+                        href="/cart"
+                        class=" 
+                                transition-quick duration-[var(--duration)] ease-out
+                                h-12 w-full max-w-xs
+                                py-2 px-4 m-4
+                                rounded-full
+                                
+                                bg-primary text-secondary
+                                font-yeysk
+                        "
+                >
+                        back to cart
+                </a>
+        </section>
+        <div role="separator" class="lg:hidden" />
+        <section id="checkout-form" class="max-w-2xl lg:order-1">
+                <CheckoutForm />
+        </section>
+</div>
+<div role="separator" />
+<section id="complete-order" class="flex justify-center">
+        <div
+                id="paypal-button-container"
+                class="
+                        transition-quick duration-[var(--duration)] ease-out
+                        w-full max-w-xs m-4 p-8 pb-4 
+                        rounded-3xl
+                        ring-primary ring-3
+                        bg-[white]
+                "
+        />
+</section>
+
+<!-- <div id="top" class="relative flex flex-1 flex-col justify-center items-center min-h-screen py-8">
         <section id="page-title" class="pointer-events-none">
                 <h1 class="tracking-[0.125em]">checkout</h1>
         </section>
@@ -299,7 +374,7 @@
                         id="cart-list"
                         class=" my-0 w-80 relative flex flex-col justify-center items-center lg:order-2"
                 >
-                        <SimpleCartList />
+                        <SimpleCartList order={$currentOrder} />
                         <section id="back-to-cart" class="mb-0 flex justify-center items-center ">
                                 <a
                                         id="checkout-button"
@@ -315,4 +390,4 @@
         <section id="#complete-order">
                 <div id="paypal-button-container" class="" />
         </section>
-</div>
+</div> -->

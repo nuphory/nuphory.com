@@ -1,50 +1,20 @@
-import { error } from '@sveltejs/kit';
+import { paypalApi, printfulApi } from '$src/lib/api/externalApis';
+import { type UntilFunction, retry } from 'wretch/middlewares';
 
-import { PRINTFUL_API_TOKEN } from '$env/static/private';
-import { PAYPAL_CLIENT_SECRET } from '$env/static/private';
-import type { Order } from '$lib/types/order';
-import { PUBLIC_PAYPAL_CLIENT_ID } from '$env/static/public';
-import { cancelOrder } from '../cancel/+server';
-import { base64encode } from '$lib/utils/base64';
-
-const printful_endpoint = 'https://api.printful.com/orders';
-const paypal_endpoint = 'https://api-m.paypal.com/v2/checkout/orders';
-
-const printful_headers = {
-        Authorization: `Bearer ${PRINTFUL_API_TOKEN}`,
-        'Content-Type': 'application/json'
-};
-const paypal_headers = {
-        Authorization: `Basic ${
-                base64encode(`${PUBLIC_PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`)
-                //         Buffer.from(
-                //         `${PUBLIC_PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`
-                // ).toString('base64')
-        }`,
-        'Content-Type': 'application/json'
-};
-
-// /** @type {import('./$types').RequestHandler} */
-// export async function GET(req) {
-//         return new Response('');
-// }
+const paypalOrdersApi = paypalApi.url('/v2/checkout/orders');
+const printfulOrdersApi = printfulApi
+        .middlewares([retry({ resolveWithLatestResponse: true })])
+        .url('/orders');
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
+export async function POST({ request }): Promise<Response> {
         const body: {
                 paypal_order_id: string;
                 printful_order_id: number;
         } = await request.json();
 
         try {
-                const response = await fetch(`${paypal_endpoint}/${body.paypal_order_id}`, {
-                        method: 'GET',
-                        headers: paypal_headers
-                });
-                const data = await response.json();
-                console.debug('paypal order confirmation', data);
-
-                if (data.status !== 'COMPLETED' && data.status !== 'APPROVED') {
+                if (!(await isPaymentComplete(parseInt(body.paypal_order_id)))) {
                         return new Response(
                                 JSON.stringify({
                                         message: 'Order not confirmed',
@@ -55,20 +25,59 @@ export async function POST({ request }) {
                                 }
                         );
                 }
-                return await confirmOrder(body.printful_order_id);
+
+                return confirmOrder(body.printful_order_id);
         } catch (error) {
                 console.error(error);
-                return new Response(JSON.stringify({ message: 'Could not confirm order', error }), {
-                        status: 500
-                });
+                return new Response(
+                        JSON.stringify({
+                                message: 'Could not confirm order',
+                                details: error
+                        }),
+                        {
+                                status: 500,
+                                headers: { 'Content-Type': 'text/plain' }
+                        }
+                );
         }
 }
+
 async function confirmOrder(id: number): Promise<Response> {
-        const response = await fetch(`${printful_endpoint}/${id}/confirm`, {
-                method: 'POST',
-                headers: printful_headers
+        const res = printfulOrdersApi.url(`/${id}/confirm`).post().res();
+
+        const json = await (await res).json();
+
+        // console.debug('order confirmation', json);
+
+        return new Response(JSON.stringify(json), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
         });
-        const data = await response.json();
-        console.debug('order confirmation', data);
-        return new Response(JSON.stringify(data));
+}
+
+async function isPaymentComplete(id: number): Promise<boolean> {
+        const until: UntilFunction = (response) => {
+                return (
+                        response &&
+                        response
+                                .clone()
+                                .json()
+                                .then(
+                                        (json) =>
+                                                json.status === 'COMPLETED' ||
+                                                json.status === 'APPROVED'
+                                )
+                );
+        };
+
+        return !!(await paypalOrdersApi
+                .middlewares([
+                        retry({
+                                delayTimer: 60000,
+                                maxAttempts: 5,
+                                until
+                        })
+                ])
+                .get(`/${id}`)
+                .json());
 }
