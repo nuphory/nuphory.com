@@ -3,7 +3,7 @@
         import type { AnimationItem } from 'lottie-web';
         import { onMount } from 'svelte';
 
-        export let classList: string = '';
+        export let classList: string;
 
         // export let href: string = "";
         export let onmouseover: any;

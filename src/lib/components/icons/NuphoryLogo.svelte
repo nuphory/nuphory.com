@@ -8,7 +8,7 @@
         // import settle from '$lib/assets/lottie/settle.json';
         import headbop from '$lib/assets/lottie/headbop.json';
 
-        export let classList: string = '';
+        export let classList: string;
 </script>
 
 <LottiePlayer {classList} onmouseover={headbop}>
