@@ -28,11 +28,19 @@
         import '$lib/styles/app.scss';
         import { onMount } from 'svelte';
         import { fly } from 'svelte/transition';
+        import { browser } from '$app/environment';
+        import { theme } from '$lib/api/stores/theme';
 
         let mounted: boolean = false;
 
         onMount(() => {
                 mounted = true;
+                theme.subscribe((theme) => {
+                        console.log('theme changed');
+                        const html = document.documentElement;
+
+                        html.dataset.theme = theme;
+                });
         });
 
         /**
@@ -113,7 +121,7 @@
                 {/key}
         </div>
         <Footer />
-        <div class="relative -z-10 opacity-30">
+        <!--<div class="relative -z-10 opacity-30">
                 <div
                         class="fixed h-[36rem] w-[256rem] rounded-full ring-primary ring-3 top-0 left-1/2 translate-x-[15rem] -translate-y-[24rem] "
                 />
@@ -148,7 +156,7 @@
                 <div
                         class="fixed h-[256rem] w-[16rem] rounded-full ring-primary ring-3 bottom-0 left-1/2 translate-x-[33rem] -translate-y-[13rem] "
                 />
-        </div>
+        </div>-->
 </div>
 
 <style lang="scss">

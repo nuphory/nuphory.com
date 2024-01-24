@@ -1,20 +1,7 @@
 <script lang="ts">
+        import { browser } from '$app/environment';
+        import { theme, changeTheme } from '$lib/api/stores/theme';
 
-        // TODO store current theme in localStorage
-
-        let theme: string | null;
-
-        function toggleTheme(event: Event) {
-                const html = document.documentElement;
-                const checkbox = event.target as HTMLInputElement;
-
-                event.stopPropagation();
-
-                // event.preventDefault();
-                // checkbox.checked = !checkbox.checked;
-
-                html.setAttribute('data-theme', checkbox.checked ? 'light' : 'dark');
-        }
         function preventScroll(event: Event) {
                 const label = event.target as HTMLLabelElement;
 
@@ -37,7 +24,7 @@
                 class="
                         relative z-10
                         inline-block
-                        
+
                         aspect-square w-[2.5em]
                         rounded-full
 
@@ -56,14 +43,15 @@
                         id="theme-toggle"
                         type="checkbox"
                         class="w-0 h-0 opacity-0"
-                        on:click={toggleTheme}
+                        value={$theme}
+                        on:click={() => changeTheme()}
                 />
                 <figure
                         class="
                                 absolute
                                 left-1/2 top-1/2
                                 translate-x-[-50%] translate-y-[-50%]
-                                
+
                                 h-[2em] w-[2em]
                                 rounded-full
 
@@ -118,8 +106,8 @@
                         max-h-6
                         max-w-0 sm:max-w-full
                         opacity-0 sm:opacity-100
-                        overflow-clip 
-                        
+                        overflow-clip
+
                         font-bold
                         hover:scale-100 active:scale-95 hover:no-underline
                 "
@@ -129,7 +117,7 @@
                                 block
                                 translate-y-0
 
-                                group-data-[theme='dark']:-translate-y-6   group-data-[theme='dark']:hover:translate-y-0 
+                                group-data-[theme='dark']:-translate-y-6   group-data-[theme='dark']:hover:translate-y-0
                                 group-data-[theme='light']:-translate-y-12 group-data-[theme='light']:hover:-translate-y-[4.5em]
                         "
                 >

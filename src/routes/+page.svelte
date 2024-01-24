@@ -8,6 +8,7 @@
 
         import NuphoryLogo from '$src/lib/components/icons/NuphoryLogo.svelte';
         import { goto } from '$app/navigation';
+        import { changeTheme } from '$src/lib/api/stores/theme';
 
         async function scrollTo(event) {
                 const sender = event.target;
@@ -71,8 +72,8 @@
 <section
         id="hero"
         class="
-                relative 
-                flex flex-col justify-between 
+                relative
+                flex flex-col justify-between
                 min-h-[calc(100dvh-12rem)]
                 mx-auto mt-0
         "
@@ -80,6 +81,8 @@
         <div />
         <div>
                 <div
+                        on:click={() => changeTheme()}
+                        on:keydown={(e) => e.key === " " | "Enter" ? changeTheme(): null}
                         id="logo"
                         class="
                                 transition-layout duration-[var(--duration)]
@@ -92,18 +95,19 @@
                 >
                         <NuphoryLogo
                                 classList="
+                                        hover:cursor-pointer
                                         transition-[stroke] duration-[var(--duration)] ease-out
                                         absolute z-0
                                         bottom-1/2 right-1/2
                                         translate-y-1/2 translate-x-1/2
-                                        w-full 
-                                        
+                                        w-full
+
                                         mx-auto
                                         stroke-primary
                                 "
                         />
                 </div>
-                <header class="relative z-0 -mt-8">
+                <header class="relative z-0 mt-12">
                         <h1 id="page-title">{site.name}</h1>
                 </header>
         </div>
@@ -112,7 +116,7 @@
                         class="
                                 transition-[transform,opacity,max-height] duration-[var(--duration)] ease-out
                                 sm:opacity-0
-                                
+
                                 sm:max-w-0
                                 sm:max-h-0
                                 m-0 mt-8 mx-auto
@@ -133,12 +137,12 @@
 
                                 opacity-0 sm:opacity-100
                                 translate-y-12 sm:translate-y-0
-                                
+
                                 overflow-clip
                                 max-w-0 sm:max-w-lg
                                 max-h-0 sm:max-h-12
-                                
-                                flex justify-center items-end gap-16 
+
+                                flex justify-center items-end gap-16
                         "
                 >
                         <li>
@@ -199,9 +203,9 @@
                         >
                                 <h4
                                         class="
-                                                m-0 pointer-events-none 
+                                                m-0 pointer-events-none
                                                 after:content-['_to_top']
-                                                after:group-data-[return-pos]:content-[''] 
+                                                after:group-data-[return-pos]:content-['']
                                         "
                                 >
                                         back
@@ -239,9 +243,9 @@
                         >
                                 <h4
                                         class="
-                                                m-0 pointer-events-none 
+                                                m-0 pointer-events-none
                                                 after:content-['_to_top']
-                                                after:group-data-[return-pos]:content-[''] 
+                                                after:group-data-[return-pos]:content-['']
                                         "
                                 >
                                         back

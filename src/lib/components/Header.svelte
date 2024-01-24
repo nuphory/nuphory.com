@@ -5,13 +5,12 @@
         import { browser } from '$app/environment';
         import { page } from '$app/stores';
         import { isElementInViewport } from '$lib/utils/DOMutils';
-        
+
         // Components
         import CartButton from './CartButton.svelte';
         import ThemeToggle from './ThemeToggle.svelte';
 
 
-        let theme: string | null;
         let mounted: boolean = false;
 
         let pageTitleVisible: boolean = false;
@@ -19,8 +18,6 @@
         onMount(async () => {
                 mounted = true;
                 if (browser) {
-                        theme = document.documentElement.getAttribute('data-theme');
-
                         checkVisibility('#page-title');
                         window.addEventListener('scroll', () => {
                                 checkVisibility('#page-title');
@@ -38,7 +35,7 @@
         class="
                 transition-colors duration-[var(--duration)] ease-out
                 text-primary
-                sticky 
+                sticky
                 z-10 top-0 h-min text-center
         "
 >
@@ -67,10 +64,10 @@
                         class="
                                 transition-quick duration-[var(--duration)] ease-out
 
-                                block 
+                                block
                                 mx-auto
 
-                                {pageTitleVisible && mounted
+                                {(pageTitleVisible && mounted)
                                 ? 'w-0 opacity-0'
                                 : 'w-full lg:w-96 opacity-100'}
 
