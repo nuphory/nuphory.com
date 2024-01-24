@@ -82,9 +82,10 @@
         <div>
                 <div
                         on:click={() => changeTheme()}
-                        on:keydown={(e) => e.key === " " | "Enter" ? changeTheme(): null}
+                        on:keydown={(e) => ((e.key === ' ') | 'Enter' ? changeTheme() : null)}
                         id="logo"
                         class="
+                                [&>_#speech-bubble]:hover:opacity-100
                                 transition-layout duration-[var(--duration)]
 
                                 relative
@@ -106,6 +107,37 @@
                                         stroke-primary
                                 "
                         />
+                        <div
+                                id="speech-bubble"
+                                class="
+                                        ring-primary ring-1
+                                        transition-opacity duration-[var(--duration)] ease-out
+                                        opacity-0
+                                        -mt-20
+                                        absolute z-10
+                                        right-1/2
+                                        translate-x-1/2
+                                        rounded-md
+                                        w-fit
+                                        p-2 px-4
+
+
+                                        after:content-['']
+                                        after:rotate-45
+                                        after:right-1/2
+                                        after:translate-x-1/2
+                                        after:block
+                                        after:absolute
+                                        after:-mt-[3px]
+                                        after:bg-secondary
+                                        after:h-[1.5rem]
+                                        after:w-[1.5rem]
+                                        after:border-b-[1px] after:border-r-[1px] after:border-primary after:border-solid
+
+                                "
+                        >
+                                <span class="font-yeysk text-xl"> CLICK ME!</span>
+                        </div>
                 </div>
                 <header class="relative z-0 mt-12">
                         <h1 id="page-title">{site.name}</h1>
