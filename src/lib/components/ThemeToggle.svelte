@@ -5,8 +5,6 @@
         function preventScroll(event: Event) {
                 const label = event.target as HTMLLabelElement;
 
-                console.log(event);
-
                 event.preventDefault();
 
                 if (event.type === 'keydown') {

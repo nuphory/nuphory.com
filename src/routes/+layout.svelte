@@ -36,7 +36,6 @@
         onMount(() => {
                 mounted = true;
                 theme.subscribe((theme) => {
-                        console.log('theme changed');
                         const html = document.documentElement;
 
                         html.dataset.theme = theme;
