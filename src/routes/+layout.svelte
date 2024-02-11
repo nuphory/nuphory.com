@@ -14,8 +14,10 @@
         export let data: { pathname: string };
 
         // Components
-        import Footer from '$src/lib/components/Footer.svelte';
-        import Header from '$src/lib/components/Header.svelte';
+        import Footer from '$lib/components/Footer.svelte';
+        import Header from '$lib/components/Header.svelte';
+        import PlayerControls from '$lib/components/PlayerControls.svelte';
+        import 'iconify-icon';
 
         // Typefaces
         import '@fontsource/montserrat/400.css';
@@ -118,6 +120,9 @@
                                 </main>
                         {/if}
                 {/key}
+                <section class="sticky bottom-0 mb-0 flex justify-center">
+                        <PlayerControls />
+                </section>
         </div>
         <Footer />
         <!--<div class="relative -z-10 opacity-30">

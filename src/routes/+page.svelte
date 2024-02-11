@@ -1,4 +1,5 @@
 <script lang="ts">
+        import PlayerControls from './../lib/components/PlayerControls.svelte';
         // import
         import site from '$lib/identity';
 
@@ -86,7 +87,7 @@
                         id="logo"
                         class="
                                 [&>_#speech-bubble]:hover:opacity-100
-                                transition-layout duration-[var(--duration)]
+
 
                                 relative
                                 aspect-square w-full max-w-[260px] sm:max-w-[360px]
@@ -111,7 +112,7 @@
                                 id="speech-bubble"
                                 class="
                                         ring-primary ring-1
-                                        transition-opacity duration-[var(--duration)] ease-out
+                                        transition-quick duration-[var(--duration)] ease-out
                                         opacity-0
                                         -mt-20
                                         absolute z-10
@@ -122,6 +123,7 @@
                                         p-2 px-4
 
 
+                                        after:transition-quick after:duration-[var(--duration)] after:ease-out
                                         after:content-['']
                                         after:rotate-45
                                         after:right-1/2
