@@ -1,0 +1,51 @@
+// Dependencies
+@use "@fontsource/montserrat";
+@use "./fonts/yeysk";
+
+@layer base {
+
+        // Families
+
+        h1, h2, h3, a, button {
+                @apply font-yeysk font-bold;
+        }
+
+        :not(a, button) :is(h4, h5, h6, p, span) {
+                @apply font-montserrat;
+        }
+
+	a {
+		@apply relative p-2;
+		&::after {
+			@apply content-["_"] block absolute left-1/2 w-0 h-px bg-secondary smooth-layout smooth-pos pointer-events-none;
+		}
+		&:is(:hover, .hover)::after {
+			@apply w-[calc(100%-1rem)] left-2;
+		}
+	}
+
+        // Sizes
+
+        h1 {
+                @apply text-3xl;
+        }
+        h2 {
+                @apply text-2xl;
+        }
+        h3 {
+                @apply text-xl;
+        }
+        h4 {
+                @apply text-lg;
+        }
+        h5 {
+                @apply text-base;
+        }
+        h6 {
+                @apply text-sm;
+        }
+        p {
+                @apply text-base;
+        }
+
+}

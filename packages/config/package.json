@@ -1,0 +1,41 @@
+{
+  "name": "@nuphory/config",
+  "version": "1.0.0",
+  "private": true,
+  "description": "shared configuration files",
+  "exports": {
+    "./eslint": {
+      "require": "./dist/eslint/eslint.js",
+      "import": "./dist/eslint/eslint.mjs"
+    },
+    "./prettier": {
+      "require": "./dist/prettier/prettier.js",
+      "import": "./dist/prettier/prettier.mjs"
+    },
+    ".": {
+      "require": "./dist/**/*.js",
+      "import": "./dist/**/*.mjs",
+      "types": "./dist/**/*.d.ts"
+    },
+    "./tsconfig/*.json": "./tsconfig/*.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/**/*.ts --format cjs,esm --dts --clean",
+    "prepublishOnly": "pnpm run build",
+    "watch": "pnpm run build -- --watch src"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "@vercel/style-guide": "^5.1.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-turbo": "^1.10.16",
+    "prettier-plugin-properties": "^0.3.0",
+    "prettier-plugin-toml": "^2.0.1",
+    "tsup": "^8.0.1"
+  }
+}

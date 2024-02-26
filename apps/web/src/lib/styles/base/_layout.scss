@@ -1,0 +1,31 @@
+@layer utilities {
+	:root {
+		--tw-transition-properties: var(--tw-transition-properties-clr,), var(--tw-transition-properties-lay,), var(--tw-transition-properties-pos,), var(--tw-transition-properties-dec,);
+	}
+
+	.smooth {
+		@apply transition-[var(--tw-transition-properties)];
+	}
+
+	.smooth-color {
+		--tw-transition-properties-clr: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, visibility, filter, backdrop-filter;
+		@apply smooth;
+	}
+	.smooth-layout {
+		--tw-transition-properties-lay: width, min-width, max-width, height, min-height, max-height, padding, margin;
+		@apply smooth;
+	}
+	.smooth-pos {
+		--tw-transition-properties-pos: top, right, bottom, left, transform;
+		@apply smooth;
+	}
+	.smooth-decor {
+		--tw-transition-properties-dec: box-shadow, border-width, border-radius;
+		@apply smooth;
+	}
+	.center {
+		@apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+	}
+
+
+}

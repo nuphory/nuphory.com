@@ -1,0 +1,12 @@
+# defaults
+#**/.git
+#**/.svn
+#**/.hg
+#**/node_modules
+
+**/.obsidian
+
+**/*-lock*
+
+**/apps/**
+**/packages/**

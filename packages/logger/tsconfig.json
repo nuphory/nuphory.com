@@ -1,0 +1,4 @@
+{
+    "extends": "@nuphory/config/tsconfig/tsconfig.json",
+    "include": ["./src/**/*"]
+}

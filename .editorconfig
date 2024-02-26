@@ -1,0 +1,53 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Defaults
+[*]
+# Unix-style newlines with a newline ending every file
+end_of_line = lf
+# Enforce UTF-8 encoding on all files
+charset = utf-8
+# Always insert a final newline
+insert_final_newline = true
+# Default to tab-style indentation
+indent_style = tab
+# Default to 4 space indentation
+indent_size = 4
+# Display tabs as 8 spaces
+tab_width = 8
+# Trim trailing whitespace
+trim_trailing_whitespace = true
+
+### Prettier
+# https://prettier.io/docs/en/configuration.html
+#
+# Maximum line length
+max_line_length = 80
+
+# json files
+[*.{json,jsonc,json5,prettierrc}]
+indent_style = space
+
+[*.{md,mdx,mdsvex,svx}]
+indent_style = space
+indent_size = 2
+
+[package.json]
+indent_style = space
+indent_size = 2
+
+[*.{html,htm}]
+indent_style = space
+max_line_length = 0
+
+[**/{dist,build,.svelte-kit}/**]
+indent_size = 2
+indent_style = space
+
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+
+[*.toml]

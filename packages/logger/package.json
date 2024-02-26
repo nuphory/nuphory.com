@@ -1,0 +1,17 @@
+{
+  "name": "@nuphory/logger",
+  "version": "0.0.0",
+  "description": "customer logger for nuphory.com",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup src/**/*.ts --format cjs,esm --dts --clean",
+    "prepublishOnly": "pnpm run build",
+    "watch": "pnpm run build -- --watch src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^8.0.2"
+  }
+}

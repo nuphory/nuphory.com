@@ -1,0 +1,26 @@
+@use './themes/dark';
+@use './themes/light';
+
+:root[data-theme='system'] {
+	@media (prefers-color-scheme: dark) {
+		@include dark.color-scheme;
+	}
+
+	@media (prefers-color-scheme: light) {
+		@include light.color-scheme;
+	}
+}
+
+@layer base {
+	html, body {
+		@apply text-primary bg-primary border-primary ring-primary;
+	}
+
+	a {
+		@apply text-link;
+	}
+
+	:not(a, button) :is(span, p, h1, h2, h3, h4, h5, h6) {
+		@apply text-primary;
+	}
+}
