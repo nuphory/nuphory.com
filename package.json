@@ -1,19 +1,31 @@
 {
   "name": "nuphory.com",
   "private": true,
+  "description": "Monorepo for the nuphory.com website",
+  "repository": "https://github.com/nuphory/nuphory.com",
+  "license": "MIT",
+  "author": "mia-riezebos",
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "dev": "turbo run dev --",
+    "build": "turbo run build",
+    "format": "prettier --write . && turbo run format",
+    "format:root": "prettier --write .",
+    "lint": "prettier --check . && eslint . && turbo run lint",
+    "lint:root": "prettier --check . && eslint .",
+    "sort": "sort-package-json **/package.json !**/node_modules/**",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@nuphory/config": "workspace:*",
+    "eslint": "^8.56.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.1.1",
+    "sort-package-json": "^2.7.0",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@8.9.0",
+  "packageManager": "pnpm@8.15.3",
   "engines": {
     "node": ">=18"
   }

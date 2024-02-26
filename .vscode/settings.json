@@ -1,7 +1,31 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
+    "explorer.fileNesting.patterns": {
+        "*config": ".editorconfig, .*rc, .prettierrc*, .prettier.config.*js, .eslintrc*, *config.json, tsconfig.json, tsconfig.*.json",
+        ".env": ".env, .env.*, .*.env, .vars, .vars.*, .*.vars",
+        ".gitignore": ".*ignore, .gitattributes",
+        "package.json": "package*.json, yarn.lock, pnpm-lock.yaml",
+        "turbo.json": "turbo.json, turbo.*.json, pnpm-workspace.yaml"
+    },
+    "files.readonlyInclude": {
+        "**/build/**": true,
+        "**/dist/**": true,
+        "**/node_modules/**": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+        "**/build/**": true,
+        "**/dist/**": true
+    },
+    "git.branchRandomName.dictionary": ["adjectives", "colors", "animals"],
+    "git.branchRandomName.enable": true,
+    "npm.packageManager": "pnpm",
+    "prettier.configPath": ".prettierrc.js",
+    "search.exclude": {
+        "**/build": true,
+        "**/dist": true
+    },
+    "prettier.resolveGlobalModules": true,
+    "files.readonlyExclude": {
+        "**/config/dist/**": true
     }
-  ]
 }
