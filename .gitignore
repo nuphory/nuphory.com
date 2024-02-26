@@ -27,6 +27,7 @@
 
 # Output files
 **/dist
+**/.svelte-kit
 
 # Test files
 **/coverage
@@ -36,4 +37,3 @@
 
 # vercel
 **/.vercel
-**/.svelte-kit/
