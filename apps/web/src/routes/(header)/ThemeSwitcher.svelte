@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { setTheme } from "$lib/stores/theme";
 
-	import { delay, duration } from "$lib/utils/transitions";
-	import { expoIn, expoOut } from "svelte/easing";
-	import { fly, scale } from "svelte/transition";
+	import { delay } from "$lib/utils/transitions";
 
 	let theme = "light"
 

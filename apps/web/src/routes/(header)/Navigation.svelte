@@ -2,10 +2,9 @@
 	// Imports
 	import { delay, duration } from '$lib/utils/transitions';
 	import { fly } from 'svelte/transition';
-
-	// Components
-	import HamburgerToggle from '$lib/components/HamburgerToggle.svelte';
+// Components
 	import { expoIn, expoOut } from 'svelte/easing';
+	import HamburgerToggle from './HamburgerToggle.svelte';
 
 	// Props
 	let { intro = true, open, ...rest  } = $props();
@@ -37,7 +36,7 @@
 		{#if portrait}
 			<ul
 				class="
-					{open ? 'before:h-full before:bg-black' : 'before:h-0' }
+					{open ? 'before:h-full before:bg-primary' : 'before:h-0' }
 
 					w-full p-8 py-8 pb-16
 

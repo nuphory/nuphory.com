@@ -6,7 +6,7 @@
 	// Components
 	import "iconify-icon";
 	import Footer from './Footer.svelte';
-	import Header from './Header.svelte';
+	import Header from './(header)/Header.svelte';
 	import Favicon from './metadata/Favicon.svelte';
 
 	// Global Styles

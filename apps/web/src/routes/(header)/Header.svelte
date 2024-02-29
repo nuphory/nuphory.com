@@ -34,7 +34,7 @@
 		observer ? observer.disconnect() : null;
 	});
 </script>
-<header bind:this={headerEl} class:bg-black={showHeader || open} class="sticky top-0 py-6 px-2 text-xl smooth-color {rest}">
+<header bind:this={headerEl} class:bg-primary={showHeader || open} class="sticky top-0 py-6 px-2 text-xl smooth-color {rest}">
 	<div class="container flex justify-end items-center gap-3 md:justify-between">
 		<CartDrawer class="md:order-1"/>
 		<ThemeSwitcher />
