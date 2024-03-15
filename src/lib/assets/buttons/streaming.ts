@@ -5,7 +5,7 @@ import YouTubeButton from '$src/lib/components/icons/YouTubeIcon.svelte';
 export default [
         {
                 label: 'spotify',
-                href: 'https://open.spotify.com/artist/1peAJRnCgGwBv46QXFJEbU',
+                href: 'https://open.spotify.com/artist/2K0uRwlc2VKeRoWS8Iuija',
                 Icon: SpotifyButton
         },
         {
