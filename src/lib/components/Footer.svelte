@@ -15,7 +15,7 @@
         <div
                 id="content"
                 class="
-                        flex flex-col justify-start items-center 
+                        flex flex-col justify-start items-center
                         sm:flex-row sm:justify-center sm:items-start
                         min-h-[26rem] sm:min-h-[20rem]
                 "
@@ -33,7 +33,8 @@
                         </ul>
                 </section>
                 <section id="impressum" class="w-64 m-8 text-left sm:order-1">
-                        <Impressum />
+                        <h4><a href="/impressum">Impressum</a></h4>
+                        <!-- <Impressum /> -->
                 </section>
         </div>
 
