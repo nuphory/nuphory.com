@@ -153,13 +153,6 @@
                                 </h4>
                         </li>
                         <li>
-                                <h4 class="m-0 text-3xl">
-                                        <a href="#merch" class="select-none" on:click={scrollTo}>
-                                                merch
-                                        </a>
-                                </h4>
-                        </li>
-                        <li>
                                 <h4 class="m-0 text-xl">
                                         <a href="#booking" class="select-none" on:click={scrollTo}>
                                                 booking
@@ -168,51 +161,6 @@
                         </li>
                 </ul>
         </nav>
-</section>
-
-<div role="separator" />
-
-<section
-        id="merch"
-        class="
-                flex flex-col justify-between
-                min-h-[calc(100dvh-16rem)]
-        "
->
-        <h2 class="relative flex flex-col justify-between flex-1">
-                <div class="flex-1" />
-                <div class="block sticky bottom-0 pb-8">Merch</div>
-                <div class="flex-1" />
-        </h2>
-        <div class="max-w-xl mx-auto space-y-4">
-                <ProductList />
-
-                <p class="mx-4">
-                        All profits from this limited time merch run will be used to fund future
-                        projects and create opportunities for myself and other artists in the scene.
-                </p>
-        </div>
-        <div class="relative flex flex-col justify-between flex-1">
-                <div class="flex-1" />
-                <div class="inline-block sticky bottom-0 py-8">
-                        <a
-                                href="#top"
-                                id="merch-btt"
-                                class="group m-0 text-center scroll-button"
-                                on:click={scrollBack}
-                        >
-                                <h4
-                                        class="
-                                                m-0 pointer-events-none
-                                                after:content-['_to_top']
-                                                after:group-data-[return-pos]:content-['']
-                                        "
-                                >
-                                        back
-                                </h4>
-                        </a>
-                </div>
-        </div>
 </section>
 
 <div role="separator" />
